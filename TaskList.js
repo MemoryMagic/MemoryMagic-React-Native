@@ -56,7 +56,9 @@ class TaskList extends Component {
 
 	renderRow(rowData, sectionID, rowID) {
 		return (
-			<TouchableHighlight onPress={() => this._pressRow(rowID, rowData)}>
+			<TouchableHighlight 
+				onPress={() => this._pressRow(rowID, rowData)}
+				underlayColor='#dddddd'>
 				<View>
 					<View style={styles.rowContainer}>
 						<Text style={styles.title}>{rowData}</Text>
