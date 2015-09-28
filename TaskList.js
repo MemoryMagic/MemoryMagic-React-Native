@@ -1,6 +1,7 @@
-'use strick';
+'use strict';
 
 var React = require('react-native');
+var Detail = require('./Detail');
 var disclosure_indicator = require('image!disclosure_indicator');
 var {
 	StyleSheet,
@@ -9,6 +10,7 @@ var {
 	Text,
 	Image,
 	TouchableHighlight,
+
 	Component
 } = React;
 
@@ -88,6 +90,11 @@ class TaskList extends Component {
 		console.log('this.state.data: ' + this.state.data);
 		var row = this.state.data[rowID];
 		console.log('row: ' + row);
+		this.props.navigator.push({
+			title: row,
+			component: Detail,
+			passProps: {property: row}
+		});
 	}
 
 }
