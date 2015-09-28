@@ -34,7 +34,20 @@ class MemoryMagicProjectApp extends Component {
         style={styles.container}
         initialRoute={{
           title: 'Property Finder',
+          rightButtonTitle: 'new',
           component: TaskList,
+          onRightButtonPress: () => {
+            React.AlertIOS.alert(
+              'Bar Button Action',
+              'Recognized a tap on the bar button',
+              [
+                {
+                  text: 'OK',
+                  onPress: () => console.log('Tapped OK'),
+                },
+              ]
+              );
+          }
         }}/>
     );
   }
