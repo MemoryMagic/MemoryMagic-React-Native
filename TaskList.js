@@ -64,7 +64,7 @@ class TaskList extends Component {
 				<View>
 					<View style={styles.rowContainer}>
 						<Text style={styles.title}>{rowData}</Text>
-						<Image source={require('image!disclosure_indicator')} style={styles.disclosureIndicator} />
+						<Image source={require('image!disclosure_indicator')} />
 					</View>
 					<View style={styles.separator} />
 				</View>

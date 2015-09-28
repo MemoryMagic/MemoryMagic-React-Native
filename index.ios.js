@@ -2,12 +2,15 @@
 
 var React = require('react-native');
 var TaskList = require('./TaskList');
+var AddTask = require('./AddTask');
 //var HelloWrold = require('/HelloWrold');
 
 var {
   StyleSheet,
   View,
   Text,
+  Navigator,
+  NavigatorIOS,
   Component
 } = React;
 
@@ -30,25 +33,17 @@ class HelloWrold extends Component {
 class MemoryMagicProjectApp extends Component {
   render() {
     return (
-      <React.NavigatorIOS
-        style={styles.container}
-        initialRoute={{
-          title: 'Property Finder',
-          rightButtonTitle: 'new',
-          component: TaskList,
-          onRightButtonPress: () => {
-            React.AlertIOS.alert(
-              'Bar Button Action',
-              'Recognized a tap on the bar button',
-              [
-                {
-                  text: 'OK',
-                  onPress: () => console.log('Tapped OK'),
-                },
-              ]
-              );
-          }
-        }}/>
+        <NavigatorIOS
+          ref='nav'
+          style={styles.container}
+          initialRoute={{
+            title: 'Property Finder',
+            rightButtonTitle: 'new',
+            component: TaskList,
+            onRightButtonPress: () => {
+              this.refs.nav.push({ title: 'Add Task', component: AddTask });
+            }
+          }} />
     );
   }
 }
