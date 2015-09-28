@@ -82,16 +82,16 @@ class AddTask extends Component {
 
 			if (responseType !== 'cancel') {
 				let source;
-    		if (responseType === 'data') { // New photo taken OR passed returnBase64Image true -  response is the 64 bit encoded image data string
-    			source = {uri: 'data:image/jpeg;base64,' + response, isStatic: true};
-    		}
-    		else if (responseType === 'uri') { // Selected from library - response is the URI to the local file asset
-    			source = {uri: response.replace('file://', ''), isStatic: true};
-    		}
+    			if (responseType === 'data') { // New photo taken OR passed returnBase64Image true -  response is the 64 bit encoded image data string
+    				source = {uri: 'data:image/jpeg;base64,' + response, isStatic: true};
+    			}
+    			else if (responseType === 'uri') { // Selected from library - response is the URI to the local file asset
+    				source = {uri: response.replace('file://', ''), isStatic: true};
+    			}
 
-    		this.setState({
-    			avatarSource: source
-    		});
+    			this.setState({
+    				avatarSource: source
+    			});
     		}
     	});
 	}
