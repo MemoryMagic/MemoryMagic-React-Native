@@ -49,13 +49,14 @@ class TaskList extends Component {
 		// var data = Array.apply(null, {length: 10}).map(Number.call, Number);
 		var data = ['Amsterdam', 'Rotterdam', 'The Hague', 'Number'];
 		this.state = {
+			data: data,
 			dataSource: dataSource.cloneWithRows(data)
 		};
 	}
 
 	renderRow(rowData, sectionID, rowID) {
 		return (
-			<TouchableHighlight>
+			<TouchableHighlight onPress={() => this._pressRow(rowID, rowData)}>
 				<View>
 					<View style={styles.rowContainer}>
 						<Text style={styles.title}>{rowData}</Text>
@@ -77,6 +78,14 @@ class TaskList extends Component {
 				renderRow={this.renderRow.bind(this)}>
 			</ListView>
 			);
+	}
+
+	_pressRow(rowID: number, propertyGuid: number) {
+		console.log('rowID: ' + rowID + ', propertyGuid: ' + propertyGuid);
+		console.log('this.state.dataSource: ' + this.state.dataSource);
+		console.log('this.state.data: ' + this.state.data);
+		var row = this.state.data[rowID];
+		console.log('row: ' + row);
 	}
 
 }
