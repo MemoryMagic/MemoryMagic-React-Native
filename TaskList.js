@@ -59,15 +59,15 @@ class TaskList extends Component {
 	renderRow(rowData, sectionID, rowID) {
 		return (
 			<TouchableHighlight 
-				onPress={() => this._pressRow(rowID, rowData)}
-				underlayColor='#dddddd'>
-				<View>
-					<View style={styles.rowContainer}>
-						<Text style={styles.title}>{rowData}</Text>
-						<Image source={require('image!disclosure_indicator')} />
-					</View>
-					<View style={styles.separator} />
-				</View>
+			onPress={() => this._pressRow(rowID, rowData)}
+			underlayColor='#dddddd'>
+			<View>
+			<View style={styles.rowContainer}>
+			<Text style={styles.title}>{rowData}</Text>
+			<Image source={require('image!disclosure_indicator')} style={styles.disclosureIndicator} />
+			</View>
+			<View style={styles.separator} />
+			</View>
 			</TouchableHighlight>
 			);
 	}
@@ -78,8 +78,8 @@ class TaskList extends Component {
 		// </View>
 		return (
 			<ListView 
-				dataSource={this.state.dataSource}
-				renderRow={this.renderRow.bind(this)}>
+			dataSource={this.state.dataSource}
+			renderRow={this.renderRow.bind(this)}>
 			</ListView>
 			);
 	}
