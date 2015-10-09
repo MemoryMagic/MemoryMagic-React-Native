@@ -29,7 +29,7 @@ var styles = StyleSheet.create({
 		marginBottom: 0,
 	},
 	title: {
-		fontSize: 16,
+		fontSize: 17,
 		color: 'black',
 		alignSelf: 'center',
 		marginLeft: 10,
@@ -113,7 +113,7 @@ class TaskList extends Component {
 		var row = this.state.data[rowID];
 		console.log('row: ' + row);
 		this.props.navigator.push({
-			title: row,
+			title: 'Detail',
 			component: Detail,
 			passProps: {property: row}
 		});
