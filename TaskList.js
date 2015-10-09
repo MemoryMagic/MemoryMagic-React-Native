@@ -33,7 +33,8 @@ var styles = StyleSheet.create({
 		color: 'black',
 		alignSelf: 'center',
 		marginLeft: 10,
-		flex: 9
+		flex: 9,
+		textAlign: 'left'
 	},
 	rowContainer: {
 		height: 65,
@@ -60,7 +61,10 @@ class TaskList extends Component {
 	}
 
 	 async loadData() {
-		var tasks = ['empty'];
+		var tasks = ['The magnitude of the acceleration of an object is directly proportional to the net force applied to the object, and inversely proportional to the object\'s mass. The direction of the acceleration is the same as the direction of the net force.',
+			'The magnitude of the acceleration of an object is directly proportional to the net force applied to the object',
+			'and inversely proportional to the object\'s mass. ',
+			'The direction of the acceleration is the same as the direction of the net force.'];
 	 	await database.executeSQL(
 			"SELECT * from Task",
 			[],
@@ -84,7 +88,7 @@ class TaskList extends Component {
 			underlayColor='#dddddd'>
 			<View>
 			<View style={styles.rowContainer}>
-			<Text style={styles.title}>{rowData}</Text>
+			<Text numberOfLines={2} style={styles.title}>{rowData}</Text>
 			<Image source={require('image!disclosure_indicator')} style={styles.disclosureIndicator} />
 			</View>
 			<View style={styles.separator} />
