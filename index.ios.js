@@ -64,7 +64,7 @@ class MemoryMagicProjectApp extends Component {
     console.log("create table");
 
     var database = SQLite.open("tasks.sqlite");
-    database.executeSQL("CREATE TABLE IF NOT EXISTS Task (taskId INTEGER PRIMARY KEY ASC, taskTitle TEXT)", 
+    database.executeSQL("CREATE TABLE IF NOT EXISTS Task (taskId INTEGER PRIMARY KEY AUTOINCREMENT ASC, taskTitle TEXT)", 
       [],
       (data) => {
         console.log("data: ", data);

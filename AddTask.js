@@ -2,7 +2,8 @@
 
 var React = require('react-native');
 var UIImagePickerManager = require('NativeModules').UIImagePickerManager;
-
+var SQLite = require('react-native-sqlite');
+var database = SQLite.open("tasks.sqlite");
 var {
 	StyleSheet,
 	View,
@@ -152,6 +153,24 @@ class AddTask extends Component {
 	}
 	onSaveButtonPressed(event) {
 		console.log('onSaveButtonPressed');
+		this.addData(this.state.titleString);
+	}
+
+	async addData(title) {
+		await database.executeSQL(
+			"INSERT INTO Task (taskTitle) VALUES (?)",
+			[title],
+			(data) => {
+        		console.log("data: ", data);
+      		},
+			(error) =>{
+				if (error) {
+					console.log("error:", error);
+				} else {
+					console.log("insert success!");
+					this.props.navigator.pop();
+				}
+			});
 	}
 }
 
