@@ -1,5 +1,5 @@
 ##Memory Magic App
-Memory Magic is from The Ebbinghaus Forgetting Curve, it will push notification in the right time.
+Memory Magic is inspired from The Ebbinghaus Forgetting Curve. Users can take notes and photographs which were needed to remember, then save it. Memory Magic will push notifications several times to remind users to remember what had been saved. When Memory Magic push notifications depends on the research result in the famous memory experiment, which is known as The Ebbinghaus Forgetting Curve. 
 
 <img src="https://cloud.githubusercontent.com/assets/5343215/10390666/b9d955a6-6eac-11e5-9f78-55dc490dd89e.png" alt="Screenshot" width=280 /> 
 <img src="https://cloud.githubusercontent.com/assets/5343215/10390667/b9df035c-6eac-11e5-801a-93457b4c0aef.png" alt="Screenshot" width=280 />
