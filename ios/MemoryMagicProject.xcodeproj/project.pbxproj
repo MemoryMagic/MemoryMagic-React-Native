@@ -22,6 +22,8 @@
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
 		146834051AC3E58100842450 /* libReact.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 146834041AC3E56700842450 /* libReact.a */; };
 		832341BD1AAA6AB300B99B32 /* libRCTText.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 832341B51AAA6A8300B99B32 /* libRCTText.a */; };
+		C317C4F71BC7790D002A6299 /* libAIBSQLite.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C317C4EC1BC778E7002A6299 /* libAIBSQLite.a */; };
+		C317C4F91BC77925002A6299 /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = C317C4F81BC77925002A6299 /* libsqlite3.tbd */; };
 		C3501BA51BB929C300DE88B9 /* UIImagePickerManager.m in Sources */ = {isa = PBXBuildFile; fileRef = C3501BA41BB929C300DE88B9 /* UIImagePickerManager.m */; settings = {ASSET_TAGS = (); }; };
 /* End PBXBuildFile section */
 
@@ -96,6 +98,13 @@
 			remoteGlobalIDString = 58B5119B1A9E6C1200147676;
 			remoteInfo = RCTText;
 		};
+		C317C4EB1BC778E7002A6299 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = C317C4E71BC778E6002A6299 /* AIBSQLite.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = E23D7B471ACEFE2A00C59171;
+			remoteInfo = AIBSQLite;
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
@@ -119,6 +128,8 @@
 		146833FF1AC3E56700842450 /* React.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = React.xcodeproj; path = "../node_modules/react-native/React/React.xcodeproj"; sourceTree = "<group>"; };
 		78C398B01ACF4ADC00677621 /* RCTLinking.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTLinking.xcodeproj; path = "../node_modules/react-native/Libraries/LinkingIOS/RCTLinking.xcodeproj"; sourceTree = "<group>"; };
 		832341B01AAA6A8300B99B32 /* RCTText.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTText.xcodeproj; path = "../node_modules/react-native/Libraries/Text/RCTText.xcodeproj"; sourceTree = "<group>"; };
+		C317C4E71BC778E6002A6299 /* AIBSQLite.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = AIBSQLite.xcodeproj; path = "../node_modules/react-native-sqlite/AIBSQLite.xcodeproj"; sourceTree = "<group>"; };
+		C317C4F81BC77925002A6299 /* libsqlite3.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.tbd; path = usr/lib/libsqlite3.tbd; sourceTree = SDKROOT; };
 		C3501BA31BB929C300DE88B9 /* UIImagePickerManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIImagePickerManager.h; sourceTree = "<group>"; };
 		C3501BA41BB929C300DE88B9 /* UIImagePickerManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UIImagePickerManager.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -128,6 +139,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C317C4F91BC77925002A6299 /* libsqlite3.tbd in Frameworks */,
+				C317C4F71BC7790D002A6299 /* libAIBSQLite.a in Frameworks */,
 				146834051AC3E58100842450 /* libReact.a in Frameworks */,
 				00C302E51ABCBA2D00DB3ED1 /* libRCTActionSheet.a in Frameworks */,
 				00C302E71ABCBA2D00DB3ED1 /* libRCTGeolocation.a in Frameworks */,
@@ -250,6 +263,7 @@
 		832341AE1AAA6A7D00B99B32 /* Libraries */ = {
 			isa = PBXGroup;
 			children = (
+				C317C4E71BC778E6002A6299 /* AIBSQLite.xcodeproj */,
 				C3501BA31BB929C300DE88B9 /* UIImagePickerManager.h */,
 				C3501BA41BB929C300DE88B9 /* UIImagePickerManager.m */,
 				146833FF1AC3E56700842450 /* React.xcodeproj */,
@@ -277,6 +291,7 @@
 		83CBB9F61A601CBA00E9B192 = {
 			isa = PBXGroup;
 			children = (
+				C317C4F81BC77925002A6299 /* libsqlite3.tbd */,
 				13B07FAE1A68108700A75B9A /* MemoryMagicProject */,
 				832341AE1AAA6A7D00B99B32 /* Libraries */,
 				00E356EF1AD99517003FC87E /* MemoryMagicProjectTests */,
@@ -290,6 +305,14 @@
 			isa = PBXGroup;
 			children = (
 				13B07F961A680F5B00A75B9A /* MemoryMagicProject.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		C317C4E81BC778E6002A6299 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				C317C4EC1BC778E7002A6299 /* libAIBSQLite.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -340,6 +363,10 @@
 			productRefGroup = 83CBBA001A601CBA00E9B192 /* Products */;
 			projectDirPath = "";
 			projectReferences = (
+				{
+					ProductGroup = C317C4E81BC778E6002A6299 /* Products */;
+					ProjectRef = C317C4E71BC778E6002A6299 /* AIBSQLite.xcodeproj */;
+				},
 				{
 					ProductGroup = 00C302A81ABCB8CE00DB3ED1 /* Products */;
 					ProjectRef = 00C302A71ABCB8CE00DB3ED1 /* RCTActionSheet.xcodeproj */;
@@ -457,6 +484,13 @@
 			fileType = archive.ar;
 			path = libRCTText.a;
 			remoteRef = 832341B41AAA6A8300B99B32 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		C317C4EC1BC778E7002A6299 /* libAIBSQLite.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libAIBSQLite.a;
+			remoteRef = C317C4EB1BC778E7002A6299 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 /* End PBXReferenceProxy section */

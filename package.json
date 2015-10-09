@@ -7,6 +7,7 @@
   },
   "dependencies": {
     "react-native": "^0.11.2",
-    "react-native-image-picker": "^0.7.1"
+    "react-native-image-picker": "^0.7.1",
+    "react-native-sqlite": "0.0.12"
   }
 }

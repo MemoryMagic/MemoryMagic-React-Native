@@ -1,6 +1,8 @@
 'use strict';
 
 var React = require('react-native');
+var SQLite = require('react-native-sqlite');
+var database = SQLite.open("tasks.sqlite");
 var Detail = require('./Detail');
 var disclosure_indicator = require('image!disclosure_indicator');
 var {
@@ -49,11 +51,30 @@ class TaskList extends Component {
 		super(props);
 		var dataSource = new ListView.DataSource({ rowHasChanged: (r1, r2) => r1.guid !== r2.guid });
 		// var data = Array.apply(null, {length: 10}).map(Number.call, Number);
-		var data = ['Amsterdam', 'Rotterdam', 'The Hague', 'Number'];
+		var data = [];
 		this.state = {
 			data: data,
 			dataSource: dataSource.cloneWithRows(data)
 		};
+		this.loadData();
+	}
+
+	 async loadData() {
+		var tasks = ['empty'];
+	 	await database.executeSQL(
+			"SELECT * from Task",
+			[],
+			(row) => {
+				tasks.push(row);
+			},
+			(error) =>{
+				if (error) {
+					console.log("error:", error);
+				} else {
+					console.log("get data from database success -> tasks: ", tasks);
+					this.setState({data: tasks, dataSource: this.state.dataSource.cloneWithRows(tasks)});
+				}
+			});
 	}
 
 	renderRow(rowData, sectionID, rowID) {
@@ -73,9 +94,6 @@ class TaskList extends Component {
 	}
 
 	render() {
-		// return <View style={styles.container}>
-		// 	<Text style={styles.title}>A.jgfhjdghsdsdsfdjgfhgjkgjf</Text>
-		// </View>
 		return (
 			<ListView 
 			dataSource={this.state.dataSource}

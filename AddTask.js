@@ -22,21 +22,23 @@ var styles = StyleSheet.create({
 		flex: 1,
 	},
 	titleContainer: {
-		flex: 2,
+		flex: 4,
 		alignSelf: 'stretch',
 		justifyContent: 'center'
 	},
 	titleInput: {
-		height: 36,
-		padding: 4,
-		marginLeft: 20-3,
-		marginRight: 20-3,
+		padding: 1,
+		marginTop: 20,
+		marginLeft: 20,
+		marginRight: 20,
 		fontSize: 18,
-		borderWidth: 1,
+		borderWidth: 0,
 		borderColor: 'lightgray',
 		borderRadius: 0,
 		color: '#48bbec',
-		alignSelf: 'stretch'
+		alignSelf: 'stretch',
+		flex: 1,
+		height: 30
 	},
 	
 	imageContainer: {
@@ -49,7 +51,7 @@ var styles = StyleSheet.create({
 		width: 146,
 	},
 	saveButtonContainer: {
-		flex: 2.5,
+		flex: 1,
 		alignSelf: 'stretch',
 		justifyContent: 'center'
 	},
@@ -76,6 +78,13 @@ class AddTask extends Component {
 			titleString: ''
 		};
 	}
+
+				// <View style={styles.imageContainer}>
+				// 	<TouchableHighlight underlayColor='white' 
+				// 		onPress={this.onAddImagePressed.bind(this)}>
+				// 		<Image source={require('image!add_image')} />
+				// 	</TouchableHighlight>
+				// </View>
 	render() {
 		return (
 			<View style={styles.container}>
@@ -84,14 +93,11 @@ class AddTask extends Component {
 						style={styles.titleInput}
 						value={this.state.titleString}
 						onChange={this.onTitleTextChanged.bind(this)} 
-						placeholder='Please enter the title' />
+						placeholder='Please enter the title'
+						autoGrow={true}
+						multiline={true} />
 					</View>
-				<View style={styles.imageContainer}>
-					<TouchableHighlight underlayColor='white' 
-						onPress={this.onAddImagePressed.bind(this)}>
-						<Image source={require('image!add_image')} />
-					</TouchableHighlight>
-				</View>
+				
 				<View style={styles.saveButtonContainer}>
 					<TouchableHighlight underlayColor='#dddddd' style={styles.saveButton}
 						onPress={this.onSaveButtonPressed.bind(this)}>
