@@ -12,7 +12,7 @@ var {
 	Text,
 	Image,
 	TouchableHighlight,
-
+	PushNotificationIOS,
 	Component
 } = React;
 
@@ -60,11 +60,18 @@ class TaskList extends Component {
 		this.loadData();
 	}
 
+	componentWillMount() {
+		console.log("componentDidMount");
+		PushNotificationIOS.addEventListener('notification', this._onChange);	
+	}
+
+	componentWillUnmount() {
+		console.log("componentWillUnmount");
+		PushNotificationIOS.removeEventListener('notification', this._onChange);
+	}
+
 	 async loadData() {
-		var tasks = ['The magnitude of the acceleration of an object is directly proportional to the net force applied to the object, and inversely proportional to the object\'s mass. The direction of the acceleration is the same as the direction of the net force.',
-			'The magnitude of the acceleration of an object is directly proportional to the net force applied to the object',
-			'and inversely proportional to the object\'s mass. ',
-			'The direction of the acceleration is the same as the direction of the net force.'];
+		var tasks = [];
 	 	await database.executeSQL(
 			"SELECT * from Task",
 			[],
@@ -80,6 +87,8 @@ class TaskList extends Component {
 				}
 			});
 	}
+
+
 
 	renderRow(rowData, sectionID, rowID) {
 		return (
@@ -106,13 +115,11 @@ class TaskList extends Component {
 			);
 	}
 
-	componentDidMount() {
-		console.log("componentDidMount");
+	_onChange() {
+		console.log("TaskList _onChange");
 	}
 
-	componentWillUnmount() {
-		console.log("componentWillUnmount");
-	}
+	
 
 	_pressRow(rowID: number, propertyGuid: number) {
 		console.log('rowID: ' + rowID + ', propertyGuid: ' + propertyGuid);
@@ -123,7 +130,9 @@ class TaskList extends Component {
 		this.props.navigator.push({
 			title: 'Detail',
 			component: Detail,
-			passProps: {property: row}
+			passProps: {
+				property: row
+			}
 		});
 	}
 

@@ -168,6 +168,8 @@ class AddTask extends Component {
 					console.log("error:", error);
 				} else {
 					console.log("insert success!");
+					// this.props.onTaskAdded({});
+					this.props.onChanged({});
 					this.props.navigator.pop();
 				}
 			});

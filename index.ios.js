@@ -78,6 +78,16 @@ class MemoryMagicProjectApp extends Component {
       });
   }
 
+  addedTaskSuccess() {
+    console.log("success");
+    console.log("reload");
+  }
+
+  _onChange() {
+    console.log("index.ios.js _onChange");
+    // TaskList._onChange();
+  }
+
   render() {
     return (
         <NavigatorIOS
@@ -88,7 +98,12 @@ class MemoryMagicProjectApp extends Component {
             rightButtonTitle: 'new',
             component: TaskList,
             onRightButtonPress: () => {
-              this.refs.nav.push({ title: 'Add Task', component: AddTask });
+              this.refs.nav.push({ 
+                title: 'Add Task',
+                component: AddTask,
+                passProps: {
+                  onChanged: this._onChange
+                } });
             }
           }} />
     );
