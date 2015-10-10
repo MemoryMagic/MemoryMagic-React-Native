@@ -106,6 +106,14 @@ class TaskList extends Component {
 			);
 	}
 
+	componentDidMount() {
+		console.log("componentDidMount");
+	}
+
+	componentWillUnmount() {
+		console.log("componentWillUnmount");
+	}
+
 	_pressRow(rowID: number, propertyGuid: number) {
 		console.log('rowID: ' + rowID + ', propertyGuid: ' + propertyGuid);
 		console.log('this.state.dataSource: ' + this.state.dataSource);
