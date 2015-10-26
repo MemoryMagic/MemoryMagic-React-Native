@@ -83,11 +83,6 @@ class MemoryMagicProjectApp extends Component {
     console.log("reload");
   }
 
-  _onChange() {
-    console.log("index.ios.js _onChange");
-    // TaskList._onChange();
-  }
-
   render() {
     return (
         <NavigatorIOS
@@ -102,7 +97,7 @@ class MemoryMagicProjectApp extends Component {
                 title: 'Add Task',
                 component: AddTask,
                 passProps: {
-                  onChanged: this._onChange
+                  onChanged: this._onChange,
                 } });
             }
           }} />

@@ -5,6 +5,8 @@ var SQLite = require('react-native-sqlite');
 var database = SQLite.open("tasks.sqlite");
 var Detail = require('./Detail');
 var disclosure_indicator = require('image!disclosure_indicator');
+var AppDispatcher = require('NativeModules').AppDispatcher;
+
 var {
 	StyleSheet,
 	ListView,
@@ -61,7 +63,7 @@ class TaskList extends Component {
 	}
 
 	componentWillMount() {
-		console.log("componentDidMount");
+		console.log("componentWillMount");
 		PushNotificationIOS.addEventListener('notification', this._onChange);	
 	}
 
@@ -70,9 +72,16 @@ class TaskList extends Component {
 		PushNotificationIOS.removeEventListener('notification', this._onChange);
 	}
 
-	 async loadData() {
+	componentDidMount() {
+		console.log("componentDidMount");
+		AppDispatcher.register("addSuccess", (responseType, response) => {
+			console.log("!!!!!!");
+			this.loadData();
+		});
+	}
+	async loadData() {
 		var tasks = [];
-	 	await database.executeSQL(
+		await database.executeSQL(
 			"SELECT * from Task",
 			[],
 			(row) => {
@@ -88,8 +97,6 @@ class TaskList extends Component {
 			});
 	}
 
-
-
 	renderRow(rowData, sectionID, rowID) {
 		return (
 			<TouchableHighlight 
@@ -97,7 +104,7 @@ class TaskList extends Component {
 			underlayColor='#dddddd'>
 			<View>
 			<View style={styles.rowContainer}>
-			<Text numberOfLines={2} style={styles.title}>{rowData}</Text>
+			<Text numberOfLines={2} style={styles.title}>{rowData.taskTitle}</Text>
 			<Image source={require('image!disclosure_indicator')} style={styles.disclosureIndicator} />
 			</View>
 			<View style={styles.separator} />
@@ -114,12 +121,6 @@ class TaskList extends Component {
 			</ListView>
 			);
 	}
-
-	_onChange() {
-		console.log("TaskList _onChange");
-	}
-
-	
 
 	_pressRow(rowID: number, propertyGuid: number) {
 		console.log('rowID: ' + rowID + ', propertyGuid: ' + propertyGuid);
