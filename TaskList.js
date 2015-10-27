@@ -4,7 +4,7 @@ var React = require('react-native');
 var SQLite = require('react-native-sqlite');
 var database = SQLite.open("tasks.sqlite");
 var Detail = require('./Detail');
-var disclosure_indicator = require('image!disclosure_indicator');
+var TaskCell = require('./TaskCell');
 var AppDispatcher = require('NativeModules').AppDispatcher;
 
 var {
@@ -12,8 +12,6 @@ var {
 	ListView,
 	View,
 	Text,
-	Image,
-	TouchableHighlight,
 	PushNotificationIOS,
 	Component
 } = React;
@@ -22,34 +20,10 @@ var styles = StyleSheet.create({
 	container: {
 		marginTop: 65,
 	},
-	textContainer: {
-		flex: 1
-	},
-	separator: {
-		height: 0.3,
-		backgroundColor: '#C8C7CC',
-		marginBottom: 0,
-	},
-	title: {
-		fontSize: 17,
-		color: 'black',
-		alignSelf: 'center',
-		marginLeft: 10,
-		flex: 9,
-		textAlign: 'left'
-	},
-	rowContainer: {
-		height: 65,
-		flexDirection: 'row',
-		padding: 10,
-	},
-	disclosureIndicator: {
-		marginRight: 10,
-		alignSelf: 'center'
-	}
 });
 
 class TaskList extends Component {
+
 	constructor(props) {
 		super(props);
 		var dataSource = new ListView.DataSource({ rowHasChanged: (r1, r2) => r1.guid !== r2.guid });
@@ -98,19 +72,7 @@ class TaskList extends Component {
 	}
 
 	renderRow(rowData, sectionID, rowID) {
-		return (
-			<TouchableHighlight 
-			onPress={() => this._pressRow(rowID, rowData)}
-			underlayColor='#dddddd'>
-			<View>
-			<View style={styles.rowContainer}>
-			<Text numberOfLines={2} style={styles.title}>{rowData.taskTitle}</Text>
-			<Image source={require('image!disclosure_indicator')} style={styles.disclosureIndicator} />
-			</View>
-			<View style={styles.separator} />
-			</View>
-			</TouchableHighlight>
-			);
+		return (<TaskCell data={rowData} onPress={ () => this._pressRow(rowID, rowData) } />);
 	}
 
 	render() {
