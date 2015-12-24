@@ -43,13 +43,13 @@ class MemoryMagicProjectApp extends Component {
   async _loadInitialState() {
     try {
       var trace = await AsyncStorage.getItem(TRACE_KEY);
-      if (trace !== null) {
+      if (trace == null) {
         console.log("value !== null value: ", trace);
       } else {
         console.log("value === null");
         await AsyncStorage.setItem(TRACE_KEY, "*");
         console.log("set item: yes");
-        self.createTable();
+        this.createTable();
       }
     } catch (error) {
       console.log("error: ", error);
@@ -64,7 +64,7 @@ class MemoryMagicProjectApp extends Component {
     console.log("create table");
 
     var database = SQLite.open("tasks.sqlite");
-    database.executeSQL("CREATE TABLE IF NOT EXISTS Task (taskId INTEGER PRIMARY KEY AUTOINCREMENT ASC, taskTitle TEXT)", 
+    database.executeSQL("CREATE TABLE IF NOT EXISTS Task (taskId INTEGER PRIMARY KEY AUTOINCREMENT, taskTitle TEXT)", 
       [],
       (data) => {
         console.log("data: ", data);

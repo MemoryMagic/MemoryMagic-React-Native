@@ -5,7 +5,7 @@ var SQLite = require('react-native-sqlite');
 var database = SQLite.open("tasks.sqlite");
 var Detail = require('./Detail');
 var TaskCell = require('./TaskCell');
-var AppDispatcher = require('NativeModules').AppDispatcher;
+//var AppDispatcher = require('NativeModules').AppDispatcher;
 
 var {
 	StyleSheet,
@@ -48,10 +48,10 @@ class TaskList extends Component {
 
 	componentDidMount() {
 		console.log("componentDidMount");
-		AppDispatcher.register("addSuccess", (responseType, response) => {
-			console.log("!!!!!!");
-			this.loadData();
-		});
+		// AppDispatcher.register("addSuccess", (responseType, response) => {
+		// 	console.log("!!!!!!");
+		// 	this.loadData();
+		// });
 	}
 	async loadData() {
 		var tasks = [];
