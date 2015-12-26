@@ -2,8 +2,8 @@
 
 var React = require('react-native');
 var SQLite = require('react-native-sqlite');
-var TaskList = require('./TaskList');
-var AddTask = require('./AddTask');
+var TaskList = require('./source/components/TaskList');
+var AddTask  = require('./source/components/AddTask');
 //var HelloWrold = require('/HelloWrold');
 
 var {
