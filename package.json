@@ -6,8 +6,14 @@
     "start": "node_modules/react-native/packager/packager.sh"
   },
   "dependencies": {
+    "flux": "^2.1.1",
+    "object-assign": "^4.0.1",
     "react-native": "^0.11.2",
     "react-native-image-picker": "^0.7.1",
     "react-native-sqlite": "0.0.12"
+  },
+  "devDependencies": {
+    "events": "^1.1.0",
+    "flux": "^2.1.1"
   }
 }

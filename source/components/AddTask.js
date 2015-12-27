@@ -6,6 +6,8 @@ var AppDispatcher = require('NativeModules').AppDispatcher;
 var SQLite = require('react-native-sqlite');
 var database = SQLite.open("tasks.sqlite");
 var TaskList = require('./TaskList');
+var TaskActions = require('../actions/TaskActions');
+
 var {
 	StyleSheet,
 	View,
@@ -172,6 +174,7 @@ class AddTask extends Component {
 					console.log("insert success!");
 					// this.props.onTaskAdded({});
 					// this.props.onChanged({});
+					TaskActions.create("new task!!");
 					AppDispatcher.dispatch("addSuccess", null);
 					this.props.navigator.pop();
 				}

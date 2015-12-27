@@ -5,6 +5,7 @@ var SQLite = require('react-native-sqlite');
 var database = SQLite.open("tasks.sqlite");
 var Detail = require('./Detail');
 var TaskCell = require('./TaskCell');
+var TaskStore = require('../stores/TaskStore');
 //var AppDispatcher = require('NativeModules').AppDispatcher;
 
 var {
@@ -22,6 +23,10 @@ var styles = StyleSheet.create({
 	},
 });
 
+
+function loadDataNew() {
+	TaskList.loadData();
+}
 class TaskList extends Component {
 
 	constructor(props) {
@@ -38,12 +43,13 @@ class TaskList extends Component {
 
 	componentWillMount() {
 		console.log("componentWillMount");
-		PushNotificationIOS.addEventListener('notification', this._onChange);	
+		//PushNotificationIOS.addEventListener('notification', this._onChange);	
 	}
 
 	componentWillUnmount() {
 		console.log("componentWillUnmount");
-		PushNotificationIOS.removeEventListener('notification', this._onChange);
+		//PushNotificationIOS.removeEventListener('notification', this._onChange);
+		TweetStore.removeChangeListener(this._onChange);
 	}
 
 	componentDidMount() {
@@ -52,7 +58,10 @@ class TaskList extends Component {
 		// 	console.log("!!!!!!");
 		// 	this.loadData();
 		// });
+		TaskStore.addChangeListener(this._onChange);
 	}
+
+
 	async loadData() {
 		var tasks = [];
 		await database.executeSQL(
@@ -71,6 +80,10 @@ class TaskList extends Component {
 			});
 	}
 
+	fun() {
+		console.log("fun");
+	}
+
 	renderRow(rowData, sectionID, rowID) {
 		return (<TaskCell data={rowData} onPress={ () => this._pressRow(rowID, rowData) } />);
 	}
@@ -84,6 +97,29 @@ class TaskList extends Component {
 			);
 	}
 
+  	_onChange() {
+  		console.log("_onChange 0730");
+		this.loadData();
+		// loadDataNew();
+		// TaskList.fun();
+
+		var tasks = [];
+	    database.executeSQL(
+			"SELECT * from Task",
+			[],
+			(row) => {
+				tasks.push(row);
+			},
+			(error) =>{
+				if (error) {
+					console.log("error:", error);
+				} else {
+					console.log("get data from database success -> tasks: ", tasks);
+					// this.setState({data: tasks, dataSource: this.state.dataSource.cloneWithRows(tasks)});
+				}
+			});
+
+  	}
 	_pressRow(rowID: number, propertyGuid: number) {
 		console.log('rowID: ' + rowID + ', propertyGuid: ' + propertyGuid);
 		console.log('this.state.dataSource: ' + this.state.dataSource);
