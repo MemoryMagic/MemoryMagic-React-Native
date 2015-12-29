@@ -1,8 +1,6 @@
 'use strict';
 
 var React = require('react-native');
-var SQLite = require('react-native-sqlite');
-var database = SQLite.open("tasks.sqlite");
 var Detail = require('./Detail');
 var TaskCell = require('./TaskCell');
 var TaskStore = require('../stores/TaskStore');
@@ -20,68 +18,32 @@ var {
 var styles = StyleSheet.create({
 	container: {
 		marginTop: 65,
-	},
+	}
 });
 
-
-function loadDataNew() {
-	TaskList.loadData();
-}
 class TaskList extends Component {
 
 	constructor(props) {
 		super(props);
+		var data = TaskStore.getAll();
+		console.log("data: "+data.length);
+		console.log(data);
 		var dataSource = new ListView.DataSource({ rowHasChanged: (r1, r2) => r1.guid !== r2.guid });
-		// var data = Array.apply(null, {length: 10}).map(Number.call, Number);
-		var data = [];
+
 		this.state = {
 			data: data,
 			dataSource: dataSource.cloneWithRows(data)
 		};
-		this.loadData();
 	}
-
 	componentWillMount() {
-		console.log("componentWillMount");
-		//PushNotificationIOS.addEventListener('notification', this._onChange);	
 	}
 
 	componentWillUnmount() {
-		console.log("componentWillUnmount");
-		//PushNotificationIOS.removeEventListener('notification', this._onChange);
 		TweetStore.removeChangeListener(this._onChange);
 	}
 
 	componentDidMount() {
-		console.log("componentDidMount");
-		// AppDispatcher.register("addSuccess", (responseType, response) => {
-		// 	console.log("!!!!!!");
-		// 	this.loadData();
-		// });
-		TaskStore.addChangeListener(this._onChange);
-	}
-
-
-	async loadData() {
-		var tasks = [];
-		await database.executeSQL(
-			"SELECT * from Task",
-			[],
-			(row) => {
-				tasks.push(row);
-			},
-			(error) =>{
-				if (error) {
-					console.log("error:", error);
-				} else {
-					console.log("get data from database success -> tasks: ", tasks);
-					this.setState({data: tasks, dataSource: this.state.dataSource.cloneWithRows(tasks)});
-				}
-			});
-	}
-
-	fun() {
-		console.log("fun");
+		TaskStore.addChangeListener(this._onChange.bind(this));
 	}
 
 	renderRow(rowData, sectionID, rowID) {
@@ -89,6 +51,7 @@ class TaskList extends Component {
 	}
 
 	render() {
+		
 		return (
 			<ListView 
 			dataSource={this.state.dataSource}
@@ -98,32 +61,16 @@ class TaskList extends Component {
 	}
 
   	_onChange() {
-  		console.log("_onChange 0730");
-		this.loadData();
-		// loadDataNew();
-		// TaskList.fun();
-
-		var tasks = [];
-	    database.executeSQL(
-			"SELECT * from Task",
-			[],
-			(row) => {
-				tasks.push(row);
-			},
-			(error) =>{
-				if (error) {
-					console.log("error:", error);
-				} else {
-					console.log("get data from database success -> tasks: ", tasks);
-					// this.setState({data: tasks, dataSource: this.state.dataSource.cloneWithRows(tasks)});
-				}
-			});
-
+  		
+		var data = TaskStore.getAll();
+		this.setState({
+			data: data,
+			dataSource: this.state.dataSource.cloneWithRows(data)
+		});
   	}
+
 	_pressRow(rowID: number, propertyGuid: number) {
 		console.log('rowID: ' + rowID + ', propertyGuid: ' + propertyGuid);
-		console.log('this.state.dataSource: ' + this.state.dataSource);
-		console.log('this.state.data: ' + this.state.data);
 		var row = this.state.data[rowID];
 		console.log('row: ' + row);
 		this.props.navigator.push({
@@ -134,7 +81,6 @@ class TaskList extends Component {
 			}
 		});
 	}
-
 }
 
 module.exports = TaskList;

@@ -90,30 +90,30 @@ class AddTask extends Component {
 				// 		<Image source={require('image!add_image')} />
 				// 	</TouchableHighlight>
 				// </View>
-	render() {
-		return (
-			<View style={styles.container}>
-				<View style={styles.titleContainer}>
-					<TextInput
+				render() {
+					return (
+						<View style={styles.container}>
+						<View style={styles.titleContainer}>
+						<TextInput
 						style={styles.titleInput}
 						value={this.state.titleString}
 						onChange={this.onTitleTextChanged.bind(this)} 
 						placeholder='Please enter the title'
 						autoGrow={true}
 						multiline={true} />
-					</View>
-				
-				<View style={styles.saveButtonContainer}>
-					<TouchableHighlight underlayColor='#dddddd' style={styles.saveButton}
+						</View>
+
+						<View style={styles.saveButtonContainer}>
+						<TouchableHighlight underlayColor='#dddddd' style={styles.saveButton}
 						onPress={this.onSaveButtonPressed.bind(this)}>
 						<Text style={styles.buttonText}>Save</Text>
-					</TouchableHighlight>
-				</View>
-			</View>
-			);
-	}
+						</TouchableHighlight>
+						</View>
+						</View>
+						);
+				}
 
-	onAddImagePressed(event) {
+				onAddImagePressed(event) {
 		// Specify any or all of these keys
 		var options = {
 			title: 'Select Avatar',
@@ -157,7 +157,10 @@ class AddTask extends Component {
 	}
 	onSaveButtonPressed(event) {
 		console.log('onSaveButtonPressed');
-		this.addData(this.state.titleString);
+		//this.addData(this.state.titleString);
+		TaskActions.create(this.state.titleString);
+							this.props.navigator.pop();
+
 	}
 
 	async addData(title) {
@@ -165,8 +168,8 @@ class AddTask extends Component {
 			"INSERT INTO Task (taskTitle) VALUES (?)",
 			[title],
 			(data) => {
-        		console.log("data: ", data);
-      		},
+				console.log("data: ", data);
+			},
 			(error) =>{
 				if (error) {
 					console.log("error:", error);
@@ -174,7 +177,7 @@ class AddTask extends Component {
 					console.log("insert success!");
 					// this.props.onTaskAdded({});
 					// this.props.onChanged({});
-					TaskActions.create("new task!!");
+					// TaskActions.create("new task!!");
 					AppDispatcher.dispatch("addSuccess", null);
 					this.props.navigator.pop();
 				}
