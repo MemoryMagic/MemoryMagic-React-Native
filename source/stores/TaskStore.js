@@ -9,16 +9,39 @@ var _tasks = []
 var CHANGE_EVENT = 'change';
 
 function create(text) {
+
+	// Create the new task.
 	var id = Date.now();
-	_tasks.push({
+	var newTask = {
 		taskId: id,
 		taskTitle: text
-	});
+	};
+
+	// Save the new task to the DB.
+	addData(newTask);
 }
 
- function loadData() {
+async function addData(task) {
+		await database.executeSQL(
+			"INSERT INTO Task (taskTitle) VALUES (?)",
+			[task.taskTitle],
+			(data) => {
+				console.log("data: ", data);
+			},
+			(error) =>{
+				if (error) {
+					console.log("error:", error);
+				} else {
+					console.log("insert success!");
+					AppDispatcher.dispatch("addSuccess", null);
+					// this.props.navigator.pop();
+				}
+			});
+	}
+
+ async function loadData() {
 	var tasks = [];
-	 database.executeSQL(
+	 await database.executeSQL(
 		"SELECT * from Task",
 		[],
 		(row) => {
@@ -34,7 +57,7 @@ function create(text) {
 			}
 	});
 	console.log("2 l: "+tasks.length);
-	// return tasks
+	return tasks
 }
 
 var TaskStore = assign({}, EventEmitter.prototype, {
@@ -47,18 +70,7 @@ var TaskStore = assign({}, EventEmitter.prototype, {
 	},
 
 	getAll: function() {
-		// _tasks = loadData();
-
-		//loadData();
-		var id = Date.now();
-		// _tasks[id] = {
-		// 	taskId: id,
-		// 	taskTitle: "task title " + id,
-		// };
-
-		//_tasks.push({taskId: id, taskTitle: "task title"+id});
-		// console.log("getAll() task: " + _tasks.length);
-
+		loadData();
 		return _tasks;
 	},
 	emitChange: function() {

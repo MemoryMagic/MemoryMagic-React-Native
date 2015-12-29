@@ -30,12 +30,12 @@ var styles = StyleSheet.create({
 class HelloWrold extends Component {
   render() {
     return (<View style={styles.text}>
-            <Text>!@#$%Y^%$#@!SDFDSADSDFDSS</Text>
-          </View>);
+      <Text>!@#$%Y^%$#@!SDFDSADSDFDSS</Text>
+      </View>);
   }
 }
 class MemoryMagicProjectApp extends Component {
-  
+
   componentDidMount() {
     this._loadInitialState().done();
   }
@@ -43,13 +43,10 @@ class MemoryMagicProjectApp extends Component {
   async _loadInitialState() {
     try {
       var trace = await AsyncStorage.getItem(TRACE_KEY);
-      if (trace == null) {
-        console.log("value !== null value: ", trace);
-      } else {
+      if (trace === null) {
         console.log("value === null");
-        await AsyncStorage.setItem(TRACE_KEY, "*");
-        console.log("set item: yes");
         this.createTable();
+        await AsyncStorage.setItem(TRACE_KEY, "*");
       }
     } catch (error) {
       console.log("error: ", error);
@@ -60,7 +57,7 @@ class MemoryMagicProjectApp extends Component {
 
   }
 
- createTable() {
+  createTable() {
     console.log("create table");
 
     var database = SQLite.open("tasks.sqlite");
@@ -85,23 +82,23 @@ class MemoryMagicProjectApp extends Component {
 
   render() {
     return (
-        <NavigatorIOS
-          ref='nav'
-          style={styles.container}
-          initialRoute={{
-            title: 'Property Finder',
-            rightButtonTitle: 'new',
-            component: TaskList,
-            onRightButtonPress: () => {
-              this.refs.nav.push({ 
-                title: 'Add Task',
-                component: AddTask,
-                passProps: {
-                  onChanged: this._onChange,
-                } });
-            }
-          }} />
-    );
+      <NavigatorIOS
+      ref='nav'
+      style={styles.container}
+      initialRoute={{
+        title: 'Property Finder',
+        rightButtonTitle: 'new',
+        component: TaskList,
+        onRightButtonPress: () => {
+          this.refs.nav.push({ 
+            title: 'Add Task',
+            component: AddTask,
+            passProps: {
+              onChanged: this._onChange,
+            } });
+        }
+      }} />
+      );
   }
 }
 

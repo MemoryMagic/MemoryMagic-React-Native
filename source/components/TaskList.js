@@ -35,6 +35,7 @@ class TaskList extends Component {
 			dataSource: dataSource.cloneWithRows(data)
 		};
 	}
+
 	componentWillMount() {
 	}
 
@@ -46,8 +47,12 @@ class TaskList extends Component {
 		TaskStore.addChangeListener(this._onChange.bind(this));
 	}
 
-	renderRow(rowData, sectionID, rowID) {
-		return (<TaskCell data={rowData} onPress={ () => this._pressRow(rowID, rowData) } />);
+	_onChange() {
+		var data = TaskStore.getAll();
+		this.setState({
+			data: data,
+			dataSource: this.state.dataSource.cloneWithRows(data)
+		});
 	}
 
 	render() {
@@ -60,14 +65,9 @@ class TaskList extends Component {
 			);
 	}
 
-  	_onChange() {
-  		
-		var data = TaskStore.getAll();
-		this.setState({
-			data: data,
-			dataSource: this.state.dataSource.cloneWithRows(data)
-		});
-  	}
+	renderRow(rowData, sectionID, rowID) {
+		return (<TaskCell data={rowData} onPress={ () => this._pressRow(rowID, rowData) } />);
+	}
 
 	_pressRow(rowID: number, propertyGuid: number) {
 		console.log('rowID: ' + rowID + ', propertyGuid: ' + propertyGuid);

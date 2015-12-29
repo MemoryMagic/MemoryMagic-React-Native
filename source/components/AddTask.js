@@ -27,7 +27,7 @@ var styles = StyleSheet.create({
 		flex: 1,
 	},
 	titleContainer: {
-		flex: 4,
+		flex: 1,//4
 		alignSelf: 'stretch',
 		justifyContent: 'center'
 	},
@@ -37,7 +37,7 @@ var styles = StyleSheet.create({
 		marginLeft: 20,
 		marginRight: 20,
 		fontSize: 18,
-		borderWidth: 0,
+		borderWidth: 1,
 		borderColor: 'lightgray',
 		borderRadius: 0,
 		color: '#48bbec',
@@ -56,7 +56,7 @@ var styles = StyleSheet.create({
 		width: 146,
 	},
 	saveButtonContainer: {
-		flex: 1,
+		flex: 3, //1
 		alignSelf: 'stretch',
 		justifyContent: 'center'
 	},
@@ -77,43 +77,43 @@ var styles = StyleSheet.create({
 });
 
 class AddTask extends Component {
+	
 	constructor(props) {
 		super(props);
 		this.state = {
 			titleString: ''
 		};
 	}
+	
+	render() {
+		return (
+			<View style={styles.container}>
+			<View style={styles.titleContainer}>
+			<TextInput
+			ref='textInput'
+			returnKeyType={'done'}
+			enablesReturnKeyAutomatically={true}
+			style={styles.titleInput}
+			value={this.state.titleString}
+			onChange={this.onTitleTextChanged.bind(this)} 
+			onKeyPress={this.onKeyPress}
+			blurOnSubmit={true}
+			placeholder='Please enter the title'
+			autoGrow={true}
+			multiline={true} />
+			</View>
 
-				// <View style={styles.imageContainer}>
-				// 	<TouchableHighlight underlayColor='white' 
-				// 		onPress={this.onAddImagePressed.bind(this)}>
-				// 		<Image source={require('image!add_image')} />
-				// 	</TouchableHighlight>
-				// </View>
-				render() {
-					return (
-						<View style={styles.container}>
-						<View style={styles.titleContainer}>
-						<TextInput
-						style={styles.titleInput}
-						value={this.state.titleString}
-						onChange={this.onTitleTextChanged.bind(this)} 
-						placeholder='Please enter the title'
-						autoGrow={true}
-						multiline={true} />
-						</View>
+			<View style={styles.saveButtonContainer}>
+			<TouchableHighlight underlayColor='#dddddd' style={styles.saveButton}
+			onPress={this.onSaveButtonPressed.bind(this)}>
+			<Text style={styles.buttonText}>Save</Text>
+			</TouchableHighlight>
+			</View>
+			</View>
+			);
+	}
 
-						<View style={styles.saveButtonContainer}>
-						<TouchableHighlight underlayColor='#dddddd' style={styles.saveButton}
-						onPress={this.onSaveButtonPressed.bind(this)}>
-						<Text style={styles.buttonText}>Save</Text>
-						</TouchableHighlight>
-						</View>
-						</View>
-						);
-				}
-
-				onAddImagePressed(event) {
+	onAddImagePressed(event) {
 		// Specify any or all of these keys
 		var options = {
 			title: 'Select Avatar',
@@ -152,37 +152,28 @@ class AddTask extends Component {
 
 	onTitleTextChanged(event) {
 		console.log('onTitleTextChanged');
+		console.log(event.nativeEvent.text);
+		// if (event.nativeEvent.text === '\n') {
+		// 	this.refs.textInput.blur();
+		// 	return
+		// }
 		this.setState({ titleString: event.nativeEvent.text });
-		console.log(this.state.titleString);
 	}
+
+	onKeyPress(event) {
+		console.log("onKeyPress");
+		console.log(event);
+	}
+
 	onSaveButtonPressed(event) {
 		console.log('onSaveButtonPressed');
-		//this.addData(this.state.titleString);
+
 		TaskActions.create(this.state.titleString);
-							this.props.navigator.pop();
 
+		this.props.navigator.pop();
 	}
 
-	async addData(title) {
-		await database.executeSQL(
-			"INSERT INTO Task (taskTitle) VALUES (?)",
-			[title],
-			(data) => {
-				console.log("data: ", data);
-			},
-			(error) =>{
-				if (error) {
-					console.log("error:", error);
-				} else {
-					console.log("insert success!");
-					// this.props.onTaskAdded({});
-					// this.props.onChanged({});
-					// TaskActions.create("new task!!");
-					AppDispatcher.dispatch("addSuccess", null);
-					this.props.navigator.pop();
-				}
-			});
-	}
+	
 }
 
 module.exports = AddTask;
