@@ -1,10 +1,9 @@
 'use strict';
 
 var React = require('react-native');
-var SQLite = require('react-native-sqlite');
-var database = SQLite.open("tasks.sqlite");
 var Detail = require('./Detail');
 var TaskCell = require('./TaskCell');
+var TaskStore = require('../stores/TaskStore');
 //var AppDispatcher = require('NativeModules').AppDispatcher;
 
 var {
@@ -19,63 +18,47 @@ var {
 var styles = StyleSheet.create({
 	container: {
 		marginTop: 65,
-	},
+	}
 });
 
 class TaskList extends Component {
 
 	constructor(props) {
 		super(props);
+
+		//TaskStore.showAppleStockPriceAsync();
+		TaskStore.init();
+		var data = TaskStore.getAll();
 		var dataSource = new ListView.DataSource({ rowHasChanged: (r1, r2) => r1.guid !== r2.guid });
-		// var data = Array.apply(null, {length: 10}).map(Number.call, Number);
-		var data = [];
+
 		this.state = {
 			data: data,
 			dataSource: dataSource.cloneWithRows(data)
 		};
-		this.loadData();
 	}
 
 	componentWillMount() {
-		console.log("componentWillMount");
-		PushNotificationIOS.addEventListener('notification', this._onChange);	
 	}
 
 	componentWillUnmount() {
-		console.log("componentWillUnmount");
-		PushNotificationIOS.removeEventListener('notification', this._onChange);
+		TweetStore.removeChangeListener(this._onChange);
 	}
 
 	componentDidMount() {
-		console.log("componentDidMount");
-		// AppDispatcher.register("addSuccess", (responseType, response) => {
-		// 	console.log("!!!!!!");
-		// 	this.loadData();
-		// });
-	}
-	async loadData() {
-		var tasks = [];
-		await database.executeSQL(
-			"SELECT * from Task",
-			[],
-			(row) => {
-				tasks.push(row);
-			},
-			(error) =>{
-				if (error) {
-					console.log("error:", error);
-				} else {
-					console.log("get data from database success -> tasks: ", tasks);
-					this.setState({data: tasks, dataSource: this.state.dataSource.cloneWithRows(tasks)});
-				}
-			});
+		TaskStore.addChangeListener(this._onChange.bind(this));
 	}
 
-	renderRow(rowData, sectionID, rowID) {
-		return (<TaskCell data={rowData} onPress={ () => this._pressRow(rowID, rowData) } />);
+	_onChange() {
+		var data = TaskStore.getAll();
+		console.log("data: "+data);
+		this.setState({
+			data: data,
+			dataSource: this.state.dataSource.cloneWithRows(data)
+		});
 	}
 
 	render() {
+		
 		return (
 			<ListView 
 			dataSource={this.state.dataSource}
@@ -84,12 +67,14 @@ class TaskList extends Component {
 			);
 	}
 
+	renderRow(rowData, sectionID, rowID) {
+		return (<TaskCell data={rowData} onPress={ () => this._pressRow(rowID, rowData) } />);
+	}
+
 	_pressRow(rowID: number, propertyGuid: number) {
 		console.log('rowID: ' + rowID + ', propertyGuid: ' + propertyGuid);
-		console.log('this.state.dataSource: ' + this.state.dataSource);
-		console.log('this.state.data: ' + this.state.data);
 		var row = this.state.data[rowID];
-		console.log('row: ' + row);
+		console.log('row: ' + row.taskTitle);
 		this.props.navigator.push({
 			title: 'Detail',
 			component: Detail,
@@ -98,7 +83,6 @@ class TaskList extends Component {
 			}
 		});
 	}
-
 }
 
 module.exports = TaskList;
