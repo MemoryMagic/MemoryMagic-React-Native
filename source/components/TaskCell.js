@@ -1,7 +1,7 @@
 'use strict';
 
 var React = require('react-native');
-//var disclosure_indicator = require('image!disclosure_indicator');
+var disclosure_indicator = require('image!disclosure_indicator');
 
 var {
 	StyleSheet,
@@ -52,7 +52,6 @@ class TaskCell extends Component {
 		super(props);
 	}
 
-//<Image source={require('image!disclosure_indicator')} style={styles.disclosureIndicator} />
 	render() {
 		return (
 			<TouchableHighlight 
@@ -61,7 +60,7 @@ class TaskCell extends Component {
 			<View>
 			<View style={styles.container}>
 			<Text numberOfLines={2} style={styles.title}>{this.props.data.taskTitle}</Text>
-			
+			<Image source={require('image!disclosure_indicator')} style={styles.disclosureIndicator} />
 			</View>
 			<View style={styles.separator} />
 			</View>
