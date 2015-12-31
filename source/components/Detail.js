@@ -35,15 +35,21 @@ class Detail extends Component {
 		var property = this.props.property;
 		console.log("property: ", property);
 
-		var date = new Date();
-		var dateString = date.toISOString();
 
-		dateString = moment(date).format("YYYY-MM-DD HH:mm")
+		let dateString = moment().format("YYYY-MM-DD HH:mm");
+		let dateStringDay = moment().add(1, 'days').format("YYYY-MM-DD HH:mm");
+		let dateStringWeek = moment().add(1, 'weeks').format("YYYY-MM-DD HH:mm");
+		let dateStringMonth = moment().add(1, 'months').format("YYYY-MM-DD HH:mm");
 		return (
 			<View style={styles.container}>
 			<ScrollView>
+			
 			<Text style={styles.title}>{property.taskTitle}</Text>
 			<Text style={styles.title}>{dateString}</Text>
+			<Text style={styles.title}>{dateStringDay}</Text>
+			<Text style={styles.title}>{dateStringWeek}</Text>
+			<Text style={styles.title}>{dateStringMonth}</Text>
+
 			</ScrollView>
 			</View>
 			);
