@@ -29,8 +29,6 @@ class TaskList extends Component {
 		//TaskStore.showAppleStockPriceAsync();
 		TaskStore.init();
 		var data = TaskStore.getAll();
-		console.log("data: "+data.length);
-		console.log(data);
 		var dataSource = new ListView.DataSource({ rowHasChanged: (r1, r2) => r1.guid !== r2.guid });
 
 		this.state = {
@@ -52,6 +50,7 @@ class TaskList extends Component {
 
 	_onChange() {
 		var data = TaskStore.getAll();
+		console.log("data: "+data);
 		this.setState({
 			data: data,
 			dataSource: this.state.dataSource.cloneWithRows(data)
@@ -75,7 +74,7 @@ class TaskList extends Component {
 	_pressRow(rowID: number, propertyGuid: number) {
 		console.log('rowID: ' + rowID + ', propertyGuid: ' + propertyGuid);
 		var row = this.state.data[rowID];
-		console.log('row: ' + row);
+		console.log('row: ' + row.taskTitle);
 		this.props.navigator.push({
 			title: 'Detail',
 			component: Detail,

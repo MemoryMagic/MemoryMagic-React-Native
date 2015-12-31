@@ -19,9 +19,10 @@ var {
 } = React;
 
 var styles = StyleSheet.create({
+
+	// resizeMode: 'cover',
 	container: {
 		marginTop: 65,
-		resizeMode: 'cover',
 		flexDirection: 'column',
 		alignItems: 'center',
 		flex: 1,
