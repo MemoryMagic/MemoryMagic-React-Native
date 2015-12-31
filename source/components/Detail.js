@@ -1,6 +1,7 @@
 'use strict';
 
 var React = require('react-native');
+var moment = require('moment');
 
 var {
 	StyleSheet,
@@ -34,14 +35,15 @@ class Detail extends Component {
 		var property = this.props.property;
 		console.log("property: ", property);
 
+		var date = new Date();
+		var dateString = date.toISOString();
+
+		dateString = moment(date).format("YYYY-MM-DD HH:mm")
 		return (
 			<View style={styles.container}>
 			<ScrollView>
 			<Text style={styles.title}>{property.taskTitle}</Text>
-			<Text style={styles.title}>{property.taskTitle}</Text>
-			<Text style={styles.title}>{property.taskTitle}</Text>
-			<Text style={styles.title}>{property.taskTitle}</Text>
-			<Text style={styles.title}>{property.taskTitle}</Text>
+			<Text style={styles.title}>{dateString}</Text>
 			</ScrollView>
 			</View>
 			);
