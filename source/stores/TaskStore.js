@@ -3,61 +3,85 @@ var AppDispatcher = require('../dispatcher/AppDispatcher');
 var EventEmitter = require('events').EventEmitter;
 var assign = require('object-assign');
 var SQLite = require('react-native-sqlite');
-var database = SQLite.open("tasks.sqlite");
 
 var _tasks = []
 var CHANGE_EVENT = 'change';
 
 function create(text) {
-
 	// Create the new task.
 	var id = Date.now();
 	var newTask = {
 		taskId: id,
 		taskTitle: text
 	};
-
 	// Save the new task to the DB.
 	addData(newTask);
 }
 
-async function addData(task) {
-		await database.executeSQL(
-			"INSERT INTO Task (taskTitle) VALUES (?)",
-			[task.taskTitle],
-			(data) => {
-				console.log("data: ", data);
-			},
-			(error) =>{
+function addData(task) {
+	var database = SQLite.open("tasks.sqlite", function(error, database) {
+		if (error) {
+			console.log("Falied to open database: ", error);
+			return;
+		}
+
+		var sql = "INSERT INTO Task (taskTitle) VALUES (?)";
+		var params = [task.taskTitle]
+		database.executeSQL(sql, params, rowCallback, completeCallback);
+		
+		function rowCallback(rowData) {
+			// tasks.push(rowData);
+		}
+		function completeCallback(error) {
+			if (error) {
+				console.log("Falied to excute query: ", error);
+				return;
+			}
+			console.log("Query complete!");
+			database.close(function (error) {
 				if (error) {
-					console.log("error:", error);
-				} else {
-					console.log("insert success!");
-					AppDispatcher.dispatch("addSuccess", null);
-					// this.props.navigator.pop();
+					console.log("Failed to close database: ", error);
+					return;
 				}
 			});
-	}
 
- async function loadData() {
-	var tasks = [];
-	 await database.executeSQL(
-		"SELECT * from Task",
-		[],
-		(row) => {
-			tasks.push(row);
-		},
-		(error) =>{
-			if (error) {
-				console.log("error:", error);
-			} else {
-				console.log("get data from database success -> tasks: ", tasks);
-					console.log("1 else l: "+tasks.length);
-					_tasks = tasks
-			}
+			loadData();
+		}
 	});
-	console.log("2 l: "+tasks.length);
-	return tasks
+}
+
+function loadData() {
+	var tasks = [];
+
+	var database = SQLite.open("tasks.sqlite", function(error, database) {
+		if (error) {
+			console.log("Falied to open database: ", error);
+			return;
+		}
+
+		var sql = "SELECT * from Task";
+		var params = []
+		database.executeSQL(sql, params, rowCallback, completeCallback);
+		
+		function rowCallback(rowData) {
+			tasks.push(rowData);
+		}
+		function completeCallback(error) {
+			if (error) {
+				console.log("Falied to excute query: ", error);
+				return;
+			}
+			console.log("Query complete!");
+			database.close(function (error) {
+				if (error) {
+					console.log("Failed to close database: ", error);
+					return;
+				}
+			});
+			_tasks = tasks
+			TaskStore.emitChange();
+		}
+	});
 }
 
 var TaskStore = assign({}, EventEmitter.prototype, {
@@ -70,18 +94,22 @@ var TaskStore = assign({}, EventEmitter.prototype, {
 	},
 
 	getAll: function() {
-		loadData();
 		return _tasks;
 	},
+
 	emitChange: function() {
 		this.emit(CHANGE_EVENT);
+	},
+
+	init: function() {
+		loadData();
 	}
 });
 
 function handleAction(task) {
 	if (task.type === 'create_task') {
 		create(task.text);
-		TaskStore.emitChange();
+		//TaskStore.emitChange();
 	}
 }
 

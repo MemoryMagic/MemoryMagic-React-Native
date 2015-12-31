@@ -25,6 +25,9 @@ class TaskList extends Component {
 
 	constructor(props) {
 		super(props);
+
+		//TaskStore.showAppleStockPriceAsync();
+		TaskStore.init();
 		var data = TaskStore.getAll();
 		console.log("data: "+data.length);
 		console.log(data);
