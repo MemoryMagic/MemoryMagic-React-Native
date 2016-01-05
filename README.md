@@ -6,7 +6,7 @@ Memory Magic is inspired from The Ebbinghaus Forgetting Curve. Users can take no
 
 ##Setup
 1. Follow the "Getting Started" guide from [Facebook's React Native GitHub](https://facebook.github.io/react-native/docs/getting-started.html#content)<br />
-  ```sh
+  ```
   $ npm install
   ```
 <br /><br />
