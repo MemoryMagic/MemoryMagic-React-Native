@@ -5,8 +5,9 @@ Memory Magic is inspired from The Ebbinghaus Forgetting Curve. Users can take no
 <img src="https://cloud.githubusercontent.com/assets/5343215/10390667/b9df035c-6eac-11e5-801a-93457b4c0aef.png" alt="Screenshot" width=280 />
 
 ##Setup
-Follow the "Getting Started" guide from [Facebook's React Native GitHub](https://facebook.github.io/react-native/docs/getting-started.html#content)
-
-```sh
-npm install
-```
+1. Follow the "Getting Started" guide from [Facebook's React Native GitHub](https://facebook.github.io/react-native/docs/getting-started.html#content)<br />
+  ```
+  $ npm install
+  ```
+<br /><br />
+2. Open the .xcodeproj file and hit Run in Xcode.
