@@ -3,6 +3,8 @@ var AppDispatcher = require('../dispatcher/AppDispatcher');
 var EventEmitter = require('events').EventEmitter;
 var assign = require('object-assign');
 var SQLite = require('react-native-sqlite');
+var moment = require('moment');
+let format = "YYYY-MM-DD HH:mm"
 
 var _tasks = []
 var CHANGE_EVENT = 'change';
@@ -12,7 +14,8 @@ function create(text) {
 	var id = Date.now();
 	var newTask = {
 		taskId: id,
-		taskTitle: text
+		taskTitle: text,
+		createTime: moment().format(format)
 	};
 	// Save the new task to the DB.
 	addData(newTask);
@@ -25,8 +28,8 @@ function addData(task) {
 			return;
 		}
 
-		var sql = "INSERT INTO Task (taskTitle) VALUES (?)";
-		var params = [task.taskTitle]
+		var sql = "INSERT INTO Task (taskTitle, createTime) VALUES (?, ?)";
+		var params = [task.taskTitle, task.createTime]
 		database.executeSQL(sql, params, rowCallback, completeCallback);
 		
 		function rowCallback(rowData) {
@@ -84,6 +87,22 @@ function loadData() {
 	});
 }
 
+function createTable() {
+    var database = SQLite.open("tasks.sqlite");
+    database.executeSQL("CREATE TABLE IF NOT EXISTS Task (taskId INTEGER PRIMARY KEY AUTOINCREMENT, taskTitle TEXT, createTime TEXT)", 
+      [],
+      (data) => {
+        console.log("data: ", data);
+      },
+      (error) => {
+        if (error !== null) {
+          console.error("error: ", error);
+        } else {
+          console.log("create table success!");
+        }
+      });
+}
+
 var TaskStore = assign({}, EventEmitter.prototype, {
 	addChangeListener: function (callback) {
 		this.on(CHANGE_EVENT, callback)
@@ -103,6 +122,10 @@ var TaskStore = assign({}, EventEmitter.prototype, {
 
 	init: function() {
 		loadData();
+	},
+
+	createTable: function() {
+		createTable();
 	}
 });
 

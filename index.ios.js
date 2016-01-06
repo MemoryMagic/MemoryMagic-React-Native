@@ -5,6 +5,7 @@ var SQLite = require('react-native-sqlite');
 var TaskList = require('./source/components/TaskList');
 var AddTask  = require('./source/components/AddTask');
 //var HelloWrold = require('/HelloWrold');
+var TaskStore = require('./source/stores/TaskStore');
 
 var {
   StyleSheet,
@@ -53,26 +54,8 @@ class MemoryMagicProjectApp extends Component {
     }
   }
 
-  getInitialState() {
-
-  }
-
   createTable() {
-    console.log("create table");
-
-    var database = SQLite.open("tasks.sqlite");
-    database.executeSQL("CREATE TABLE IF NOT EXISTS Task (taskId INTEGER PRIMARY KEY AUTOINCREMENT, taskTitle TEXT)", 
-      [],
-      (data) => {
-        console.log("data: ", data);
-      },
-      (error) => {
-        if (error !== null) {
-          console.error("error: ", error);
-        } else {
-          console.log("create table success!");
-        }
-      });
+    TaskStore.createTable();
   }
 
   addedTaskSuccess() {
