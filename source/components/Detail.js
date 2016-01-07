@@ -23,7 +23,7 @@ var styles = StyleSheet.create({
 		flex: 1,
 	},
 	message: {
-		color: 'gray',
+		color: 'lightgray',
 		fontSize: 12,
 		marginTop: 15,
 		marginLeft: 15,
@@ -39,8 +39,8 @@ var styles = StyleSheet.create({
 
 	createTime: {
 		color: 'gray',
-		fontSize: 12,
-		marginTop: 0,
+		fontSize: 16,
+		marginTop:5,
 		marginLeft: 15,
 		marginRight: 15,
 
@@ -48,8 +48,8 @@ var styles = StyleSheet.create({
 
 	passTime: {
 		color: 'green',
-		fontSize: 18,
-		marginTop:20,
+		fontSize: 16,
+		marginTop:0,
 		marginLeft: 15,
 		marginRight: 15,
 
@@ -57,8 +57,8 @@ var styles = StyleSheet.create({
 
 	futureTime: {
 		color: 'red',
-		fontSize: 18,
-		marginTop: 20,
+		fontSize: 16,
+		marginTop: 0,
 		marginLeft: 15,
 		marginRight: 15,
 	}
@@ -85,12 +85,12 @@ class Detail extends Component {
 			<View style={styles.container}>
 			<ScrollView>
 			<Text style={styles.title}>Title: {task.taskTitle}</Text>
-			<Text style={ styles.createTime }>Create at: {task.createTime}</Text>
 			<Text style={styles.message}>根据艾宾浩斯遗忘曲线规律，你将在以下时间得到复习提醒⏰。</Text>
-			<Text style={ isNowBeforeOneDay ? styles.futureTime : styles.passTime }>day 1: {dateAfterOneDay.format(format)}</Text>
-			<Text style={ isNowBeforeTwoDay ? styles.futureTime : styles.passTime }>day 2: {dateAfterTwoDay.format(format)}</Text>
-			<Text style={ isNowBeforeOneWeek ? styles.futureTime : styles.passTime }>day 7: {dateAfterOneWeek.format(format)}</Text>
-			<Text style={ isNowBeforeOneMonth ? styles.futureTime : styles.passTime }>day 30: {dateAfterOneMonth.format(format)}</Text>
+			<Text style={ styles.createTime }>Create at: {task.createTime}</Text>
+			<Text style={ isNowBeforeOneDay ? styles.futureTime : styles.passTime }>Day 1: {dateAfterOneDay.format(format)}</Text>
+			<Text style={ isNowBeforeTwoDay ? styles.futureTime : styles.passTime }>Day 2: {dateAfterTwoDay.format(format)}</Text>
+			<Text style={ isNowBeforeOneWeek ? styles.futureTime : styles.passTime }>Day 7: {dateAfterOneWeek.format(format)}</Text>
+			<Text style={ isNowBeforeOneMonth ? styles.futureTime : styles.passTime }>Day 30: {dateAfterOneMonth.format(format)}</Text>
 
 			</ScrollView>
 			</View>

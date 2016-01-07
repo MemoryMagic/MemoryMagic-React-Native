@@ -28,7 +28,7 @@ var styles = StyleSheet.create({
 		flex: 1,
 	},
 	titleContainer: {
-		flex: 1,//4
+		flex: 5, //1
 		alignSelf: 'stretch',
 		justifyContent: 'center'
 	},
@@ -37,8 +37,9 @@ var styles = StyleSheet.create({
 		marginTop: 20,
 		marginLeft: 20,
 		marginRight: 20,
+		marginBottom: 20,
 		fontSize: 18,
-		borderWidth: 1,
+		borderWidth: 0,
 		borderColor: 'lightgray',
 		borderRadius: 0,
 		color: '#48bbec',
@@ -57,7 +58,7 @@ var styles = StyleSheet.create({
 		width: 146,
 	},
 	saveButtonContainer: {
-		flex: 3, //1
+		flex: 1, //3
 		alignSelf: 'stretch',
 		justifyContent: 'center'
 	},
@@ -86,6 +87,7 @@ class AddTask extends Component {
 		};
 	}
 	
+			
 	render() {
 		return (
 			<View style={styles.container}>
@@ -103,7 +105,7 @@ class AddTask extends Component {
 			autoGrow={true}
 			multiline={true} />
 			</View>
-
+			
 			<View style={styles.saveButtonContainer}>
 			<TouchableHighlight underlayColor='#dddddd' style={styles.saveButton}
 			onPress={this.onSaveButtonPressed.bind(this)}>

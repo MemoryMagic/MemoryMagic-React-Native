@@ -69,13 +69,14 @@ class MemoryMagicProjectApp extends Component {
       ref='nav'
       style={styles.container}
       initialRoute={{
-        title: 'Property Finder',
-        rightButtonTitle: 'new',
+        title: 'Memory Magic',
+        rightButtonTitle: 'New',
         component: TaskList,
         onRightButtonPress: () => {
           this.refs.nav.push({ 
             title: 'Add Task',
             component: AddTask,
+            //rightButtonTitle: 'Save',
             passProps: {
               onChanged: this._onChange,
             } });
