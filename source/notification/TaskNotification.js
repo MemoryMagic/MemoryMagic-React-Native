@@ -14,13 +14,6 @@ var {
 
 var TaskNotification = {
 	scheduleLocalNotification: function(task) {
-		let createTime = moment(task.createTime, format);
-		let dateAwfterOneSecond = moment().add(10, 'seconds');
-		// let dateAfterOneDay = moment(createTime).add(1, 'days');
-		// let dateAfterTwoDay = moment(createTime).add(2, 'days');
-		// let dateAfterOneWeek = moment(createTime).add(1, 'weeks');
-		// let dateAfterOneMonth = moment(createTime).add(1, 'months');
-
 
 		PushNotificationIOS.checkPermissions((permissions) => {
       	// If no permissions are allowed, request permissions.
@@ -29,11 +22,23 @@ var TaskNotification = {
       	}
     	});
 
-    	PushNotificationIOS.scheduleLocalNotification({
-			fireDate: dateAfterOneSecond,
-			alertBody: task.taskTitle
+    	let createTime = moment(task.createTime, format);
+		let dateAfterOneDay = moment(createTime).add(1, 'days');
+		let dateAfterTwoDay = moment(createTime).add(2, 'days');
+		let dateAfterOneWeek = moment(createTime).add(7, 'days');
+		let dateAfterOneMonth = moment(createTime).add(30, 'days');
+
+		let list = [dateAfterOneDay, dateAfterTwoDay, dateAfterOneWeek, dateAfterOneMonth];
+		list.map((time) => {
+			console.log('time: '+time.format(format));
+			PushNotificationIOS.scheduleLocalNotification({
+				alertBody: task.taskTitle,
+				fireDate: time.format("YYYY-MM-DDTHH:mm:ss.sssZ")
+			});
 		});
 	}
+
+
 };
 
 module.exports = TaskNotification;
