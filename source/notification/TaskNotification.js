@@ -15,7 +15,7 @@ var {
 var TaskNotification = {
 	scheduleLocalNotification: function(task) {
 		let createTime = moment(task.createTime, format);
-		let dateAfterOneSecond = moment().add(10, 'seconds');
+		let dateAwfterOneSecond = moment().add(10, 'seconds');
 		// let dateAfterOneDay = moment(createTime).add(1, 'days');
 		// let dateAfterTwoDay = moment(createTime).add(2, 'days');
 		// let dateAfterOneWeek = moment(createTime).add(1, 'weeks');
