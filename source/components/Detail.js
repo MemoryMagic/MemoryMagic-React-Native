@@ -2,7 +2,7 @@
 
 var React = require('react-native');
 var moment = require('moment');
-var format = "YYYY-MM-DD HH:mm"
+let format = "YYYY-MM-DD HH:mm"
 var {
 	StyleSheet,
 	Image,

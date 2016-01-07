@@ -1,5 +1,6 @@
 var AppDispatcher = require('../dispatcher/AppDispatcher');
 // var EventEmitter = require('EventEmitter');
+var TaskNotification = require('../notification/TaskNotification');
 var EventEmitter = require('events').EventEmitter;
 var assign = require('object-assign');
 var SQLite = require('react-native-sqlite');
@@ -41,6 +42,7 @@ function addData(task) {
 				return;
 			}
 			console.log("Query complete!");
+			TaskNotification.scheduleLocalNotification(task);
 			database.close(function (error) {
 				if (error) {
 					console.log("Failed to close database: ", error);
