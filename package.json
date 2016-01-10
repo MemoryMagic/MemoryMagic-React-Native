@@ -14,7 +14,6 @@
     "react-native-sqlite": "0.0.12"
   },
   "devDependencies": {
-    "events": "^1.1.0",
-    "flux": "^2.1.1"
+    "events": "^1.1.0"
   }
 }
