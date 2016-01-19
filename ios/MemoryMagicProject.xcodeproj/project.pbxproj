@@ -24,6 +24,7 @@
 		832341BD1AAA6AB300B99B32 /* libRCTText.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 832341B51AAA6A8300B99B32 /* libRCTText.a */; };
 		C36B5EA31C34D825008F23B3 /* libAIBSQLite.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C36B5EA21C34D81E008F23B3 /* libAIBSQLite.a */; };
 		C37812F11C3F581F00FA76CE /* main.jsbundle in Resources */ = {isa = PBXBuildFile; fileRef = C37812F01C3F581F00FA76CE /* main.jsbundle */; };
+		C3AC61251C4E52A000F8D657 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = C3AC61271C4E52A000F8D657 /* InfoPlist.strings */; };
 		C3DBDC1E1C3E22BC00B1C0F8 /* libRCTPushNotification.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C3DBDC181C3E229900B1C0F8 /* libRCTPushNotification.a */; };
 /* End PBXBuildFile section */
 
@@ -144,6 +145,8 @@
 		832341B01AAA6A8300B99B32 /* RCTText.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTText.xcodeproj; path = "../node_modules/react-native/Libraries/Text/RCTText.xcodeproj"; sourceTree = "<group>"; };
 		C36B5E9D1C34D81E008F23B3 /* AIBSQLite.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = AIBSQLite.xcodeproj; path = "../node_modules/react-native-sqlite/AIBSQLite.xcodeproj"; sourceTree = "<group>"; };
 		C37812F01C3F581F00FA76CE /* main.jsbundle */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = main.jsbundle; sourceTree = "<group>"; };
+		C3AC61261C4E52A000F8D657 /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = Base.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		C3AC614B1C4E534100F8D657 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
 		C3DBDC0D1C3E229900B1C0F8 /* RCTPushNotification.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTPushNotification.xcodeproj; path = "../node_modules/react-native/Libraries/PushNotificationIOS/RCTPushNotification.xcodeproj"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -260,6 +263,7 @@
 				13B07FB61A68108700A75B9A /* Info.plist */,
 				13B07FB11A68108700A75B9A /* LaunchScreen.xib */,
 				13B07FB71A68108700A75B9A /* main.m */,
+				C3AC61271C4E52A000F8D657 /* InfoPlist.strings */,
 			);
 			name = MemoryMagicProject;
 			sourceTree = "<group>";
@@ -405,6 +409,7 @@
 			knownRegions = (
 				en,
 				Base,
+				"zh-Hans",
 			);
 			mainGroup = 83CBB9F61A601CBA00E9B192;
 			productRefGroup = 83CBBA001A601CBA00E9B192 /* Products */;
@@ -567,6 +572,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				C37812F11C3F581F00FA76CE /* main.jsbundle in Resources */,
+				C3AC61251C4E52A000F8D657 /* InfoPlist.strings in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
 				13B07FBD1A68108700A75B9A /* LaunchScreen.xib in Resources */,
 			);
@@ -627,6 +633,15 @@
 			);
 			name = LaunchScreen.xib;
 			path = MemoryMagicProject;
+			sourceTree = "<group>";
+		};
+		C3AC61271C4E52A000F8D657 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				C3AC61261C4E52A000F8D657 /* Base */,
+				C3AC614B1C4E534100F8D657 /* zh-Hans */,
+			);
+			name = InfoPlist.strings;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
