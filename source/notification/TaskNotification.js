@@ -23,10 +23,11 @@ var TaskNotification = {
     	});
 
     	let createTime = moment(task.createTime, format);
-		let dateAfterOneDay = moment(createTime).add(1, 'days');
-		let dateAfterTwoDay = moment(createTime).add(2, 'days');
-		let dateAfterOneWeek = moment(createTime).add(7, 'days');
-		let dateAfterOneMonth = moment(createTime).add(30, 'days');
+    	let today6am = moment().startOf('day').add(6, 'hours');
+		let dateAfterOneDay = moment(today6am).add(1, 'days');
+		let dateAfterTwoDay = moment(today6am).add(2, 'days');
+		let dateAfterOneWeek = moment(today6am).add(7, 'days');
+		let dateAfterOneMonth = moment(today6am).add(30, 'days');
 
 		let list = [dateAfterOneDay, dateAfterTwoDay, dateAfterOneWeek, dateAfterOneMonth];
 		list.map((time) => {

@@ -71,11 +71,12 @@ class Detail extends Component {
 
 		let now = moment();
 
-		let createTime = moment(task.createTime, format);
-		let dateAfterOneDay = moment(createTime).add(1, 'days');
-		let dateAfterTwoDay = moment(createTime).add(2, 'days');
-		let dateAfterOneWeek = moment(createTime).add(1, 'weeks');
-		let dateAfterOneMonth = moment(createTime).add(1, 'months');
+		//let createTime = moment(task.createTime, format);
+		let today6am = moment().startOf('day').add(6, 'hours');
+		let dateAfterOneDay = moment(today6am).add(1, 'days');
+		let dateAfterTwoDay = moment(today6am).add(2, 'days');
+		let dateAfterOneWeek = moment(today6am).add(1, 'weeks');
+		let dateAfterOneMonth = moment(today6am).add(1, 'months');
 
 		let isNowBeforeOneDay = now.isBefore(dateAfterOneDay);
 		let isNowBeforeTwoDay = now.isBefore(dateAfterTwoDay);

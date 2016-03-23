@@ -5,5 +5,5 @@
   Created by Carl.Yang on 1/19/16.
   Copyright © 2016 Facebook. All rights reserved.
 */
-"CFBundleDisplayName" = "MemoryMagic";
-"CFBundleName" = "MemoryMagic";
+"CFBundleDisplayName" = "MagicMemo";
+"CFBundleName" = "MagicMemo";
