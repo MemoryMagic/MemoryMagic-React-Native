@@ -6,7 +6,8 @@ var TaskList = require('./source/components/TaskList');
 var AddTask  = require('./source/components/AddTask');
 //var HelloWrold = require('/HelloWrold');
 var TaskStore = require('./source/stores/TaskStore');
-
+var ButtonActions = require('./source/actions/ButtonActions');
+var TaskActions = require('./source/actions/TaskActions');
 var {
   StyleSheet,
   View,
@@ -76,7 +77,11 @@ class MemoryMagicProjectApp extends Component {
           this.refs.nav.push({ 
             title: 'Add Task',
             component: AddTask,
-            //rightButtonTitle: 'Save',
+            rightButtonTitle: 'Save',
+            onRightButtonPress: () => {
+              ButtonActions.click();
+              // TaskActions.create(this.state.titleString);
+            },
             passProps: {
               onChanged: this._onChange,
             } });

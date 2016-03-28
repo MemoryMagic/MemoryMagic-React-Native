@@ -7,6 +7,7 @@ var SQLite = require('react-native-sqlite');
 var database = SQLite.open("tasks.sqlite");
 var TaskList = require('./TaskList');
 var TaskActions = require('../actions/TaskActions');
+var ButtonStore = require('../stores/ButtonStore');
 
 var {
 	StyleSheet,
@@ -82,12 +83,21 @@ class AddTask extends Component {
 	
 	constructor(props) {
 		super(props);
+		ButtonStore.addChangeListener(this._onSaveButtonPressed.bind(this));
+
 		this.state = {
 			titleString: ''
 		};
 	}
+
+	componentWillUnmount() {
+		ButtonStore.removeChangeListener(this._onSaveButtonPressed);
+	}
+
+	componentDidMount() {
+	}
 	
-			
+
 	render() {
 		return (
 			<View style={styles.container}>
@@ -108,7 +118,7 @@ class AddTask extends Component {
 			
 			<View style={styles.saveButtonContainer}>
 			<TouchableHighlight underlayColor='#dddddd' style={styles.saveButton}
-			onPress={this.onSaveButtonPressed.bind(this)}>
+			onPress={this._onSaveButtonPressed.bind(this)}>
 			<Text style={styles.buttonText}>Save</Text>
 			</TouchableHighlight>
 			</View>
@@ -168,11 +178,10 @@ class AddTask extends Component {
 		console.log(event);
 	}
 
-	onSaveButtonPressed(event) {
+	_onSaveButtonPressed(event) {
 		console.log('onSaveButtonPressed');
 
 		TaskActions.create(this.state.titleString);
-
 		this.props.navigator.pop();
 	}
 
