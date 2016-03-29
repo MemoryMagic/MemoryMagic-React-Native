@@ -1,11 +1,11 @@
 var AppDispatcher = require('../dispatcher/AppDispatcher');
 
 var ButtonActionCreators = {
-	click: function() {
-
+	click: function(eventName) {
 		var action = {
-			type: 'click'
-					};
+			type: 'click',
+			name: eventName,
+			};
 
 		AppDispatcher.dispatch(action);
 	}

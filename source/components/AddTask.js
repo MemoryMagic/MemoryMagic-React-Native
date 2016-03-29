@@ -70,7 +70,7 @@ class AddTask extends Component {
 	
 	constructor(props) {
 		super(props);
-		ButtonStore.addChangeListener(this._onSaveButtonPressed.bind(this));
+		ButtonStore.addChangeListener('save', this._onSaveButtonPressed.bind(this));
 
 		this.state = {
 			titleString: ''
@@ -78,7 +78,7 @@ class AddTask extends Component {
 	}
 
 	componentWillUnmount() {
-		ButtonStore.removeChangeListener(this._onSaveButtonPressed);
+		ButtonStore.removeChangeListener('save', this._onSaveButtonPressed);
 	}
 
 	componentDidMount() {

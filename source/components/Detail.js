@@ -3,6 +3,8 @@
 var React = require('react-native');
 var moment = require('moment');
 let format = "M月D日 早6时"
+var ButtonStore = require('../stores/ButtonStore');
+
 var {
 	StyleSheet,
 	Image,
@@ -109,6 +111,18 @@ class Detail extends Component {
 			</ScrollView>
 			</View>
 			);
+	}
+
+	componentWillMount() {
+		ButtonStore.removeChangeListener('trash', this._onTrashButtonClicked);
+	}
+	
+	componentDidMount() {
+		ButtonStore.addChangeListener('trash', this._onTrashButtonClicked.bind(this));
+	}
+	
+	_onTrashButtonClicked() {
+		console.log('trash! got it!');
 	}
 }
 

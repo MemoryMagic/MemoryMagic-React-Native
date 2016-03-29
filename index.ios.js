@@ -79,7 +79,7 @@ class MemoryMagicProjectApp extends Component {
             component: AddTask,
             rightButtonTitle: 'Save',
             onRightButtonPress: () => {
-              ButtonActions.click();
+              ButtonActions.click('save');
               // TaskActions.create(this.state.titleString);
             },
             passProps: {

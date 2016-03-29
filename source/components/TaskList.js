@@ -5,6 +5,7 @@ var Detail = require('./Detail');
 var TaskCell = require('./TaskCell');
 var TaskStore = require('../stores/TaskStore');
 //var AppDispatcher = require('NativeModules').AppDispatcher;
+var ButtonActions = require('../actions/ButtonActions');
 
 var {
 	StyleSheet,
@@ -79,6 +80,10 @@ class TaskList extends Component {
 		this.props.navigator.push({
 			title: 'Detail',
 			rightButtonIcon: require('image!NavBarButtonTransh'),
+			onRightButtonPress: () => {
+				 ButtonActions.click('trash');
+				 console.log('click trash');
+			 },
 			component: Detail,
 			passProps: {
 				property: row
