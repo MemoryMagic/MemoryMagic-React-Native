@@ -62,20 +62,6 @@ var styles = StyleSheet.create({
 		flex: 1, //3
 		alignSelf: 'stretch',
 		justifyContent: 'center'
-	},
-	saveButton: {
-		height: 49, 
-		backgroundColor: '#42e47e',
-		marginLeft: 20,
-		marginRight: 20,
-		marginBottom: 0,
-		justifyContent: 'center',
-		alignSelf: 'stretch'
-	},
-	buttonText: {
-		alignSelf: 'center',
-		fontSize: 18,
-		color: 'white'
 	}
 });
 
@@ -113,13 +99,6 @@ class AddTask extends Component {
 			placeholder='Please enter the title'
 			autoGrow={true}
 			multiline={true} />
-			</View>
-			
-			<View style={styles.saveButtonContainer}>
-			<TouchableHighlight underlayColor='#dddddd' style={styles.saveButton}
-			onPress={this._onSaveButtonPressed.bind(this)}>
-			<Text style={styles.buttonText}>Save</Text>
-			</TouchableHighlight>
 			</View>
 			</View>
 			);
