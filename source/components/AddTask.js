@@ -97,7 +97,6 @@ class AddTask extends Component {
 	componentDidMount() {
 	}
 	
-
 	render() {
 		return (
 			<View style={styles.container}>

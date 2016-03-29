@@ -6,7 +6,6 @@ var assign = require('object-assign');
 var SQLite = require('react-native-sqlite');
 var moment = require('moment');
 let format = "YYYY-MM-DD HH:mm";
-var _ = require('lodash');
 
 var _tasks = [];
 var CHANGE_EVENT = 'change';
@@ -107,10 +106,8 @@ function createTable() {
 }
 
 var TaskStore = assign({}, EventEmitter.prototype, {
-// var TaskStore = _.extend({}, EventEmitter.prototype, {
 	addChangeListener: function (callback) {
 		this.on(CHANGE_EVENT, callback)
-		// this.on(CHANGE_EVENT, _.debounce(callback, 1000))
 	},
 
 	removeChangeListener: function (callback) {
