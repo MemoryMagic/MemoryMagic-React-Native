@@ -64,6 +64,7 @@ var styles = StyleSheet.create({
 		justifyContent: 'center'
 	}
 });
+	var i = 0
 
 class AddTask extends Component {
 	
@@ -157,8 +158,8 @@ class AddTask extends Component {
 	}
 
 	_onSaveButtonPressed(event) {
-		console.log('onSaveButtonPressed');
-
+		console.log('onSaveButtonPressed ' + i);
+		i += 1;
 		TaskActions.create(this.state.titleString);
 		this.props.navigator.pop();
 	}

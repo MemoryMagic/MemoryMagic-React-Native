@@ -45,6 +45,7 @@ class TaskList extends Component {
 	}
 
 	componentDidMount() {
+		console.log('add one!');
 		TaskStore.addChangeListener(this._onChange.bind(this));
 	}
 
