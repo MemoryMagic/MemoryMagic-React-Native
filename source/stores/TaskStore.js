@@ -133,8 +133,7 @@ var TaskStore = assign({}, EventEmitter.prototype, {
 
 function handleAction(task) {
 	if (task.type === 'create_task') {
-		create(task.text);
-		//TaskStore.emitChange();
+		create(task.text)
 	}
 }
 
