@@ -78,6 +78,7 @@ class TaskList extends Component {
 		console.log('row: ' + row.taskTitle);
 		this.props.navigator.push({
 			title: 'Detail',
+			rightButtonIcon: require('image!NavBarButtonTransh'),
 			component: Detail,
 			passProps: {
 				property: row
