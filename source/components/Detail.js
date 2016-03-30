@@ -26,31 +26,31 @@ var styles = StyleSheet.create({
 		flex: 1,
 	},
 	message: {
-		fontSize: 13,
-		marginTop: 15,
+		fontSize: 16,
+		marginTop: 30,
 		marginLeft: 15,
 		marginRight: 15,
 		marginBottom: 2,
 	},
 
 	title: {
-		fontSize: 18,
-		marginTop: 0,
+		fontSize: 20,
+		marginTop: 10,
 		marginLeft: 15,
 		marginRight: 15,
 	},
 
 	createTime: {
 		color: 'gray',
-		fontSize: 10,
-		marginTop:2,
+		fontSize: 12,
+		marginTop:4,
 		marginLeft: 15,
 		marginRight: 15,
 
 	},
 
 	normalTime: {
-		fontSize: 14,
+		fontSize: 18,
 		marginTop:5,
 		marginLeft: 15,
 		marginRight: 15,
@@ -59,27 +59,27 @@ var styles = StyleSheet.create({
 
 	passTime: {
 		color: 'gray',
-		fontSize: 14,
+		fontSize: 18,
 		marginTop:0,
 		marginLeft: 15,
 		marginRight: 15,
-		marginBottom: 5,
+		marginBottom: 10,
 
 	},
 
 	futureTime: {
-		fontSize: 14,
+		fontSize: 18,
 		marginTop: 0,
 		marginLeft: 15,
 		marginRight: 15,
-		marginBottom: 5,
+		marginBottom: 10,
 	}
 });
 
 var BUTTONS = [
-	'删除',
-	'取消',
-	];
+'删除',
+'取消',
+];
 var DELETE_INDEX = 0;
 var CANCEL_INDEX = 1;
 
@@ -121,15 +121,18 @@ class Detail extends Component {
 			);
 	}
 
-	componentWillMount() {
+	componentWillUnmount() {
+		console.log('remove transh listener');
 		ButtonStore.removeChangeListener('trash', this._onTrashButtonClicked);
 	}
 	
 	componentDidMount() {
+		console.log('add transh listener');
 		ButtonStore.addChangeListener('trash', this._onTrashButtonClicked.bind(this));
 	}
 	
 	_onTrashButtonClicked() {
+		console.log('show ActionSheet');
 		this.showActionSheet();
 	}
 

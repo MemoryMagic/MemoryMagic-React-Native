@@ -9,7 +9,6 @@ var _ = require('lodash');
 // var ButtonStore = assign({}, EventEmitter.prototype, {
 	var ButtonStore = _.extend({}, EventEmitter.prototype, {
 		addChangeListener: function (eventName, callback) {
-		// this.method = _.once(_.debounce(callback, 100));
 		this.method = _.debounce(callback, 100);
 		this.on(eventName, this.method);
 		console.log('debounce');
@@ -17,7 +16,6 @@ var _ = require('lodash');
 
 	method: function() { },
 	removeChangeListener: function (eventName, callback) {
-		// this.method.cancel(); //why not work??
 		this.removeListener(eventName, this.method);
 		_.debounce(callback).cancel();
 		console.log('cancel');

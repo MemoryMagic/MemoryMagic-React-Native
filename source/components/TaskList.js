@@ -46,7 +46,6 @@ class TaskList extends Component {
 	}
 
 	componentDidMount() {
-		console.log('add one!');
 		TaskStore.addChangeListener(this._onChange.bind(this));
 	}
 
@@ -54,10 +53,10 @@ class TaskList extends Component {
 		var data = TaskStore.getAll();		
 		var dataSource = new ListView.DataSource({ rowHasChanged: (r1, r2) => r1.guid !== r2.guid });
 
-		for (var i = 0; i < data.length; i++) {
-			var item = data[i];
-			console.log(item);
-		}
+		// for (var i = 0; i < data.length; i++) {
+		// 	var item = data[i];
+		// 	console.log(item);
+		// }
 
 		this.setState({
 			data: data,
@@ -78,14 +77,15 @@ class TaskList extends Component {
 	renderRow(rowData, sectionID, rowID) {
 		return (<TaskCell data={rowData} onPress={ () => this._pressRow(rowID, rowData) } />);
 	}
+// 			rightButtonIcon: require('image!NavBarButtonTransh'),
 
 	_pressRow(rowID: number, propertyGuid: number) {
-		console.log('rowID: ' + rowID + ', propertyGuid: ' + propertyGuid);
+		//console.log('rowID: ' + rowID + ', propertyGuid: ' + propertyGuid);
 		var row = this.state.data[rowID];
 		console.log('row: ' + row.taskTitle);
 		this.props.navigator.push({
 			title: 'Detail',
-			rightButtonIcon: require('image!NavBarButtonTransh'),
+			rightButtonTitle: '删除',
 			onRightButtonPress: () => {
 				 ButtonActions.click('trash');
 				 console.log('click trash');
