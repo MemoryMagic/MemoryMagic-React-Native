@@ -70,14 +70,14 @@ class MemoryMagicProjectApp extends Component {
       ref='nav'
       style={styles.container}
       initialRoute={{
-        title: 'Memory Magic',
+        title: 'Magic Memory',
         rightButtonIcon: require('image!NavBarButtonPlus'),
         component: TaskList,
         onRightButtonPress: () => {
           this.refs.nav.push({ 
-            title: 'Add Task',
+            title: '添加任务',
             component: AddTask,
-            rightButtonTitle: 'Save',
+            rightButtonTitle: '保存',
             onRightButtonPress: () => {
               ButtonActions.click('save');
               // TaskActions.create(this.state.titleString);

@@ -97,7 +97,7 @@ class AddTask extends Component {
 			onChange={this.onTitleTextChanged.bind(this)} 
 			onKeyPress={this.onKeyPress}
 			blurOnSubmit={true}
-			placeholder='Please enter the title'
+			placeholder='输入任务名称'
 			autoGrow={true}
 			multiline={true} />
 			</View>
