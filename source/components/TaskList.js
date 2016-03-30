@@ -51,11 +51,17 @@ class TaskList extends Component {
 	}
 
 	_onChange() {
-		var data = TaskStore.getAll();
-		console.log("data: "+data);
+		var data = TaskStore.getAll();		
+		var dataSource = new ListView.DataSource({ rowHasChanged: (r1, r2) => r1.guid !== r2.guid });
+
+		for (var i = 0; i < data.length; i++) {
+			var item = data[i];
+			console.log(item);
+		}
+
 		this.setState({
 			data: data,
-			dataSource: this.state.dataSource.cloneWithRows(data)
+			dataSource: dataSource.cloneWithRows(data)
 		});
 	}
 

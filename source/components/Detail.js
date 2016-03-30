@@ -4,7 +4,7 @@ var React = require('react-native');
 var moment = require('moment');
 let format = "M月D日 早6时"
 var ButtonStore = require('../stores/ButtonStore');
-
+var TaskActions = require('../actions/TaskActions');
 var {
 	StyleSheet,
 	Image,
@@ -122,7 +122,11 @@ class Detail extends Component {
 	}
 	
 	_onTrashButtonClicked() {
-		console.log('trash! got it!');
+		var task = this.props.property
+		console.log('trash! got it!' + task.taskId);
+
+		TaskActions.delete(task.taskId);
+		this.props.navigator.pop();
 	}
 }
 

@@ -22,6 +22,39 @@ function create(text) {
 	addData(newTask);
 }
 
+function delete1(id) {
+	var database = SQLite.open("tasks.sqlite", function(error, database) {
+		if (error) {
+			console.log("Falied to open database: ", error);
+			return;
+		}
+
+		var sql = "DELETE FROM Task WHERE taskId = ?";
+		var params = [id]
+		database.executeSQL(sql, params, rowCallback, completeCallback);
+		
+		function rowCallback(rowData) {
+			// tasks.push(rowData);
+		}
+		function completeCallback(error) {
+			if (error) {
+				console.log("Falied to excute query: ", error);
+				return;
+			}
+			console.log("Query complete!");
+			// TaskNotification.scheduleLocalNotification(task);
+			database.close(function (error) {
+				if (error) {
+					console.log("Failed to close database: ", error);
+					return;
+				}
+			});
+
+			loadData();
+		}
+	});
+}
+
 function addData(task) {
 	var database = SQLite.open("tasks.sqlite", function(error, database) {
 		if (error) {
@@ -134,6 +167,8 @@ var TaskStore = assign({}, EventEmitter.prototype, {
 function handleAction(task) {
 	if (task.type === 'create_task') {
 		create(task.text)
+	} else if (task.type === 'delete_task') {
+		delete1(task.id)
 	}
 }
 

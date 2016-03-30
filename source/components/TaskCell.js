@@ -53,13 +53,14 @@ class TaskCell extends Component {
 	}
 
 	render() {
+		console.log('cell: ' + this.props.data.taskId + ': ' + this.props.data.taskTitle);
 		return (
 			<TouchableHighlight 
 			onPress={(rowID, rowData) => this._pressRow(rowID, rowData)}
 			underlayColor='#dddddd'>
 			<View>
 			<View style={styles.container}>
-			<Text numberOfLines={2} style={styles.title}>{this.props.data.taskTitle}</Text>
+			<Text numberOfLines={2} style={styles.title}>{this.props.data.taskId}: {this.props.data.taskTitle}</Text>
 			<Image source={require('image!disclosure_indicator')} style={styles.disclosureIndicator} />
 			</View>
 			<View style={styles.separator} />
