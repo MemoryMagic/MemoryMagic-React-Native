@@ -31,7 +31,7 @@ var styles = StyleSheet.create({
 		marginTop: 30,
 		marginLeft: 15,
 		marginRight: 15,
-		marginBottom: 2,
+		marginBottom: 10,
 		color: '#555555'
 	},
 
