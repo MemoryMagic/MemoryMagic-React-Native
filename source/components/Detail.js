@@ -12,7 +12,8 @@ var {
 	TouchableHighlight,
 	Text,
 	ScrollView,
-	Component
+	Component,
+	ActionSheetIOS
 } = React;
 
 var styles = StyleSheet.create({
@@ -75,6 +76,13 @@ var styles = StyleSheet.create({
 	}
 });
 
+var BUTTONS = [
+	'删除',
+	'取消',
+	];
+var DELETE_INDEX = 0;
+var CANCEL_INDEX = 1;
+
 class Detail extends Component {
 	render() {
 		var task = this.props.property;
@@ -122,11 +130,28 @@ class Detail extends Component {
 	}
 	
 	_onTrashButtonClicked() {
-		var task = this.props.property
-		console.log('trash! got it!' + task.taskId);
+		this.showActionSheet();
+	}
 
+	deleteTask() {
+		var task = this.props.property
 		TaskActions.delete(task.taskId);
 		this.props.navigator.pop();
+	}
+
+	showActionSheet() {
+		ActionSheetIOS.showActionSheetWithOptions({
+			options: BUTTONS,
+			destructiveButtonIndex: DELETE_INDEX,
+			cancelButtonIndex: CANCEL_INDEX,
+
+		},
+		(buttonIndex) => {
+			console.log('index: ' + buttonIndex);
+			if (buttonIndex === 0) {
+				this.deleteTask();
+			}
+		});
 	}
 }
 
