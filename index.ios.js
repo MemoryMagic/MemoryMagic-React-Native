@@ -71,7 +71,7 @@ class MemoryMagicProjectApp extends Component {
       style={styles.container}
       initialRoute={{
         title: 'Memory Magic',
-        rightButtonTitle: 'New',
+        rightButtonIcon: require('image!NavBarButtonPlus'),
         component: TaskList,
         onRightButtonPress: () => {
           this.refs.nav.push({ 
