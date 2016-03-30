@@ -84,7 +84,7 @@ class TaskList extends Component {
 		var row = this.state.data[rowID];
 		console.log('row: ' + row.taskTitle);
 		this.props.navigator.push({
-			title: 'Detail',
+			title: '任务详情',
 			rightButtonTitle: '删除',
 			onRightButtonPress: () => {
 				 ButtonActions.click('trash');

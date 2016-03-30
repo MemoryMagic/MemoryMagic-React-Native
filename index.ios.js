@@ -70,7 +70,7 @@ class MemoryMagicProjectApp extends Component {
       ref='nav'
       style={styles.container}
       initialRoute={{
-        title: 'Magic Memory',
+        title: '任务列表',
         rightButtonIcon: require('image!NavBarButtonPlus'),
         component: TaskList,
         onRightButtonPress: () => {

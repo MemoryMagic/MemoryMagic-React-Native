@@ -25,6 +25,7 @@
 		C3570DF31CA3BA0700EA3BDF /* libAIBSQLite.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C3570DE81CA3B9DD00EA3BDF /* libAIBSQLite.a */; };
 		C3570DF61CA3BCB900EA3BDF /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = C3570DF41CA3BA1C00EA3BDF /* libsqlite3.tbd */; };
 		C3570DFD1CA3BED200EA3BDF /* libRCTPushNotification.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C3570DFC1CA3BDDC00EA3BDF /* libRCTPushNotification.a */; };
+		C3803EAA1CABC7CA00604B94 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = C3803EAC1CABC7CA00604B94 /* InfoPlist.strings */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -146,6 +147,8 @@
 		C3570DE31CA3B9DD00EA3BDF /* AIBSQLite.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = AIBSQLite.xcodeproj; path = "../node_modules/react-native-sqlite/AIBSQLite.xcodeproj"; sourceTree = "<group>"; };
 		C3570DF41CA3BA1C00EA3BDF /* libsqlite3.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.tbd; path = usr/lib/libsqlite3.tbd; sourceTree = SDKROOT; };
 		C3570DF71CA3BDDC00EA3BDF /* RCTPushNotification.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTPushNotification.xcodeproj; path = "../node_modules/react-native/Libraries/PushNotificationIOS/RCTPushNotification.xcodeproj"; sourceTree = "<group>"; };
+		C3803EAB1CABC7CA00604B94 /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = Base.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		C3803EAD1CABC7CC00604B94 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -262,6 +265,7 @@
 				13B07FB61A68108700A75B9A /* Info.plist */,
 				13B07FB11A68108700A75B9A /* LaunchScreen.xib */,
 				13B07FB71A68108700A75B9A /* main.m */,
+				C3803EAC1CABC7CA00604B94 /* InfoPlist.strings */,
 			);
 			name = MemoryMagicProject;
 			sourceTree = "<group>";
@@ -411,6 +415,7 @@
 			knownRegions = (
 				en,
 				Base,
+				"zh-Hans",
 			);
 			mainGroup = 83CBB9F61A601CBA00E9B192;
 			productRefGroup = 83CBBA001A601CBA00E9B192 /* Products */;
@@ -573,6 +578,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
+				C3803EAA1CABC7CA00604B94 /* InfoPlist.strings in Resources */,
 				13B07FBD1A68108700A75B9A /* LaunchScreen.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -632,6 +638,15 @@
 			);
 			name = LaunchScreen.xib;
 			path = MemoryMagicProject;
+			sourceTree = "<group>";
+		};
+		C3803EAC1CABC7CA00604B94 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				C3803EAB1CABC7CA00604B94 /* Base */,
+				C3803EAD1CABC7CC00604B94 /* zh-Hans */,
+			);
+			name = InfoPlist.strings;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
