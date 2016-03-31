@@ -10,9 +10,19 @@ let format = "YYYY-MM-DD HH:mm";
 var _tasks = [];
 var CHANGE_EVENT = 'change';
 
+function guid() {
+  function s4() {
+    return Math.floor((1 + Math.random()) * 0x10000)
+      .toString(16)
+      .substring(1);
+  }
+  return s4() + s4() + '-' + s4() + '-' + s4() + '-' +
+    s4() + '-' + s4() + s4() + s4();
+}
+
 function create(text) {
 	// Create the new task.
-	var id = Date.now();
+	var id = guid();
 	var newTask = {
 		taskId: id,
 		taskTitle: text,
@@ -22,7 +32,7 @@ function create(text) {
 	addData(newTask);
 }
 
-function delete1(id) {
+function deleteTask(task) {
 	var database = SQLite.open("tasks.sqlite", function(error, database) {
 		if (error) {
 			console.log("Falied to open database: ", error);
@@ -30,7 +40,7 @@ function delete1(id) {
 		}
 
 		var sql = "DELETE FROM Task WHERE taskId = ?";
-		var params = [id]
+		var params = [task.taskId]
 		database.executeSQL(sql, params, rowCallback, completeCallback);
 		
 		function rowCallback(rowData) {
@@ -42,7 +52,7 @@ function delete1(id) {
 				return;
 			}
 			console.log("Query complete!");
-			// TaskNotification.scheduleLocalNotification(task);
+			TaskNotification.cancelLocalNotification(task);
 			database.close(function (error) {
 				if (error) {
 					console.log("Failed to close database: ", error);
@@ -62,8 +72,8 @@ function addData(task) {
 			return;
 		}
 
-		var sql = "INSERT INTO Task (taskTitle, createTime) VALUES (?, ?)";
-		var params = [task.taskTitle, task.createTime]
+		var sql = "INSERT INTO Task (taskId, taskTitle, createTime) VALUES (?, ?, ?)";
+		var params = [task.taskId, task.taskTitle, task.createTime]
 		database.executeSQL(sql, params, rowCallback, completeCallback);
 		
 		function rowCallback(rowData) {
@@ -124,7 +134,7 @@ function loadData() {
 
 function createTable() {
     var database = SQLite.open("tasks.sqlite");
-    database.executeSQL("CREATE TABLE IF NOT EXISTS Task (taskId INTEGER PRIMARY KEY AUTOINCREMENT, taskTitle TEXT, createTime TEXT)", 
+    database.executeSQL("CREATE TABLE IF NOT EXISTS Task (taskId TEXT PRIMARY KEY, taskTitle TEXT, createTime TEXT)", 
       [],
       (data) => {
         console.log("data: ", data);
@@ -164,11 +174,11 @@ var TaskStore = assign({}, EventEmitter.prototype, {
 	}
 });
 
-function handleAction(task) {
-	if (task.type === 'create_task') {
-		create(task.text)
-	} else if (task.type === 'delete_task') {
-		delete1(task.id)
+function handleAction(action) {
+	if (action.type === 'create_task') {
+		create(action.text)
+	} else if (action.type === 'delete_task') {
+		deleteTask(action.task)
 	}
 }
 

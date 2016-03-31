@@ -29,14 +29,23 @@ var TaskNotification = {
 		let dateAfterOneWeek = moment(today6am).add(7, 'days');
 		let dateAfterOneMonth = moment(today6am).add(30, 'days');
 
-		let list = [dateAfterOneDay, dateAfterTwoDay, dateAfterOneWeek, dateAfterOneMonth];
+		console.log('+ task.taskId: ' + task.taskId);
+		let dateAfterOneMinutes = createTime.add(1, 'minutes');
+		let list = [dateAfterOneMinutes, dateAfterOneDay, dateAfterTwoDay, dateAfterOneWeek, dateAfterOneMonth];
 		list.map((time) => {
 			console.log('time: '+time.format(format));
 			PushNotificationIOS.scheduleLocalNotification({
 				alertBody: task.taskTitle,
-				fireDate: time.format("YYYY-MM-DDTHH:mm:ss.sssZ")
+				fireDate: time.format("YYYY-MM-DDTHH:mm:ss.sssZ"),
+				userInfo: { taskId: task.taskId }
 			});
 		});
+	},
+
+	cancelLocalNotification: function(task) {
+				console.log('- task.taskId: ' + task.taskId);
+
+		PushNotificationIOS.cancelLocalNotifications({ taskId: task.taskId });
 	}
 
 

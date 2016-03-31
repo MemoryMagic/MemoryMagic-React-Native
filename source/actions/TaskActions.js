@@ -10,10 +10,10 @@ var TaskActionCreators = {
 
 		AppDispatcher.dispatch(action);
 	},
-	delete: function(taskId) {
+	delete: function(task) {
 		var action = {
 			type: 'delete_task',
-			id: taskId
+			task: task
 		};
 		AppDispatcher.dispatch(action);
 	}

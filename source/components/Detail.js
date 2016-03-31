@@ -179,7 +179,7 @@ class Detail extends Component {
 
 	deleteTask() {
 		var task = this.props.property
-		TaskActions.delete(task.taskId);
+		TaskActions.delete(task);
 		this.props.navigator.pop();
 	}
 
