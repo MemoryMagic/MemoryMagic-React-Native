@@ -23,6 +23,7 @@ var TRACE_KEY = '@AsncStorageFristLaunch:key';
 var styles = StyleSheet.create({
   container: {
     flex: 1,
+    backgroundColor: 'gray'
   },
   text: {
     marginTop: 65

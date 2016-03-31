@@ -60,7 +60,7 @@ var styles = StyleSheet.create({
 	},
 
 	passTime: {
-		color: '#555555',
+		color: 'gray',
 		fontSize: 17,
 		marginTop:0,
 		marginLeft: 15,
@@ -158,13 +158,13 @@ class Detail extends Component {
 			<Text style={styles.title}>{task.taskTitle}</Text>
 			<Text style={ styles.createTime }>{ task.createTime }</Text>
 			<Text style={styles.message}>{this.state.message}</Text>
-			<Text style={ styles.createTime }>一天之后:</Text>
+			<Text style={ isNowBeforeOneDay ? styles.createTime : styles.passTime }>一天之后:</Text>
 			<Text style={ isNowBeforeOneDay ? styles.futureTime : styles.passTime }>{dateAfterOneDay.format(format)} </Text>
-			<Text style={ styles.createTime }>两天之后:</Text>
+			<Text style={ isNowBeforeOneDay ? styles.createTime : styles.passTime }>两天之后:</Text>
 			<Text style={ isNowBeforeTwoDay ? styles.futureTime : styles.passTime }>{dateAfterTwoDay.format(format)} </Text>
-			<Text style={ styles.createTime }>一周之后:</Text>
+			<Text style={ isNowBeforeOneDay ? styles.createTime : styles.passTime }>一周之后:</Text>
 			<Text style={ isNowBeforeOneWeek ? styles.futureTime : styles.passTime }>{dateAfterOneWeek.format(format)} </Text>
-			<Text style={ styles.createTime }>一个月之后:</Text>
+			<Text style={ isNowBeforeOneDay ? styles.createTime : styles.passTime }>一个月之后:</Text>
 			<Text style={ isNowBeforeOneMonth ? styles.futureTime : styles.passTime }>{dateAfterOneMonth.format(format)} </Text>
 
 			</ScrollView>

@@ -6,6 +6,7 @@ var TaskCell = require('./TaskCell');
 var TaskStore = require('../stores/TaskStore');
 //var AppDispatcher = require('NativeModules').AppDispatcher;
 var ButtonActions = require('../actions/ButtonActions');
+import NoTasksMessage from './NoTasksMessage';
 
 var {
 	StyleSheet,
@@ -16,11 +17,6 @@ var {
 	Component
 } = React;
 
-var styles = StyleSheet.create({
-	container: {
-		marginTop: 65,
-	}
-});
 
 class TaskList extends Component {
 
@@ -64,13 +60,18 @@ class TaskList extends Component {
 		});
 	}
 
+
 	render() {
 		
 		return (
+			<View style={{ flex: 1, backgroundColor: '#ECECEC' }}>
 			<ListView 
+			style = {{ backgroundColor: this.state.data.length > 0 ? 'white' : '#ECECEC' }}
 			dataSource={this.state.dataSource}
 			renderRow={this.renderRow.bind(this)}>
 			</ListView>
+			<NoTasksMessage visible={this.state.data.length <= 0} />
+			</View>
 			);
 	}
 
@@ -79,7 +80,7 @@ class TaskList extends Component {
 	}
 // 			rightButtonIcon: require('image!NavBarButtonTransh'),
 
-	_pressRow(rowID: number, propertyGuid: number) {
+_pressRow(rowID: number, propertyGuid: number) {
 		//console.log('rowID: ' + rowID + ', propertyGuid: ' + propertyGuid);
 		var row = this.state.data[rowID];
 		console.log('row: ' + row.taskTitle);
@@ -87,9 +88,9 @@ class TaskList extends Component {
 			title: '任务详情',
 			rightButtonTitle: '删除',
 			onRightButtonPress: () => {
-				 ButtonActions.click('trash');
-				 console.log('click trash');
-			 },
+				ButtonActions.click('trash');
+				console.log('click trash');
+			},
 			component: Detail,
 			passProps: {
 				property: row
