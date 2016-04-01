@@ -4,6 +4,7 @@ var React = require('react-native');
 var SQLite = require('react-native-sqlite');
 var TaskList = require('./source/components/TaskList');
 var AddTask  = require('./source/components/AddTask');
+var TodayTodo  = require('./source/components/TodayTodo');
 //var HelloWrold = require('/HelloWrold');
 var TaskStore = require('./source/stores/TaskStore');
 var ButtonActions = require('./source/actions/ButtonActions');
@@ -74,6 +75,7 @@ class MemoryMagicProjectApp extends Component {
         title: '任务列表',
         rightButtonIcon: require('image!NavBarButtonPlus'),
         component: TaskList,
+        
         onRightButtonPress: () => {
           this.refs.nav.push({ 
             title: '添加任务',
@@ -81,12 +83,21 @@ class MemoryMagicProjectApp extends Component {
             rightButtonTitle: '保存',
             onRightButtonPress: () => {
               ButtonActions.click('save');
-              // TaskActions.create(this.state.titleString);
             },
             passProps: {
               onChanged: this._onChange,
             } });
+        },
+
+        leftButtonTitle: '今日任务',
+        onLeftButtonPress: () => {
+          this.refs.nav.push({
+            title: '今日复习任务',
+            component: TodayTodo
+          });
         }
+
+
       }} />
       );
   }

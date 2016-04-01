@@ -10,7 +10,7 @@ var styles = StyleSheet.create({
 		alignSelf: 'center',
 		flex: 1,
 	},
-	floatLabel: {
+	message: {
 		color: 'gray',
 		fontSize: 22
 	}
@@ -18,7 +18,8 @@ var styles = StyleSheet.create({
 
 class NoTasksMessage extends Component {
 	propTypes: {
-		visible: Rect.propTypes.bool
+		visible: Rect.propTypes.bool,
+		message: Rect.propTypes.any
 	}
 
 	render() {
@@ -27,7 +28,7 @@ class NoTasksMessage extends Component {
 		}
 		return(
 			<View style={ styles.container } >
-				<Text style={ styles.floatLabel }>未添加任务</Text>
+				<Text style={ styles.message }>{this.props.message}</Text>
 			</View>
 			);
 	}

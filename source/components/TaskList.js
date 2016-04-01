@@ -64,13 +64,13 @@ class TaskList extends Component {
 	render() {
 		
 		return (
-			<View style={{ flex: 1, backgroundColor: '#ECECEC' }}>
+			<View style={{ flex: 1, backgroundColor: '#EEEEF4' }}>
 			<ListView 
-			style = {{ backgroundColor: this.state.data.length > 0 ? 'white' : '#ECECEC' }}
+			style = {{ backgroundColor: this.state.data.length > 0 ? 'white' : '#EEEEF4' }}
 			dataSource={this.state.dataSource}
 			renderRow={this.renderRow.bind(this)}>
 			</ListView>
-			<NoTasksMessage visible={this.state.data.length <= 0} />
+			<NoTasksMessage visible={this.state.data.length <= 0} message='未添加任务' />
 			</View>
 			);
 	}
