@@ -12,7 +12,8 @@
     "react": "^0.14.7",
     "react-native": "^0.22.2",
     "react-native-image-picker": "^0.7.1",
-    "react-native-sqlite": "0.0.12"
+    "react-native-sqlite": "0.0.12",
+    "lodash": "4.7.0"
   },
   "devDependencies": {
     "events": "^1.1.0"

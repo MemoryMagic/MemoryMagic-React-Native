@@ -35,5 +35,5 @@ var _ = require('lodash');
 		}
 	}
 
-	ButtonStore.dispatchToken = AppDispatcher.register(handleAction);
-	module.exports = ButtonStore;
+ButtonStore.dispatchToken = AppDispatcher.register(handleAction);
+module.exports = ButtonStore;
