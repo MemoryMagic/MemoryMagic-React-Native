@@ -19,7 +19,7 @@ var styles = StyleSheet.create({
 class NoTasksMessage extends Component {
 	propTypes: {
 		visible: Rect.propTypes.bool,
-		message: Rect.propTypes.any
+		message: Rect.propTypes.string
 	}
 
 	render() {

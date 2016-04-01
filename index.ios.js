@@ -68,6 +68,7 @@ class MemoryMagicProjectApp extends Component {
 
   render() {
     return (
+      <View style= {{ flex: 1}}>
       <NavigatorIOS
       ref='nav'
       style={styles.container}
@@ -99,6 +100,8 @@ class MemoryMagicProjectApp extends Component {
 
 
       }} />
+      <View></View>
+      </View>
       );
   }
 }
