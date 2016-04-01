@@ -90,7 +90,7 @@ class MemoryMagicProjectApp extends Component {
             } });
         },
 
-        leftButtonTitle: '今日任务',
+        leftButtonTitle: '今日复习',
         onLeftButtonPress: () => {
           this.refs.nav.push({
             title: '今日复习任务',

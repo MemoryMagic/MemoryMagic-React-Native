@@ -44,7 +44,7 @@ var styles = StyleSheet.create({
 
 	createTime: {
 		color: '#555555',
-		fontSize: 12,
+		fontSize: 13,
 		marginTop:4,
 		marginLeft: 15,
 		marginRight: 15,
@@ -59,22 +59,37 @@ var styles = StyleSheet.create({
 
 	},
 
+	passTimeLabel: {
+		color: '#DDDDDD',
+		fontSize: 13,
+		marginTop:0,
+		marginLeft: 15,
+		marginRight: 15,
+		marginBottom: 5,
+	},
 	passTime: {
-		color: 'gray',
+		color: '#DDDDDD',
 		fontSize: 17,
 		marginTop:0,
 		marginLeft: 15,
 		marginRight: 15,
-		marginBottom: 10,
+		marginBottom: 15,
 
 	},
-
+	futureTimeLabel: {
+		color: '#555555',
+		fontSize: 13,
+		marginTop: 0,
+		marginLeft: 15,
+		marginRight: 15,
+		marginBottom: 5,
+	},
 	futureTime: {
 		fontSize: 17,
 		marginTop: 0,
 		marginLeft: 15,
 		marginRight: 15,
-		marginBottom: 10,
+		marginBottom: 15,
 	}
 });
 
@@ -158,13 +173,17 @@ class Detail extends Component {
 			<Text style={styles.title}>{task.taskTitle}</Text>
 			<Text style={ styles.createTime }>{ task.createTime }</Text>
 			<Text style={styles.message}>{this.state.message}</Text>
-			<Text style={ isNowBeforeOneDay ? styles.createTime : styles.passTime }>一天之后:</Text>
+			
+			<Text style={ isNowBeforeOneDay ? styles.futureTimeLabel : styles.passTimeLabel }>一天之后:</Text>
 			<Text style={ isNowBeforeOneDay ? styles.futureTime : styles.passTime }>{dateAfterOneDay.format(format)} </Text>
-			<Text style={ isNowBeforeOneDay ? styles.createTime : styles.passTime }>两天之后:</Text>
+
+			<Text style={ isNowBeforeTwoDay ? styles.futureTimeLabel : styles.passTimeLabel }>两天之后:</Text>
 			<Text style={ isNowBeforeTwoDay ? styles.futureTime : styles.passTime }>{dateAfterTwoDay.format(format)} </Text>
-			<Text style={ isNowBeforeOneDay ? styles.createTime : styles.passTime }>一周之后:</Text>
+			
+			<Text style={ isNowBeforeOneWeek ? styles.futureTimeLabel : styles.passTimeLabel }>一周之后:</Text>
 			<Text style={ isNowBeforeOneWeek ? styles.futureTime : styles.passTime }>{dateAfterOneWeek.format(format)} </Text>
-			<Text style={ isNowBeforeOneDay ? styles.createTime : styles.passTime }>一个月之后:</Text>
+			
+			<Text style={ isNowBeforeOneMonth ? styles.futureTimeLabel : styles.passTimeLabel }>一月之后:</Text>
 			<Text style={ isNowBeforeOneMonth ? styles.futureTime : styles.passTime }>{dateAfterOneMonth.format(format)} </Text>
 
 			</ScrollView>

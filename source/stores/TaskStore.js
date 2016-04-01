@@ -52,7 +52,6 @@ function deleteTask(task) {
 				return;
 			}
 			console.log("Query complete!");
-			TaskNotification.cancelLocalNotification(task);
 			database.close(function (error) {
 				if (error) {
 					console.log("Failed to close database: ", error);
@@ -61,6 +60,7 @@ function deleteTask(task) {
 			});
 
 			loadData();
+			//TaskNotification.cancelLocalNotification(task);
 		}
 	});
 }
@@ -85,7 +85,6 @@ function addData(task) {
 				return;
 			}
 			console.log("Query complete!");
-			TaskNotification.scheduleLocalNotification(task);
 			database.close(function (error) {
 				if (error) {
 					console.log("Failed to close database: ", error);
@@ -94,6 +93,8 @@ function addData(task) {
 			});
 
 			loadData();
+            //TaskNotification.scheduleLocalNotification(task);
+
 		}
 	});
 }
@@ -128,6 +129,7 @@ function loadData() {
 			});
 			_tasks = tasks
 			TaskStore.emitChange();
+			TaskNotification.refreshLocalNotifications();
 		}
 	});
 }
