@@ -12,13 +12,10 @@ var TaskActions = require('./source/actions/TaskActions');
 var {
   StyleSheet,
   View,
-  Text,
   Navigator,
   NavigatorIOS,
   Component,
   AsyncStorage,
-  DeviceEventEmitter,
-  AlertIOS
 } = React;
 
 var TRACE_KEY = '@AsncStorageFristLaunch:key';
@@ -27,9 +24,6 @@ var styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: 'gray'
-  },
-  text: {
-    marginTop: 65
   }
 });
 
