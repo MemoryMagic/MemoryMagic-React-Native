@@ -3,6 +3,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
     </dependencies>
     <objects>
@@ -12,22 +13,112 @@
             <rect key="frame" x="0.0" y="0.0" width="480" height="480"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Magic Memory" textAlignment="center" lineBreakMode="middleTruncation" baselineAdjustment="alignBaselines" minimumFontSize="18" translatesAutoresizingMaskIntoConstraints="NO" id="kId-c2-rCX">
-                    <rect key="frame" x="20" y="140" width="441" height="43"/>
-                    <fontDescription key="fontDescription" type="boldSystem" pointSize="36"/>
-                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                    <nil key="highlightedColor"/>
-                </label>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" image="LunchIcon" translatesAutoresizingMaskIntoConstraints="NO" id="Hak-5X-UAi">
+                    <rect key="frame" x="159" y="128" width="240" height="128"/>
+                    <constraints>
+                        <constraint firstAttribute="width" secondItem="Hak-5X-UAi" secondAttribute="height" multiplier="150:77" id="C5J-Gf-w9a"/>
+                        <constraint firstAttribute="width" secondItem="Hak-5X-UAi" secondAttribute="height" multiplier="150:77" id="uyB-J4-ie0"/>
+                    </constraints>
+                    <variation key="default">
+                        <mask key="constraints">
+                            <exclude reference="C5J-Gf-w9a"/>
+                            <exclude reference="uyB-J4-ie0"/>
+                        </mask>
+                    </variation>
+                    <variation key="heightClass=regular">
+                        <mask key="constraints">
+                            <include reference="uyB-J4-ie0"/>
+                        </mask>
+                    </variation>
+                    <variation key="widthClass=compact">
+                        <mask key="constraints">
+                            <include reference="C5J-Gf-w9a"/>
+                        </mask>
+                    </variation>
+                    <variation key="heightClass=regular-widthClass=compact">
+                        <mask key="constraints">
+                            <exclude reference="C5J-Gf-w9a"/>
+                        </mask>
+                    </variation>
+                </imageView>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
             <constraints>
-                <constraint firstItem="kId-c2-rCX" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="bottom" multiplier="1/3" constant="1" id="5cJ-9S-tgC"/>
-                <constraint firstAttribute="centerX" secondItem="kId-c2-rCX" secondAttribute="centerX" id="Koa-jz-hwk"/>
-                <constraint firstItem="kId-c2-rCX" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="20" symbolic="YES" id="fvb-Df-36g"/>
+                <constraint firstItem="Hak-5X-UAi" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="7LF-eC-7aX"/>
+                <constraint firstItem="Hak-5X-UAi" firstAttribute="width" secondItem="iN0-l3-epB" secondAttribute="width" multiplier="0.33" id="Ce9-TI-cv3"/>
+                <constraint firstItem="Hak-5X-UAi" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="E7l-CZ-UG9"/>
+                <constraint firstItem="Hak-5X-UAi" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="HVa-fP-fyb"/>
+                <constraint firstItem="Hak-5X-UAi" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="SXa-rT-u7D"/>
+                <constraint firstItem="Hak-5X-UAi" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="ULB-dA-pJG"/>
+                <constraint firstItem="Hak-5X-UAi" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="UzH-3Q-gcR"/>
+                <constraint firstItem="Hak-5X-UAi" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="Xzw-pM-2PY"/>
+                <constraint firstItem="Hak-5X-UAi" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="gd9-0F-JmJ"/>
+                <constraint firstItem="Hak-5X-UAi" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="maJ-6G-RWo"/>
+                <constraint firstItem="Hak-5X-UAi" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="wbI-A7-s7g"/>
+                <constraint firstItem="Hak-5X-UAi" firstAttribute="width" secondItem="iN0-l3-epB" secondAttribute="width" multiplier="0.33" id="xYi-tn-93O"/>
             </constraints>
             <nil key="simulatedStatusBarMetrics"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <variation key="default">
+                <mask key="constraints">
+                    <exclude reference="7LF-eC-7aX"/>
+                    <exclude reference="Ce9-TI-cv3"/>
+                    <exclude reference="E7l-CZ-UG9"/>
+                    <exclude reference="HVa-fP-fyb"/>
+                    <exclude reference="SXa-rT-u7D"/>
+                    <exclude reference="ULB-dA-pJG"/>
+                    <exclude reference="UzH-3Q-gcR"/>
+                    <exclude reference="Xzw-pM-2PY"/>
+                    <exclude reference="gd9-0F-JmJ"/>
+                    <exclude reference="maJ-6G-RWo"/>
+                    <exclude reference="wbI-A7-s7g"/>
+                    <exclude reference="xYi-tn-93O"/>
+                </mask>
+            </variation>
+            <variation key="heightClass=compact">
+                <mask key="constraints">
+                    <include reference="SXa-rT-u7D"/>
+                    <include reference="maJ-6G-RWo"/>
+                </mask>
+            </variation>
+            <variation key="heightClass=regular">
+                <mask key="constraints">
+                    <include reference="HVa-fP-fyb"/>
+                    <include reference="Xzw-pM-2PY"/>
+                    <include reference="xYi-tn-93O"/>
+                </mask>
+            </variation>
+            <variation key="widthClass=compact">
+                <mask key="constraints">
+                    <include reference="7LF-eC-7aX"/>
+                    <include reference="Ce9-TI-cv3"/>
+                    <include reference="ULB-dA-pJG"/>
+                </mask>
+            </variation>
+            <variation key="heightClass=compact-widthClass=regular">
+                <mask key="constraints">
+                    <include reference="UzH-3Q-gcR"/>
+                    <include reference="wbI-A7-s7g"/>
+                </mask>
+            </variation>
+            <variation key="heightClass=regular-widthClass=compact">
+                <mask key="constraints">
+                    <exclude reference="ULB-dA-pJG"/>
+                    <exclude reference="Xzw-pM-2PY"/>
+                    <exclude reference="xYi-tn-93O"/>
+                </mask>
+            </variation>
+            <variation key="heightClass=regular-widthClass=regular">
+                <mask key="constraints">
+                    <include reference="E7l-CZ-UG9"/>
+                    <exclude reference="Xzw-pM-2PY"/>
+                    <exclude reference="gd9-0F-JmJ"/>
+                </mask>
+            </variation>
             <point key="canvasLocation" x="548" y="455"/>
         </view>
     </objects>
+    <resources>
+        <image name="LunchIcon" width="150" height="77"/>
+    </resources>
 </document>

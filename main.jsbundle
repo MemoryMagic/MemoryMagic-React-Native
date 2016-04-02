@@ -87080,6 +87080,13 @@ PushNotificationIOS.cancelLocalNotifications({taskId:task.taskId});},
 
 
 refreshLocalNotifications:function(){
+PushNotificationIOS.checkPermissions(function(permissions){
+
+if(!(permissions.alert||permissions.badge||permissions.sound)){
+PushNotificationIOS.requestPermissions();}});
+
+
+
 var TaskStore=require('MemoryMagicProject/source/stores/TaskStore.js');
 var tasks=TaskStore.getAll();
 console.log('tasks.length: '+tasks.length);

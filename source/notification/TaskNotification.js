@@ -55,6 +55,13 @@ var TaskNotification = {
 
 	
 	refreshLocalNotifications: function() {
+		PushNotificationIOS.checkPermissions((permissions) => {
+      	// If no permissions are allowed, request permissions.
+      	if (!(permissions.alert || permissions.badge || permissions.sound)) {
+        	PushNotificationIOS.requestPermissions()
+      	}
+    	});
+    	
 		var TaskStore = require('../stores/TaskStore');
 		var tasks = TaskStore.getAll();
 		console.log('tasks.length: ' + tasks.length);
