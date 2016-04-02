@@ -11,6 +11,8 @@
 
 #import "RCTRootView.h"
 #import "RCTPushNotificationManager.h"
+#import "RNQuickActionManager.h"
+
 
 @implementation AppDelegate
 
@@ -33,10 +35,10 @@
    */
 //  jsCodeLocation = [NSURL URLWithString:@"http://localhost:8081/index.ios.bundle?platform=ios&dev=true"];
 
-  //jsCodeLocation = [NSURL URLWithString:@"http://192.168.1.101:8081/index.ios.bundle?platform=ios&dev=true"];
+  jsCodeLocation = [NSURL URLWithString:@"http://192.168.1.101:8081/index.ios.bundle?platform=ios&dev=true"];
 
   // Step 1:
-  jsCodeLocation = [[NSBundle mainBundle] URLForResource:@"main" withExtension:@"jsbundle"];
+//  jsCodeLocation = [[NSBundle mainBundle] URLForResource:@"main" withExtension:@"jsbundle"];
   // Step 2: Run in terminal:
   // curl http://localhost:8081/index.ios.bundle -o main.jsbundle
 
@@ -74,5 +76,13 @@
   [RCTPushNotificationManager didReceiveRemoteNotification:userInfo];
 }
 
+- (void)application:(UIApplication *)application performActionForShortcutItem:(UIApplicationShortcutItem *)shortcutItem completionHandler:(void (^)(BOOL))completionHandler {
+//  if ([shortcutItem.type  isEqual: @"com.yangcun.memorymagic.addtask"]) {
+//    
+//  } else if ([shortcutItem.type isEqual:@"com.yangcun.memorymagic.todaytodo"]) {
+//    
+//  }
+  [RNQuickActionManager onQuickActionPress:shortcutItem completionHandler:completionHandler];
+}
 
 @end

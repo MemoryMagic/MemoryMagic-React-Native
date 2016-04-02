@@ -21,6 +21,7 @@
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
 		146834051AC3E58100842450 /* libReact.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 146834041AC3E56700842450 /* libReact.a */; };
+		64667BFE1CAFAF9B0021699C /* libRNQuickAction.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 64667BFC1CAFAE1F0021699C /* libRNQuickAction.a */; };
 		6471CD601CAF710B00C4535D /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6471CD5F1CAF710B00C4535D /* Default-568h@2x.png */; };
 		832341BD1AAA6AB300B99B32 /* libRCTText.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 832341B51AAA6A8300B99B32 /* libRCTText.a */; };
 		C3570DF31CA3BA0700EA3BDF /* libAIBSQLite.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C3570DE81CA3B9DD00EA3BDF /* libAIBSQLite.a */; };
@@ -93,6 +94,13 @@
 			remoteGlobalIDString = 83CBBA2E1A601D0E00E9B192;
 			remoteInfo = React;
 		};
+		64667BFB1CAFAE1F0021699C /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 64667BF71CAFAE1F0021699C /* RNQuickAction.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 91090D8B1BB6C934009AE358;
+			remoteInfo = RNQuickAction;
+		};
 		78C398B81ACF4ADC00677621 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 78C398B01ACF4ADC00677621 /* RCTLinking.xcodeproj */;
@@ -143,6 +151,7 @@
 		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = MemoryMagicProject/Info.plist; sourceTree = "<group>"; };
 		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = MemoryMagicProject/main.m; sourceTree = "<group>"; };
 		146833FF1AC3E56700842450 /* React.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = React.xcodeproj; path = "../node_modules/react-native/React/React.xcodeproj"; sourceTree = "<group>"; };
+		64667BF71CAFAE1F0021699C /* RNQuickAction.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RNQuickAction.xcodeproj; path = "../node_modules/react-native-quick-actions/RNQuickAction/RNQuickAction.xcodeproj"; sourceTree = "<group>"; };
 		6471CD5F1CAF710B00C4535D /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 		78C398B01ACF4ADC00677621 /* RCTLinking.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTLinking.xcodeproj; path = "../node_modules/react-native/Libraries/LinkingIOS/RCTLinking.xcodeproj"; sourceTree = "<group>"; };
 		832341B01AAA6A8300B99B32 /* RCTText.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTText.xcodeproj; path = "../node_modules/react-native/Libraries/Text/RCTText.xcodeproj"; sourceTree = "<group>"; };
@@ -165,6 +174,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				64667BFE1CAFAF9B0021699C /* libRNQuickAction.a in Frameworks */,
 				C3570DFD1CA3BED200EA3BDF /* libRCTPushNotification.a in Frameworks */,
 				C3570DF61CA3BCB900EA3BDF /* libsqlite3.tbd in Frameworks */,
 				C3570DF31CA3BA0700EA3BDF /* libAIBSQLite.a in Frameworks */,
@@ -280,6 +290,14 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
+		64667BF81CAFAE1F0021699C /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				64667BFC1CAFAE1F0021699C /* libRNQuickAction.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 		78C398B11ACF4ADC00677621 /* Products */ = {
 			isa = PBXGroup;
 			children = (
@@ -291,6 +309,7 @@
 		832341AE1AAA6A7D00B99B32 /* Libraries */ = {
 			isa = PBXGroup;
 			children = (
+				64667BF71CAFAE1F0021699C /* RNQuickAction.xcodeproj */,
 				C3570DF71CA3BDDC00EA3BDF /* RCTPushNotification.xcodeproj */,
 				C3570DE31CA3B9DD00EA3BDF /* AIBSQLite.xcodeproj */,
 				146833FF1AC3E56700842450 /* React.xcodeproj */,
@@ -472,6 +491,10 @@
 					ProductGroup = 146834001AC3E56700842450 /* Products */;
 					ProjectRef = 146833FF1AC3E56700842450 /* React.xcodeproj */;
 				},
+				{
+					ProductGroup = 64667BF81CAFAE1F0021699C /* Products */;
+					ProjectRef = 64667BF71CAFAE1F0021699C /* RNQuickAction.xcodeproj */;
+				},
 			);
 			projectRoot = "";
 			targets = (
@@ -536,6 +559,13 @@
 			fileType = archive.ar;
 			path = libReact.a;
 			remoteRef = 146834031AC3E56700842450 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		64667BFC1CAFAE1F0021699C /* libRNQuickAction.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libRNQuickAction.a;
+			remoteRef = 64667BFB1CAFAE1F0021699C /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 		78C398B91ACF4ADC00677621 /* libRCTLinking.a */ = {
@@ -704,6 +734,7 @@
 					"$(inherited)",
 					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
 					"$(SRCROOT)/../node_modules/react-native/React/**",
+					"$(SRCROOT)/../node_modules/react-native-quick-actions/**",
 				);
 				INFOPLIST_FILE = MemoryMagicProject/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -724,6 +755,7 @@
 					"$(inherited)",
 					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
 					"$(SRCROOT)/../node_modules/react-native/React/**",
+					"$(SRCROOT)/../node_modules/react-native-quick-actions/**",
 				);
 				INFOPLIST_FILE = MemoryMagicProject/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";

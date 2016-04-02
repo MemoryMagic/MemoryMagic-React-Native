@@ -2,6 +2,35 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>UIApplicationShortcutItems</key>
+	<array>
+		<dict>
+			<key>UIApplicationShortcutItemIconType</key>
+			<string>UIApplicationShortcutIconTypeAdd</string>
+			<key>UIApplicationShortcutItemTitle</key>
+			<string>添加任务</string>
+			<key>UIApplicationShortcutItemType</key>
+			<string>com.yangcun.memorymagic.addtask</string>
+			<key>UIApplicationShortcutItemUserInfo</key>
+			<dict>
+				<key>key</key>
+				<string>value</string>
+			</dict>
+		</dict>
+		<dict>
+			<key>UIApplicationShortcutItemIconType</key>
+			<string>UIApplicationShortcutIconTypeDate</string>
+			<key>UIApplicationShortcutItemTitle</key>
+			<string>今日复习</string>
+			<key>UIApplicationShortcutItemType</key>
+			<string>com.yangcun.memorymagic.todaytodo</string>
+			<key>UIApplicationShortcutItemUserInfo</key>
+			<dict>
+				<key>key</key>
+				<string>value</string>
+			</dict>
+		</dict>
+	</array>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>en</string>
 	<key>CFBundleExecutable</key>
