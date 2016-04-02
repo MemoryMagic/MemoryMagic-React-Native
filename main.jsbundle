@@ -52668,6 +52668,58 @@ return children;}
 
 module.exports=onlyChild;
 });
+__d('ReactComponentEnvironment',function(global, require, module, exports) {  'use strict';
+
+
+
+
+
+
+
+
+
+
+
+
+var invariant=require('fbjs/lib/invariant.js');
+
+var injected=false;
+
+var ReactComponentEnvironment={
+
+
+
+
+
+
+unmountIDFromEnvironment:null,
+
+
+
+
+
+replaceNodeWithMarkupByID:null,
+
+
+
+
+
+processChildrenUpdates:null,
+
+injection:{
+injectEnvironment:function(environment){
+!!injected?process.env.NODE_ENV!=='production'?invariant(false,'ReactCompositeComponent: injectEnvironment() can only be called once.'):invariant(false):undefined;
+ReactComponentEnvironment.unmountIDFromEnvironment=environment.unmountIDFromEnvironment;
+ReactComponentEnvironment.replaceNodeWithMarkupByID=environment.replaceNodeWithMarkupByID;
+ReactComponentEnvironment.processChildrenUpdates=environment.processChildrenUpdates;
+injected=true;}}};
+
+
+
+
+
+module.exports=ReactComponentEnvironment;
+});
 __d('PooledClass',function(global, require, module, exports) {  'use strict';
 
 
@@ -53721,58 +53773,6 @@ delete registrationNameModules[registrationName];}}}};
 
 
 module.exports=EventPluginRegistry;
-});
-__d('ReactComponentEnvironment',function(global, require, module, exports) {  'use strict';
-
-
-
-
-
-
-
-
-
-
-
-
-var invariant=require('fbjs/lib/invariant.js');
-
-var injected=false;
-
-var ReactComponentEnvironment={
-
-
-
-
-
-
-unmountIDFromEnvironment:null,
-
-
-
-
-
-replaceNodeWithMarkupByID:null,
-
-
-
-
-
-processChildrenUpdates:null,
-
-injection:{
-injectEnvironment:function(environment){
-!!injected?process.env.NODE_ENV!=='production'?invariant(false,'ReactCompositeComponent: injectEnvironment() can only be called once.'):invariant(false):undefined;
-ReactComponentEnvironment.unmountIDFromEnvironment=environment.unmountIDFromEnvironment;
-ReactComponentEnvironment.replaceNodeWithMarkupByID=environment.replaceNodeWithMarkupByID;
-ReactComponentEnvironment.processChildrenUpdates=environment.processChildrenUpdates;
-injected=true;}}};
-
-
-
-
-
-module.exports=ReactComponentEnvironment;
 });
 __d('traverseAllChildren',function(global, require, module, exports) {  'use strict';
 
@@ -86104,6 +86104,129 @@ property:row}});}}]);return TodayTodo;}(_reactNative.Component);
 
 module.exports=TodayTodo;
 });
+__d('MemoryMagicProject/source/notification/TaskNotification.js',function(global, require, module, exports) {  var 
+
+
+
+
+
+React=require('react-native/Libraries/react-native/react-native.js');
+var moment=require('moment/moment.js');
+var format="YYYY-MM-DD HH:mm";var 
+
+
+
+PushNotificationIOS=
+React.PushNotificationIOS;
+
+var TaskNotification={
+scheduleLocalNotification:function(task){
+this.refreshLocalNotifications();
+return;
+
+PushNotificationIOS.checkPermissions(function(permissions){
+
+if(!(permissions.alert||permissions.badge||permissions.sound)){
+PushNotificationIOS.requestPermissions();}});
+
+
+
+var createTime=moment(task.createTime,format);
+var createTime6am=createTime.startOf('day').add(6,'hours');
+var dateAfterOneDay=moment(createTime6am).add(1,'days');
+var dateAfterTwoDay=moment(createTime6am).add(2,'days');
+var dateAfterOneWeek=moment(createTime6am).add(7,'days');
+var dateAfterOneMonth=moment(createTime6am).add(30,'days');
+
+console.log('+ task.taskId: '+task.taskId);
+var dateAfterOneMinutes=moment(createTime).add(1,'minutes');
+var list=[dateAfterOneMinutes,dateAfterOneDay,dateAfterTwoDay,dateAfterOneWeek,dateAfterOneMonth];
+list.map(function(time){
+console.log('time: '+time.format(format));
+PushNotificationIOS.scheduleLocalNotification({
+alertBody:'今日复习任务: '+task.taskTitle,
+fireDate:time.format("YYYY-MM-DDTHH:mm:ss.sssZ"),
+userInfo:{taskId:task.taskId}});});},
+
+
+
+
+cancelLocalNotification:function(task){
+this.refreshLocalNotifications();
+return;
+
+console.log('- task.taskId: '+task.taskId);
+PushNotificationIOS.cancelLocalNotifications({taskId:task.taskId});},
+
+
+
+refreshLocalNotifications:function(){
+PushNotificationIOS.checkPermissions(function(permissions){
+
+if(!(permissions.alert||permissions.badge||permissions.sound)){
+PushNotificationIOS.requestPermissions();}});
+
+
+
+var TaskStore=require('MemoryMagicProject/source/stores/TaskStore.js');
+var tasks=TaskStore.getAll();
+console.log('tasks.length: '+tasks.length);
+var dic=[];
+tasks.map(function(task){
+var createTime=moment(task.createTime,format);
+var createTime6am=createTime.startOf('day').add(6,'hours');
+var dateAfterOneDay=moment(createTime6am).add(1,'days').format('YYYY-MM-DD HH');
+var dateAfterTwoDay=moment(createTime6am).add(2,'days').format('YYYY-MM-DD HH');
+var dateAfterOneWeek=moment(createTime6am).add(7,'days').format('YYYY-MM-DD HH');
+var dateAfterOneMonth=moment(createTime6am).add(30,'days').format('YYYY-MM-DD HH');
+
+var tasksCount=1;
+if(dateAfterOneDay in dic){
+tasksCount=dic[dateAfterOneDay];
+tasksCount+=1;}
+
+dic[dateAfterOneDay]=tasksCount;
+
+tasksCount=1;
+if(dateAfterTwoDay in dic){
+tasksCount=dic[dateAfterTwoDay];
+tasksCount+=1;}
+
+dic[dateAfterTwoDay]=tasksCount;
+
+tasksCount=1;
+if(dateAfterOneWeek in dic){
+tasksCount=dic[dateAfterOneWeek];
+tasksCount+=1;}
+
+dic[dateAfterOneWeek]=tasksCount;
+
+tasksCount=1;
+if(dateAfterOneMonth in dic){
+tasksCount=dic[dateAfterOneMonth];
+tasksCount+=1;}
+
+dic[dateAfterOneMonth]=tasksCount;});
+
+
+PushNotificationIOS.cancelAllLocalNotifications();
+
+
+for(var dateTime in dic){
+var tasksCount=dic[dateTime];
+console.log('今天你有'+tasksCount+'个任务需要复习，请一定要完成它！🙇');
+console.log(dateTime+' -> '+moment(dateTime)+' -> '+moment(dateTime).format(format));
+PushNotificationIOS.scheduleLocalNotification({
+alertBody:'今天你有 '+tasksCount+' 个任务需要复习，请一定要完成它！🙇',
+fireDate:moment(dateTime).format("YYYY-MM-DDTHH:mm:ss.sssZ")});}}};
+
+
+
+
+
+
+module.exports=TaskNotification;
+});
 __d('MemoryMagicProject/source/components/Detail.js',function(global, require, module, exports) {  'use strict';
 
 var React=require('react-native/Libraries/react-native/react-native.js');
@@ -86613,6 +86736,251 @@ AppDispatcher.dispatch(action);}};
 
 module.exports=TaskActionCreators;
 });
+__d('MemoryMagicProject/source/stores/TaskStore.js',function(global, require, module, exports) {  var AppDispatcher=require('MemoryMagicProject/source/dispatcher/AppDispatcher.js');
+
+var TaskNotification=require('MemoryMagicProject/source/notification/TaskNotification.js');
+var EventEmitter=require('events/events.js').EventEmitter;
+var assign=require('object-assign/index.js');
+var SQLite=require('react-native-sqlite/sqlite3.ios.js');
+var moment=require('moment/moment.js');
+var format="YYYY-MM-DD HH:mm";
+
+var _tasks=[];
+var CHANGE_EVENT='change';
+
+function guid(){
+function s4(){
+return Math.floor((1+Math.random())*0x10000).
+toString(16).
+substring(1);}
+
+return s4()+s4()+'-'+s4()+'-'+s4()+'-'+
+s4()+'-'+s4()+s4()+s4();}
+
+
+function create(text){
+
+var id=guid();
+var newTask={
+taskId:id,
+taskTitle:text,
+createTime:moment().format(format)};
+
+
+addData(newTask);}
+
+
+function deleteTask(task){
+var database=SQLite.open("tasks.sqlite",function(error,database){
+if(error){
+console.log("Falied to open database: ",error);
+return;}
+
+
+var sql="DELETE FROM Task WHERE taskId = ?";
+var params=[task.taskId];
+database.executeSQL(sql,params,rowCallback,completeCallback);
+
+function rowCallback(rowData){}
+
+
+function completeCallback(error){
+if(error){
+console.log("Falied to excute query: ",error);
+return;}
+
+console.log("Query complete!");
+database.close(function(error){
+if(error){
+console.log("Failed to close database: ",error);
+return;}});
+
+
+
+loadData();}});}
+
+
+
+
+
+function addData(task){
+var database=SQLite.open("tasks.sqlite",function(error,database){
+if(error){
+console.log("Falied to open database: ",error);
+return;}
+
+
+var sql="INSERT INTO Task (taskId, taskTitle, createTime) VALUES (?, ?, ?)";
+var params=[task.taskId,task.taskTitle,task.createTime];
+database.executeSQL(sql,params,rowCallback,completeCallback);
+
+function rowCallback(rowData){}
+
+
+function completeCallback(error){
+if(error){
+console.log("Falied to excute query: ",error);
+return;}
+
+console.log("Query complete!");
+database.close(function(error){
+if(error){
+console.log("Failed to close database: ",error);
+return;}});
+
+
+
+loadData();}});}
+
+
+
+
+
+
+function loadData(){
+var tasks=[];
+
+var database=SQLite.open("tasks.sqlite",function(error,database){
+if(error){
+console.log("Falied to open database: ",error);
+return;}
+
+
+var sql="SELECT * from Task";
+var params=[];
+database.executeSQL(sql,params,rowCallback,completeCallback);
+
+function rowCallback(rowData){
+tasks.push(rowData);}
+
+function completeCallback(error){
+if(error){
+console.log("Falied to excute query: ",error);
+return;}
+
+console.log("Query complete!");
+database.close(function(error){
+if(error){
+console.log("Failed to close database: ",error);
+return;}});
+
+
+_tasks=tasks;
+TaskStore.emitChange();
+TaskNotification.refreshLocalNotifications();}});}
+
+
+
+
+function createTable(){
+var database=SQLite.open("tasks.sqlite");
+database.executeSQL("CREATE TABLE IF NOT EXISTS Task (taskId TEXT PRIMARY KEY, taskTitle TEXT, createTime TEXT)",
+[],
+function(data){
+console.log("data: ",data);},
+
+function(error){
+if(error!==null){
+console.error("error: ",error);}else 
+{
+console.log("create table success!");}});}
+
+
+
+
+var TaskStore=assign({},EventEmitter.prototype,{
+addChangeListener:function(callback){
+this.on(CHANGE_EVENT,callback);},
+
+
+removeChangeListener:function(callback){
+this.removeListener(CHANGE_EVENT,callback);},
+
+
+getAll:function(){
+return _tasks;},
+
+
+emitChange:function(){
+this.emit(CHANGE_EVENT);},
+
+
+init:function(){
+loadData();},
+
+
+createTable:function(){
+createTable();},
+
+
+getTodayTodo:function(){
+var todayTodoTasks=[];
+_tasks.map(function(task){
+var createTime=moment(task.createTime).startOf('day');
+var today=moment().startOf('day');
+if(moment(createTime).add(1,'days').diff(today,'days')===0||
+moment(createTime).add(2,'days').diff(today,'days')===0||
+moment(createTime).add(7,'days').diff(today,'days')===0||
+moment(createTime).add(30,'days').diff(today,'days')===0)
+{
+todayTodoTasks.push(task);}});
+
+
+return todayTodoTasks;}});
+
+
+
+function handleAction(action){
+if(action.type==='create_task'){
+create(action.text);}else 
+if(action.type==='delete_task'){
+deleteTask(action.task);}}
+
+
+
+TaskStore.dispatchToken=AppDispatcher.register(handleAction);
+module.exports=TaskStore;
+});
+__d('MemoryMagicProject/source/stores/ButtonStore.js',function(global, require, module, exports) {  var AppDispatcher=require('MemoryMagicProject/source/dispatcher/AppDispatcher.js');
+var TaskNotification=require('MemoryMagicProject/source/notification/TaskNotification.js');
+var EventEmitter=require('events/events.js').EventEmitter;
+var assign=require('object-assign/index.js');
+var _=require('lodash/lodash.js');
+
+
+
+
+var ButtonStore=_.extend({},EventEmitter.prototype,{
+addChangeListener:function(eventName,callback){
+this.method=_.debounce(callback,100);
+this.on(eventName,this.method);
+console.log('debounce');},
+
+
+method:function(){},
+removeChangeListener:function(eventName,callback){
+this.removeListener(eventName,this.method);
+_.debounce(callback).cancel();
+console.log('cancel');},
+
+
+emitChange:function(eventName){
+this.emit(eventName);},
+
+
+init:function(){}});
+
+
+
+function handleAction(action){
+if(action.type==='click'){
+ButtonStore.emitChange(action.name);}}
+
+
+
+ButtonStore.dispatchToken=AppDispatcher.register(handleAction);
+module.exports=ButtonStore;
+});
 __d('MemoryMagicProject/source/dispatcher/AppDispatcher.js',function(global, require, module, exports) {  var Dispatcher=require('flux/index.js').Dispatcher;
 
 module.exports=new Dispatcher();
@@ -87022,374 +87390,6 @@ height:21}});
 
 
 module.exports=NavigationHeader;
-});
-__d('MemoryMagicProject/source/notification/TaskNotification.js',function(global, require, module, exports) {  var 
-
-
-
-
-
-React=require('react-native/Libraries/react-native/react-native.js');
-var moment=require('moment/moment.js');
-var format="YYYY-MM-DD HH:mm";var 
-
-
-
-PushNotificationIOS=
-React.PushNotificationIOS;
-
-var TaskNotification={
-scheduleLocalNotification:function(task){
-this.refreshLocalNotifications();
-return;
-
-PushNotificationIOS.checkPermissions(function(permissions){
-
-if(!(permissions.alert||permissions.badge||permissions.sound)){
-PushNotificationIOS.requestPermissions();}});
-
-
-
-var createTime=moment(task.createTime,format);
-var createTime6am=createTime.startOf('day').add(6,'hours');
-var dateAfterOneDay=moment(createTime6am).add(1,'days');
-var dateAfterTwoDay=moment(createTime6am).add(2,'days');
-var dateAfterOneWeek=moment(createTime6am).add(7,'days');
-var dateAfterOneMonth=moment(createTime6am).add(30,'days');
-
-console.log('+ task.taskId: '+task.taskId);
-var dateAfterOneMinutes=moment(createTime).add(1,'minutes');
-var list=[dateAfterOneMinutes,dateAfterOneDay,dateAfterTwoDay,dateAfterOneWeek,dateAfterOneMonth];
-list.map(function(time){
-console.log('time: '+time.format(format));
-PushNotificationIOS.scheduleLocalNotification({
-alertBody:'今日复习任务: '+task.taskTitle,
-fireDate:time.format("YYYY-MM-DDTHH:mm:ss.sssZ"),
-userInfo:{taskId:task.taskId}});});},
-
-
-
-
-cancelLocalNotification:function(task){
-this.refreshLocalNotifications();
-return;
-
-console.log('- task.taskId: '+task.taskId);
-PushNotificationIOS.cancelLocalNotifications({taskId:task.taskId});},
-
-
-
-refreshLocalNotifications:function(){
-PushNotificationIOS.checkPermissions(function(permissions){
-
-if(!(permissions.alert||permissions.badge||permissions.sound)){
-PushNotificationIOS.requestPermissions();}});
-
-
-
-var TaskStore=require('MemoryMagicProject/source/stores/TaskStore.js');
-var tasks=TaskStore.getAll();
-console.log('tasks.length: '+tasks.length);
-var dic=[];
-tasks.map(function(task){
-var createTime=moment(task.createTime,format);
-var createTime6am=createTime.startOf('day').add(6,'hours');
-var dateAfterOneDay=moment(createTime6am).add(1,'days').format('YYYYMMDD');
-var dateAfterTwoDay=moment(createTime6am).add(2,'days').format('YYYYMMDD');
-var dateAfterOneWeek=moment(createTime6am).add(7,'days').format('YYYYMMDD');
-var dateAfterOneMonth=moment(createTime6am).add(30,'days').format('YYYYMMDD');
-
-var tasksCount=1;
-if(dateAfterOneDay in dic){
-tasksCount=dic[dateAfterOneDay];
-tasksCount+=1;}
-
-dic[dateAfterOneDay]=tasksCount;
-
-tasksCount=1;
-if(dateAfterTwoDay in dic){
-tasksCount=dic[dateAfterTwoDay];
-tasksCount+=1;}
-
-dic[dateAfterTwoDay]=tasksCount;
-
-tasksCount=1;
-if(dateAfterOneWeek in dic){
-tasksCount=dic[dateAfterOneWeek];
-tasksCount+=1;}
-
-dic[dateAfterOneWeek]=tasksCount;
-
-tasksCount=1;
-if(dateAfterOneMonth in dic){
-tasksCount=dic[dateAfterOneMonth];
-tasksCount+=1;}
-
-dic[dateAfterOneMonth]=tasksCount;});
-
-
-PushNotificationIOS.cancelAllLocalNotifications();
-
-
-for(var dateTime in dic){
-var tasksCount=dic[dateTime];
-console.log('今天你有'+tasksCount+'个任务需要复习，请一定要完成它！🙇');
-console.log(dateTime+' -> '+moment(dateTime)+' -> '+moment(dateTime).format(format));
-PushNotificationIOS.scheduleLocalNotification({
-alertBody:'今天你有 '+tasksCount+' 个任务需要复习，请一定要完成它！🙇',
-fireDate:moment(dateTime).format("YYYY-MM-DDTHH:mm:ss.sssZ")});}}};
-
-
-
-
-
-
-module.exports=TaskNotification;
-});
-__d('MemoryMagicProject/source/stores/ButtonStore.js',function(global, require, module, exports) {  var AppDispatcher=require('MemoryMagicProject/source/dispatcher/AppDispatcher.js');
-var TaskNotification=require('MemoryMagicProject/source/notification/TaskNotification.js');
-var EventEmitter=require('events/events.js').EventEmitter;
-var assign=require('object-assign/index.js');
-var _=require('lodash/lodash.js');
-
-
-
-
-var ButtonStore=_.extend({},EventEmitter.prototype,{
-addChangeListener:function(eventName,callback){
-this.method=_.debounce(callback,100);
-this.on(eventName,this.method);
-console.log('debounce');},
-
-
-method:function(){},
-removeChangeListener:function(eventName,callback){
-this.removeListener(eventName,this.method);
-_.debounce(callback).cancel();
-console.log('cancel');},
-
-
-emitChange:function(eventName){
-this.emit(eventName);},
-
-
-init:function(){}});
-
-
-
-function handleAction(action){
-if(action.type==='click'){
-ButtonStore.emitChange(action.name);}}
-
-
-
-ButtonStore.dispatchToken=AppDispatcher.register(handleAction);
-module.exports=ButtonStore;
-});
-__d('MemoryMagicProject/source/stores/TaskStore.js',function(global, require, module, exports) {  var AppDispatcher=require('MemoryMagicProject/source/dispatcher/AppDispatcher.js');
-
-var TaskNotification=require('MemoryMagicProject/source/notification/TaskNotification.js');
-var EventEmitter=require('events/events.js').EventEmitter;
-var assign=require('object-assign/index.js');
-var SQLite=require('react-native-sqlite/sqlite3.ios.js');
-var moment=require('moment/moment.js');
-var format="YYYY-MM-DD HH:mm";
-
-var _tasks=[];
-var CHANGE_EVENT='change';
-
-function guid(){
-function s4(){
-return Math.floor((1+Math.random())*0x10000).
-toString(16).
-substring(1);}
-
-return s4()+s4()+'-'+s4()+'-'+s4()+'-'+
-s4()+'-'+s4()+s4()+s4();}
-
-
-function create(text){
-
-var id=guid();
-var newTask={
-taskId:id,
-taskTitle:text,
-createTime:moment().format(format)};
-
-
-addData(newTask);}
-
-
-function deleteTask(task){
-var database=SQLite.open("tasks.sqlite",function(error,database){
-if(error){
-console.log("Falied to open database: ",error);
-return;}
-
-
-var sql="DELETE FROM Task WHERE taskId = ?";
-var params=[task.taskId];
-database.executeSQL(sql,params,rowCallback,completeCallback);
-
-function rowCallback(rowData){}
-
-
-function completeCallback(error){
-if(error){
-console.log("Falied to excute query: ",error);
-return;}
-
-console.log("Query complete!");
-database.close(function(error){
-if(error){
-console.log("Failed to close database: ",error);
-return;}});
-
-
-
-loadData();}});}
-
-
-
-
-
-function addData(task){
-var database=SQLite.open("tasks.sqlite",function(error,database){
-if(error){
-console.log("Falied to open database: ",error);
-return;}
-
-
-var sql="INSERT INTO Task (taskId, taskTitle, createTime) VALUES (?, ?, ?)";
-var params=[task.taskId,task.taskTitle,task.createTime];
-database.executeSQL(sql,params,rowCallback,completeCallback);
-
-function rowCallback(rowData){}
-
-
-function completeCallback(error){
-if(error){
-console.log("Falied to excute query: ",error);
-return;}
-
-console.log("Query complete!");
-database.close(function(error){
-if(error){
-console.log("Failed to close database: ",error);
-return;}});
-
-
-
-loadData();}});}
-
-
-
-
-
-
-function loadData(){
-var tasks=[];
-
-var database=SQLite.open("tasks.sqlite",function(error,database){
-if(error){
-console.log("Falied to open database: ",error);
-return;}
-
-
-var sql="SELECT * from Task";
-var params=[];
-database.executeSQL(sql,params,rowCallback,completeCallback);
-
-function rowCallback(rowData){
-tasks.push(rowData);}
-
-function completeCallback(error){
-if(error){
-console.log("Falied to excute query: ",error);
-return;}
-
-console.log("Query complete!");
-database.close(function(error){
-if(error){
-console.log("Failed to close database: ",error);
-return;}});
-
-
-_tasks=tasks;
-TaskStore.emitChange();
-TaskNotification.refreshLocalNotifications();}});}
-
-
-
-
-function createTable(){
-var database=SQLite.open("tasks.sqlite");
-database.executeSQL("CREATE TABLE IF NOT EXISTS Task (taskId TEXT PRIMARY KEY, taskTitle TEXT, createTime TEXT)",
-[],
-function(data){
-console.log("data: ",data);},
-
-function(error){
-if(error!==null){
-console.error("error: ",error);}else 
-{
-console.log("create table success!");}});}
-
-
-
-
-var TaskStore=assign({},EventEmitter.prototype,{
-addChangeListener:function(callback){
-this.on(CHANGE_EVENT,callback);},
-
-
-removeChangeListener:function(callback){
-this.removeListener(CHANGE_EVENT,callback);},
-
-
-getAll:function(){
-return _tasks;},
-
-
-emitChange:function(){
-this.emit(CHANGE_EVENT);},
-
-
-init:function(){
-loadData();},
-
-
-createTable:function(){
-createTable();},
-
-
-getTodayTodo:function(){
-var todayTodoTasks=[];
-_tasks.map(function(task){
-var createTime=moment(task.createTime).startOf('day');
-var today=moment().startOf('day');
-if(moment(createTime).add(1,'days').diff(today,'days')===0||
-moment(createTime).add(2,'days').diff(today,'days')===0||
-moment(createTime).add(7,'days').diff(today,'days')===0||
-moment(createTime).add(30,'days').diff(today,'days')===0)
-{
-todayTodoTasks.push(task);}});
-
-
-return todayTodoTasks;}});
-
-
-
-function handleAction(action){
-if(action.type==='create_task'){
-create(action.text);}else 
-if(action.type==='delete_task'){
-deleteTask(action.task);}}
-
-
-
-TaskStore.dispatchToken=AppDispatcher.register(handleAction);
-module.exports=TaskStore;
 });
 ;require("InitializeJavaScriptAppEngine");
 ;require("MemoryMagicProject/index.ios.js");

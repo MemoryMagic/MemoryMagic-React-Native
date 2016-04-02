@@ -69,10 +69,10 @@ var TaskNotification = {
 		tasks.map((task) => {
 			let createTime = moment(task.createTime, format);
     		let createTime6am = createTime.startOf('day').add(6, 'hours');
-			let dateAfterOneDay = moment(createTime6am).add(1, 'days').format('YYYYMMDD');
-			let dateAfterTwoDay = moment(createTime6am).add(2, 'days').format('YYYYMMDD');
-			let dateAfterOneWeek = moment(createTime6am).add(7, 'days').format('YYYYMMDD');
-			let dateAfterOneMonth = moment(createTime6am).add(30, 'days').format('YYYYMMDD');
+			let dateAfterOneDay = moment(createTime6am).add(1, 'days').format('YYYY-MM-DD HH');
+			let dateAfterTwoDay = moment(createTime6am).add(2, 'days').format('YYYY-MM-DD HH');
+			let dateAfterOneWeek = moment(createTime6am).add(7, 'days').format('YYYY-MM-DD HH');
+			let dateAfterOneMonth = moment(createTime6am).add(30, 'days').format('YYYY-MM-DD HH');
 			
 			var tasksCount = 1;
 			if (dateAfterOneDay in dic) {
@@ -112,7 +112,7 @@ var TaskNotification = {
 			console.log(dateTime + ' -> ' + moment(dateTime) + ' -> ' + moment(dateTime).format(format));
 			PushNotificationIOS.scheduleLocalNotification({
 				alertBody: '今天你有 ' + tasksCount + ' 个任务需要复习，请一定要完成它！🙇',
-				fireDate: moment(dateTime).format("YYYY-MM-DDTHH:mm:ss.sssZ")
+				fireDate: moment(dateTime).format("YYYY-MM-DDTHH:mm:ss.sssZ"),
 			});
 		}
 	},
