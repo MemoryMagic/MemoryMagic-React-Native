@@ -36108,6 +36108,36 @@ _reactNative2.default.createElement(_reactNative.Text,{style:styles.message},thi
 
 module.exports=NoTasksMessage;
 });
+__d('react-native-quick-actions/index.ios.js',function(global, require, module, exports) {  var RNQuickActionManager=require('react-native/Libraries/react-native/react-native.js').NativeModules.RNQuickActionManager;
+var _initialAction=RNQuickActionManager.initialAction;
+
+module.exports={
+
+
+
+
+
+
+
+popInitialAction:function(){
+var initialAction=_initialAction;
+_initialAction=null;
+return initialAction;},
+
+
+
+
+
+setShortcutItems:function(icons){
+RNQuickActionManager.setShortcutItems(icons);},
+
+
+
+
+
+clearShortcutItems:function(){
+RNQuickActionManager.clearShortcutItems();}};
+});
 __d('MemoryMagicProject/index.ios.js',function(global, require, module, exports) {  'use strict';
 
 var React=require('react-native/Libraries/react-native/react-native.js');
@@ -36126,32 +36156,45 @@ StyleSheet=
 
 
 
-
-React.StyleSheet;var View=React.View;var Text=React.Text;var Navigator=React.Navigator;var NavigatorIOS=React.NavigatorIOS;var Component=React.Component;var AsyncStorage=React.AsyncStorage;
+React.StyleSheet;var View=React.View;var Navigator=React.Navigator;var NavigatorIOS=React.NavigatorIOS;var Component=React.Component;var AsyncStorage=React.AsyncStorage;
 
 var TRACE_KEY='@AsncStorageFristLaunch:key';
 
 var styles=StyleSheet.create({
 container:{
 flex:1,
-backgroundColor:'gray'},
-
-text:{
-marginTop:65}});var 
+backgroundColor:'gray'}});var 
 
 
 
-HelloWrold=function(_Component){babelHelpers.inherits(HelloWrold,_Component);function HelloWrold(){babelHelpers.classCallCheck(this,HelloWrold);return babelHelpers.possibleConstructorReturn(this,Object.getPrototypeOf(HelloWrold).apply(this,arguments));}babelHelpers.createClass(HelloWrold,[{key:'render',value:function render()
-{
-return React.createElement(View,{style:styles.text},
-React.createElement(Text,null,'!@#$%Y^%$#@!SDFDSADSDFDSS'));}}]);return HelloWrold;}(Component);var 
+MemoryMagicProjectApp=function(_Component){babelHelpers.inherits(MemoryMagicProjectApp,_Component);function MemoryMagicProjectApp(){babelHelpers.classCallCheck(this,MemoryMagicProjectApp);return babelHelpers.possibleConstructorReturn(this,Object.getPrototypeOf(MemoryMagicProjectApp).apply(this,arguments));}babelHelpers.createClass(MemoryMagicProjectApp,[{key:'componentDidMount',value:function componentDidMount()
+
+{var _this2=this;
+this._loadInitialState().done();
+
+var QuickActions=require('react-native-quick-actions/index.ios.js');
+var action=QuickActions.popInitialAction();
+
+if(action&&action.type==='com.yangcun.memorymagic.addtask'){
+setTimeout(function(){
+_this2.refs.nav.push({
+title:'添加任务',
+component:AddTask,
+rightButtonTitle:'保存',
+onRightButtonPress:function(){
+ButtonActions.click('save');}});},
 
 
+10);}else 
+if(action&&action.type==='com.yangcun.memorymagic.todaytodo'){
+setTimeout(function(){
+_this2.refs.nav.push({
+title:'今日复习任务',
+component:TodayTodo});},
 
-MemoryMagicProjectApp=function(_Component2){babelHelpers.inherits(MemoryMagicProjectApp,_Component2);function MemoryMagicProjectApp(){babelHelpers.classCallCheck(this,MemoryMagicProjectApp);return babelHelpers.possibleConstructorReturn(this,Object.getPrototypeOf(MemoryMagicProjectApp).apply(this,arguments));}babelHelpers.createClass(MemoryMagicProjectApp,[{key:'componentDidMount',value:function componentDidMount()
+10);}}},{key:'_loadInitialState',value:function _loadInitialState(){var 
 
-{
-this._loadInitialState().done();}},{key:'_loadInitialState',value:function _loadInitialState(){var 
+
 
 
 
@@ -36193,10 +36236,7 @@ title:'添加任务',
 component:AddTask,
 rightButtonTitle:'保存',
 onRightButtonPress:function(){
-ButtonActions.click('save');},
-
-passProps:{
-onChanged:_this3._onChange}});},
+ButtonActions.click('save');}});},
 
 
 
@@ -36217,6 +36257,7 @@ React.createElement(View,null)));}}]);return MemoryMagicProjectApp;}(Component);
 
 
 React.AppRegistry.registerComponent('MemoryMagicProject',function(){
+
 return MemoryMagicProjectApp;});
 });
 __d('NavigationLegacyNavigator',function(global, require, module, exports) {  'use strict';
