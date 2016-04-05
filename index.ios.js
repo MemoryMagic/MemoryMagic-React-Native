@@ -9,6 +9,7 @@ var TodayTodo  = require('./source/components/TodayTodo');
 var TaskStore = require('./source/stores/TaskStore');
 var ButtonActions = require('./source/actions/ButtonActions');
 var TaskActions = require('./source/actions/TaskActions');
+
 var {
   StyleSheet,
   View,
@@ -16,6 +17,7 @@ var {
   NavigatorIOS,
   Component,
   AsyncStorage,
+  DeviceEventEmitter
 } = React;
 
 var TRACE_KEY = '@AsncStorageFristLaunch:key';
@@ -29,13 +31,9 @@ var styles = StyleSheet.create({
 
 class MemoryMagicProjectApp extends Component {
 
-  componentDidMount() {
-    this._loadInitialState().done();
 
-   var QuickActions = require('react-native-quick-actions');
-   var action = QuickActions.popInitialAction();
-
-    if (action && action.type === 'com.yangcun.memorymagic.addtask') {
+  handleAction(action) {
+  	if (action && action.type === 'com.yangcun.memorymagic.addtask') {
       setTimeout(() => {
         this.refs.nav.push({ 
           title: '添加任务',
@@ -54,7 +52,22 @@ class MemoryMagicProjectApp extends Component {
           });
       }, 10);
     }
+  }
 
+  componentDidMount() {
+  	this._loadInitialState().done();
+
+    // cold-launch
+  	var QuickActions = require('react-native-quick-actions');
+  	var action = QuickActions.popInitialAction();
+  	this.handleAction(action);
+
+    // launch 
+  	DeviceEventEmitter.addListener('quickActionShortcut', action => {
+      // pop to root 
+      this.refs.nav.popToTop();
+   		setTimeout(() => this.handleAction(action), 700);
+   	});
   }
 
   async _loadInitialState() {
