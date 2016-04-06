@@ -38,7 +38,7 @@
   jsCodeLocation = [NSURL URLWithString:@"http://10.180.10.80:8081/index.ios.bundle?platform=ios&dev=true"];
 
   // Step 1:
-  //jsCodeLocation = [[NSBundle mainBundle] URLForResource:@"main" withExtension:@"jsbundle"];
+// jsCodeLocation = [[NSBundle mainBundle] URLForResource:@"main" withExtension:@"jsbundle"];
   // Step 2: Run in terminal:
   // curl http://localhost:8081/index.ios.bundle -o main.jsbundle
 

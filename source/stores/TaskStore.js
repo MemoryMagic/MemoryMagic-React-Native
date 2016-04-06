@@ -59,8 +59,9 @@ function deleteTask(task) {
 				}
 			});
 
-			loadData();
-			//TaskNotification.cancelLocalNotification(task);
+			loadData(() => {
+				//TaskNotification.cancelLocalNotification(task);
+			});
 		}
 	});
 }
@@ -92,14 +93,14 @@ function addData(task) {
 				}
 			});
 
-			loadData();
-            //TaskNotification.scheduleLocalNotification(task);
-
+			loadData(() => {
+            	//TaskNotification.scheduleLocalNotification(task);
+            });
 		}
 	});
 }
 
-function loadData() {
+function loadData(complete) {
 	var tasks = [];
 
 	var database = SQLite.open("tasks.sqlite", function(error, database) {
@@ -129,6 +130,7 @@ function loadData() {
 			});
 			_tasks = tasks
 			TaskStore.emitChange();
+			//complete();
 			TaskNotification.refreshLocalNotifications();
 		}
 	});
@@ -168,7 +170,7 @@ var TaskStore = assign({}, EventEmitter.prototype, {
 	},
 
 	init: function() {
-		loadData();
+		loadData(() => { });
 	},
 
 	createTable: function() {

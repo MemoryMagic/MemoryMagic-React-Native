@@ -107,9 +107,18 @@ var TaskNotification = {
 
 		// Schedule local notification by date.
 		for (var dateTime in dic) {
+
+			// dateTime is the day before yesterday
+			if (moment(dateTime).isBefore(moment().add(-1, 'day').endOf('day'))) {
+				continue;
+			}
+			// dateTime is today and passed 6:00 am
+			if (moment(dateTime).diff(moment(), 'days') === 0 && moment(dateTime).isAfter(moment().startOf('day').add(6, 'hours'))) {
+				continue;
+			}
 			var tasksCount = dic[dateTime];
 			console.log('今天你有' + tasksCount + '个任务需要复习，请一定要完成它！🙇');
-			console.log(dateTime + ' -> ' + moment(dateTime) + ' -> ' + moment(dateTime).format(format));
+			//console.log(dateTime + ' -> ' + moment(dateTime) + ' -> ' + moment(dateTime).format(format));
 			PushNotificationIOS.scheduleLocalNotification({
 				alertBody: '今天你有 ' + tasksCount + ' 个任务需要复习，请一定要完成它！🙇',
 				fireDate: moment(dateTime).format("YYYY-MM-DDTHH:mm:ss.sssZ"),
