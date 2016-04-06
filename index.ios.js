@@ -17,7 +17,9 @@ var {
   NavigatorIOS,
   Component,
   AsyncStorage,
-  DeviceEventEmitter
+  DeviceEventEmitter,
+  PushNotificationIOS,
+  AlertIOS
 } = React;
 
 var TRACE_KEY = '@AsncStorageFristLaunch:key';
@@ -47,27 +49,40 @@ class MemoryMagicProjectApp extends Component {
     } else if (action && action.type === 'com.yangcun.memorymagic.todaytodo') {
       setTimeout(() => {
         this.refs.nav.push({
-            title: '今日复习任务',
-            component: TodayTodo
-          });
+          title: '今日复习任务',
+          component: TodayTodo
+        });
       }, 10);
-    }
+    } 
   }
 
   componentDidMount() {
   	this._loadInitialState().done();
 
+    // Quick Action for 3D Touch
     // cold-launch
-  	var QuickActions = require('react-native-quick-actions');
-  	var action = QuickActions.popInitialAction();
-  	this.handleAction(action);
-
+    var QuickActions = require('react-native-quick-actions');
+    var action = QuickActions.popInitialAction();
+    this.handleAction(action);
     // launch 
-  	DeviceEventEmitter.addListener('quickActionShortcut', action => {
+    DeviceEventEmitter.addListener('quickActionShortcut', action => {
       // pop to root 
       this.refs.nav.popToTop();
-   		setTimeout(() => this.handleAction(action), 700);
-   	});
+      setTimeout(() => this.handleAction(action), 700);
+    });
+
+    // Remote Notification
+    PushNotificationIOS.addEventListener('localNotification', devicetoken => {
+      this.refs.nav.popToTop();
+      
+      setTimeout(() => {
+        this.refs.nav.push({
+          title: '今日复习任务',
+          component: TodayTodo
+        });
+      }, 1000);
+
+    });
   }
 
   async _loadInitialState() {
@@ -133,6 +148,6 @@ class MemoryMagicProjectApp extends Component {
 }
 
 React.AppRegistry.registerComponent('MemoryMagicProject', function() {
- 
+
   return MemoryMagicProjectApp
 });

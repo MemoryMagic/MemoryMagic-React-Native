@@ -69,13 +69,16 @@
   [RCTPushNotificationManager didRegisterUserNotificationSettings: notificationSettings];
 }
 
-//-(void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
-//  [RCTPushNotificationManager didRegisterForRemoteNotificationsWithDeviceToken:deviceToken];
-//}
+-(void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
+  [RCTPushNotificationManager didRegisterForRemoteNotificationsWithDeviceToken:deviceToken];
+}
 -(void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo {
   [RCTPushNotificationManager didReceiveRemoteNotification:userInfo];
 }
 
+- (void)application:(UIApplication *)application didReceiveLocalNotification:(UILocalNotification *)notification {
+  [RCTPushNotificationManager didReceiveLocalNotification:notification];
+}
 - (void)application:(UIApplication *)application performActionForShortcutItem:(UIApplicationShortcutItem *)shortcutItem completionHandler:(void (^)(BOOL))completionHandler {
 //  if ([shortcutItem.type  isEqual: @"com.yangcun.memorymagic.addtask"]) {
 //    

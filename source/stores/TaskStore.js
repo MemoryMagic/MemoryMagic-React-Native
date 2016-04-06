@@ -60,7 +60,7 @@ function deleteTask(task) {
 			});
 
 			loadData(() => {
-				//TaskNotification.cancelLocalNotification(task);
+				TaskNotification.cancelLocalNotification(task);
 			});
 		}
 	});
@@ -94,7 +94,7 @@ function addData(task) {
 			});
 
 			loadData(() => {
-            	//TaskNotification.scheduleLocalNotification(task);
+            	TaskNotification.scheduleLocalNotification(task);
             });
 		}
 	});
@@ -131,7 +131,7 @@ function loadData(complete) {
 			_tasks = tasks
 			TaskStore.emitChange();
 			//complete();
-			TaskNotification.refreshLocalNotifications();
+			//TaskNotification.refreshLocalNotifications();
 		}
 	});
 }
