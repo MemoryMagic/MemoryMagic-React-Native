@@ -73,14 +73,15 @@ class MemoryMagicProjectApp extends Component {
 
     // Remote Notification
     PushNotificationIOS.addEventListener('localNotification', devicetoken => {
+      /*
       this.refs.nav.popToTop();
-      
       setTimeout(() => {
         this.refs.nav.push({
           title: '今日复习任务',
           component: TodayTodo
         });
       }, 1000);
+      */
 
     });
   }
