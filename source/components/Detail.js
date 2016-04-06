@@ -40,6 +40,7 @@ var styles = StyleSheet.create({
 		marginTop: 10,
 		marginLeft: 15,
 		marginRight: 15,
+		color: '#555555'
 	},
 
 	createTime: {
@@ -90,6 +91,8 @@ var styles = StyleSheet.create({
 		marginLeft: 15,
 		marginRight: 15,
 		marginBottom: 15,
+		color: '#555555',
+
 	}
 });
 
@@ -163,10 +166,6 @@ class Detail extends Component {
 		let dateAfterOneWeek = moment(createTime6am).add(1, 'weeks');
 		let dateAfterOneMonth = moment(createTime6am).add(1, 'months');
 
-		let isNowBeforeOneDay = now.isBefore(dateAfterOneDay);
-		let isNowBeforeTwoDay = now.isBefore(dateAfterTwoDay);
-		let isNowBeforeOneWeek = now.isBefore(dateAfterOneWeek);
-		let isNowBeforeOneMonth = now.isBefore(dateAfterOneMonth);
 		return (
 			<View style={styles.container}>
 			<ScrollView>
@@ -174,21 +173,53 @@ class Detail extends Component {
 			<Text style={ styles.createTime }>{ task.createTime }</Text>
 			<Text style={styles.message}>{this.state.message}</Text>
 			
-			<Text style={ isNowBeforeOneDay ? styles.futureTimeLabel : styles.passTimeLabel }>一天之后:</Text>
-			<Text style={ isNowBeforeOneDay ? styles.futureTime : styles.passTime }>{dateAfterOneDay.format(format)} </Text>
+			<Text style={ this.getLabelColorByDate(dateAfterOneDay) }>一天之后:</Text>
+			<Text style={ this.getTimeColorByDate(dateAfterOneDay) }>{dateAfterOneDay.format(format)} </Text>
 
-			<Text style={ isNowBeforeTwoDay ? styles.futureTimeLabel : styles.passTimeLabel }>两天之后:</Text>
-			<Text style={ isNowBeforeTwoDay ? styles.futureTime : styles.passTime }>{dateAfterTwoDay.format(format)} </Text>
+			<Text style={ this.getLabelColorByDate(dateAfterTwoDay) }>两天之后:</Text>
+			<Text style={ this.getTimeColorByDate(dateAfterTwoDay) }>{dateAfterTwoDay.format(format)} </Text>
 			
-			<Text style={ isNowBeforeOneWeek ? styles.futureTimeLabel : styles.passTimeLabel }>一周之后:</Text>
-			<Text style={ isNowBeforeOneWeek ? styles.futureTime : styles.passTime }>{dateAfterOneWeek.format(format)} </Text>
+			<Text style={ this.getLabelColorByDate(dateAfterOneWeek) }>一周之后:</Text>
+			<Text style={ this.getTimeColorByDate(dateAfterOneWeek) }>{dateAfterOneWeek.format(format)} </Text>
 			
-			<Text style={ isNowBeforeOneMonth ? styles.futureTimeLabel : styles.passTimeLabel }>一月之后:</Text>
-			<Text style={ isNowBeforeOneMonth ? styles.futureTime : styles.passTime }>{dateAfterOneMonth.format(format)} </Text>
+			<Text style={ this.getLabelColorByDate(dateAfterOneMonth) }>一月之后:</Text>
+			<Text style={ this.getTimeColorByDate(dateAfterOneMonth) }>{dateAfterOneMonth.format(format)} </Text>
 
 			</ScrollView>
 			</View>
 			);
+	}
+
+	getColorByDate(date) {
+		let today = moment().startOf('day');
+		if (date.startOf('day').diff(today, 'days') == 0) { // today
+			return '#32bec3' // light blue
+		} else if (today.isBefore(date.startOf('day'))) { // future date
+			return '#555555'
+		} else { // passed date
+			return '#7bbe5e' // green
+		}
+	}
+	getLabelColorByDate(date) {
+		return {
+			fontSize: 13,
+			marginTop: 0,
+			marginLeft: 15,
+			marginRight: 15,
+			marginBottom: 5,
+			color: this.getColorByDate(date)
+		}
+	}
+
+	getTimeColorByDate(date) {
+		return {
+			fontSize: 17,
+			marginTop: 0,
+			marginLeft: 15,
+			marginRight: 15,
+			marginBottom: 15,
+			color: this.getColorByDate(date)
+		}
 	}
 
 	_onTrashButtonClicked() {

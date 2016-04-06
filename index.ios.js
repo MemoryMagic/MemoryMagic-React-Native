@@ -97,6 +97,9 @@ class MemoryMagicProjectApp extends Component {
       <View style= {{ flex: 1}}>
       <NavigatorIOS
       ref='nav'
+      barTintColor = '#32bec3' // lightBlue
+      tintColor = 'white'
+      titleTextColor = 'white'
       style={styles.container}
       initialRoute={{
         title: '任务列表',

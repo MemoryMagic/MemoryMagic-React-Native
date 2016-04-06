@@ -45,7 +45,7 @@ class TodayTodo extends Component {
 	}
 
 	renderRow(rowData, sectionID, rowID) {
-		return (<TaskCell data={rowData} onPress={ () => this._pressRow(rowID, rowData) } />);
+		return (<TaskCell data={rowData} onPress={ () => this._pressRow(rowID, rowData) } isTodayTodo={true} />);
 	}
 
 	_pressRow(rowID: number, propertyGuid: number) {

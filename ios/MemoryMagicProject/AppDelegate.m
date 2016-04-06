@@ -18,7 +18,6 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-  [[UIView appearance] setTintColor:[UIColor colorWithRed:50/255.0 green:180/255.0 blue:180/255.0 alpha:1.0]];
   NSURL *jsCodeLocation;
 
   /**
