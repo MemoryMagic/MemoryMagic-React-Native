@@ -43,7 +43,7 @@ var styles = StyleSheet.create({
 		borderWidth: 0,
 		borderColor: 'lightgray',
 		borderRadius: 0,
-		color: 'black',
+		color: '#555555',
 		alignSelf: 'stretch',
 		flex: 1,
 		height: 30
