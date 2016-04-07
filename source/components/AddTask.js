@@ -24,32 +24,30 @@ var styles = StyleSheet.create({
 
 	// resizeMode: 'cover',
 	container: {
-		marginTop: 65,
-		flexDirection: 'column',
-		alignItems: 'center',
-		flex: 1,
+		marginTop: 60,
+		flexDirection: 'column', 
+		flex: 1
+
 	},
 	titleContainer: {
-		flex: 5, //1
+		flex: 1, //5
 		alignSelf: 'stretch',
 		justifyContent: 'center'
 	},
 	titleInput: {
 		padding: 1,
-		marginTop: 20,
-		marginLeft: 20,
-		marginRight: 20,
-		marginBottom: 20,
+		margin: 20,
 		fontSize: 18,
-		borderWidth: 0,
+		borderWidth: 1,
 		borderColor: 'lightgray',
 		borderRadius: 0,
 		color: '#555555',
 		alignSelf: 'stretch',
 		flex: 1,
-		height: 30
 	},
-	
+	addImageButton: {
+		flex: 1
+	},
 	imageContainer: {
 		flex: 9,
 		alignSelf: 'stretch',
@@ -58,11 +56,6 @@ var styles = StyleSheet.create({
 	},
 	addImageButton: {
 		width: 146,
-	},
-	saveButtonContainer: {
-		flex: 1, //3
-		alignSelf: 'stretch',
-		justifyContent: 'center'
 	}
 });
 	var i = 0
@@ -74,7 +67,8 @@ class AddTask extends Component {
 		ButtonStore.addChangeListener('save', this._onSaveButtonPressed.bind(this));
 
 		this.state = {
-			titleString: ''
+			titleString: '',
+			isKeyboardOpened: false
 		};
 	}
 
@@ -83,38 +77,53 @@ class AddTask extends Component {
 	}
 
 	componentDidMount() {
+		// this.refs.textInput.focus(); => autoFocus={true}
 	}
 	
 	render() {
 		return (
-			<View style={styles.container}>
+			<View style={ styles.container } >
 				<View style={styles.titleContainer}>
 					<TextInput
 					ref='textInput'
-					returnKeyType={'done'}
-					enablesReturnKeyAutomatically={true}
+					returnKeyType={'default'}
+					enablesReturnKeyAutomatically={false}
 					style={styles.titleInput}
 					value={this.state.titleString}
 					onChange={this.onTitleTextChanged.bind(this)} 
 					onKeyPress={this.onKeyPress}
-					blurOnSubmit={true}
+					blurOnSubmit={false}
 					placeholder='输入任务内容'
 					autoGrow={true}
+					autoFocus={true}
 					multiline={true} />
 				</View>
-				<KeyboardSpacer/>
+				<TouchableHighlight underlayColor='white' onPress={this.onToolBarPress.bind(this)}>
+  					<View style={{ backgroundColor: 'lightgray', height: this.state.isKeyboardOpened ? 50 : 0 }} />
+  				</TouchableHighlight>
+				<KeyboardSpacer onToggle={this.keyboardOnToggle.bind(this)} />
 			</View>
 			);
+	}
+
+	keyboardOnToggle(isKeyboardShown, keyboardSpace) {
+		this.setState({
+    		isKeyboardOpened: isKeyboardShown
+    	});
+	}
+
+	onToolBarPress(event) {
+		this.refs.textInput.blur();
 	}
 
 	onAddImagePressed(event) {
 		// Specify any or all of these keys
 		var options = {
-			title: 'Select Avatar',
-			cancelButtonTitle: 'Cancel',
-			takePhotoButtonTitle: 'Take Photo...',
+			title: '添加照片',
+			cancelButtonTitle: '取消',
+			takePhotoButtonTitle: '选择.',
 			takePhotoButtonHidden: false,
-			chooseFromLibraryButtonTitle: 'Choose from Library...',
+			chooseFromLibraryButtonTitle: '从相册选择',
 			chooseFromLibraryButtonHidden: false,
 
 			maxWidth: 100,
