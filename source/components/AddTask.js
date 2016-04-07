@@ -8,6 +8,7 @@ var database = SQLite.open("tasks.sqlite");
 var TaskList = require('./TaskList');
 var TaskActions = require('../actions/TaskActions');
 var ButtonStore = require('../stores/ButtonStore');
+var KeyboardSpacer = require('react-native-keyboard-spacer');
 
 var {
 	StyleSheet,
@@ -87,20 +88,21 @@ class AddTask extends Component {
 	render() {
 		return (
 			<View style={styles.container}>
-			<View style={styles.titleContainer}>
-			<TextInput
-			ref='textInput'
-			returnKeyType={'done'}
-			enablesReturnKeyAutomatically={true}
-			style={styles.titleInput}
-			value={this.state.titleString}
-			onChange={this.onTitleTextChanged.bind(this)} 
-			onKeyPress={this.onKeyPress}
-			blurOnSubmit={true}
-			placeholder='输入任务名称'
-			autoGrow={true}
-			multiline={true} />
-			</View>
+				<View style={styles.titleContainer}>
+					<TextInput
+					ref='textInput'
+					returnKeyType={'done'}
+					enablesReturnKeyAutomatically={true}
+					style={styles.titleInput}
+					value={this.state.titleString}
+					onChange={this.onTitleTextChanged.bind(this)} 
+					onKeyPress={this.onKeyPress}
+					blurOnSubmit={true}
+					placeholder='输入任务名称'
+					autoGrow={true}
+					multiline={true} />
+				</View>
+				<KeyboardSpacer/>
 			</View>
 			);
 	}
