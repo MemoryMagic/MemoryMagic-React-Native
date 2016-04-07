@@ -9,6 +9,7 @@ var TaskList = require('./TaskList');
 var TaskActions = require('../actions/TaskActions');
 var ButtonStore = require('../stores/ButtonStore');
 var KeyboardSpacer = require('react-native-keyboard-spacer');
+import KeyboardToolBar from './KeyboardToolBar';
 
 var {
 	StyleSheet,
@@ -36,9 +37,9 @@ var styles = StyleSheet.create({
 	},
 	titleInput: {
 		padding: 1,
-		margin: 20,
+		margin: 15,
 		fontSize: 18,
-		borderWidth: 1,
+		borderWidth: 0,
 		borderColor: 'lightgray',
 		borderRadius: 0,
 		color: '#555555',
@@ -79,6 +80,7 @@ class AddTask extends Component {
 	componentDidMount() {
 		// this.refs.textInput.focus(); => autoFocus={true}
 	}
+  				// <KeyboardToolBar style={{ height: this.state.isKeyboardOpened ? 50 : 0 }} />
 	
 	render() {
 		return (
@@ -98,9 +100,7 @@ class AddTask extends Component {
 					autoFocus={true}
 					multiline={true} />
 				</View>
-				<TouchableHighlight underlayColor='white' onPress={this.onToolBarPress.bind(this)}>
-  					<View style={{ backgroundColor: 'lightgray', height: this.state.isKeyboardOpened ? 50 : 0 }} />
-  				</TouchableHighlight>
+  				<KeyboardToolBar hidden = { !this.state.isKeyboardOpened } onCloseButtonPress= { this.onCloseKeyboardButtonPress.bind(this)} />
 				<KeyboardSpacer onToggle={this.keyboardOnToggle.bind(this)} />
 			</View>
 			);
@@ -112,8 +112,12 @@ class AddTask extends Component {
     	});
 	}
 
-	onToolBarPress(event) {
+	onCloseKeyboardButtonPress(event) {
+		console.log('AddTask - onCloseKeyboardButtonPress');
 		this.refs.textInput.blur();
+	}
+
+	onToolBarPress(event) {
 	}
 
 	onAddImagePressed(event) {
