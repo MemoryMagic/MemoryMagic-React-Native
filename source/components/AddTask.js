@@ -10,7 +10,7 @@ var TaskActions = require('../actions/TaskActions');
 var ButtonStore = require('../stores/ButtonStore');
 var KeyboardSpacer = require('react-native-keyboard-spacer');
 import KeyboardToolBar from './KeyboardToolBar';
-
+import RichContentInput from './RichContentInput';
 var {
 	StyleSheet,
 	View,
@@ -18,7 +18,8 @@ var {
 	TextInput,
 	Image,
 	TouchableHighlight,
-	Component
+	Component,
+	// Object
 } = React;
 
 var styles = StyleSheet.create({
@@ -69,7 +70,8 @@ class AddTask extends Component {
 
 		this.state = {
 			titleString: '',
-			isKeyboardOpened: false
+			isKeyboardOpened: false,
+			dataDictionary: {}
 		};
 	}
 
@@ -82,23 +84,24 @@ class AddTask extends Component {
 	}
   				// <KeyboardToolBar style={{ height: this.state.isKeyboardOpened ? 50 : 0 }} />
 	
+	// <TextInput
+	// 				ref='textInput'
+	// 				returnKeyType={'default'}
+	// 				enablesReturnKeyAutomatically={false}
+	// 				style={styles.titleInput}
+	// 				value={this.state.titleString}
+	// 				onChange={this.onTitleTextChanged.bind(this)} 
+	// 				onKeyPress={this.onKeyPress}
+	// 				blurOnSubmit={false}
+	// 				placeholder='输入任务内容'
+	// 				autoGrow={true}
+	// 				autoFocus={true}
+	// 				multiline={true} />
 	render() {
 		return (
 			<View style={ styles.container } >
 				<View style={styles.titleContainer}>
-					<TextInput
-					ref='textInput'
-					returnKeyType={'default'}
-					enablesReturnKeyAutomatically={false}
-					style={styles.titleInput}
-					value={this.state.titleString}
-					onChange={this.onTitleTextChanged.bind(this)} 
-					onKeyPress={this.onKeyPress}
-					blurOnSubmit={false}
-					placeholder='输入任务内容'
-					autoGrow={true}
-					autoFocus={true}
-					multiline={true} />
+					<RichContentInput onTextChange={this._onRichContentTextChange.bind(this)} />
 				</View>
   				<KeyboardToolBar hidden = { !this.state.isKeyboardOpened } onCloseButtonPress= { this.onCloseKeyboardButtonPress.bind(this)} />
 				<KeyboardSpacer onToggle={this.keyboardOnToggle.bind(this)} />
@@ -115,6 +118,18 @@ class AddTask extends Component {
 	onCloseKeyboardButtonPress(event) {
 		console.log('AddTask - onCloseKeyboardButtonPress');
 		this.refs.textInput.blur();
+	}
+
+	_onRichContentTextChange(event) {
+		console.log(event);
+		console.log(event.nativeEvent);
+		var tempDataDictionary = Object.assign({}, this.state.dataDictionary);
+		console.log(tempDataDictionary);
+		tempDataDictionary[event.key] = event.nativeEvent.text;
+		this.setState({
+			dataDictionary: tempDataDictionary
+		});
+		console.log(this.state.dataDictionary);
 	}
 
 	onToolBarPress(event) {
