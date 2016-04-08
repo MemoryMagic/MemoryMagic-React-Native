@@ -53,28 +53,32 @@ class RichContentInput extends Component {
 		
 		// console.log(dic);
 		if (!dic || dic.length === 0) {
-			return <TextInput style={ styles.titleInput } multiline={true} onChange={this._onTextChange.bind(this)} placeholder='输入任务内容' />
+			//return <TextInput style={ styles.titleInput } multiline={true} onChange={this._onTextChange.bind(this, 'key')} placeholder='输入任务内容' />
+			dic = {
+				'text1': '',
+				'text2': ''
+			};
 		}
-		var rows = [];
+		var bodyComponents = [];
 		for (var key in dic) {
 			if (key.indexOf('text') > -1) {
 				var text = dic[key];
-				rows.push(<TextInput key={key} value={text} multiline={true} onChange={this._onTextChange.bind(this)} placeholder='输入任务内容' style={styles.titleInput} />);
+				bodyComponents.push(<TextInput key={key} multiline={true} onChange={this._onTextChange.bind(this, key)} placeholder='输入任务内容' style={styles.titleInput} />);
 			} else if (key.indexOf('img') > -1) {
 				var img = dic[key];
-				rows.push(<Image  />);
+				bodyComponents.push(<Image  />);
 			}
 		}
 		// return (<tbody>{rows}</tbody>);
 		return(
 			<View style={{flex: 1}}>
-				{rows}
+				{bodyComponents}
 			</View>
 			);
 	}
 
-	_onTextChange(event) {
-		this.props.onTextChange && this.props.onTextChange(event);
+	_onTextChange(key, event) {
+		this.props.onTextChange && this.props.onTextChange(event, key);
 	}
 }
 

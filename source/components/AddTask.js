@@ -103,7 +103,7 @@ class AddTask extends Component {
 				<View style={styles.titleContainer}>
 					<RichContentInput onTextChange={this._onRichContentTextChange.bind(this)} />
 				</View>
-  				<KeyboardToolBar hidden = { !this.state.isKeyboardOpened } onCloseButtonPress= { this.onCloseKeyboardButtonPress.bind(this)} />
+  				<KeyboardToolBar hidden = { !this.state.isKeyboardOpened }  onCloseButtonPress= { this.onCloseKeyboardButtonPress.bind(this)} />
 				<KeyboardSpacer onToggle={this.keyboardOnToggle.bind(this)} />
 			</View>
 			);
@@ -120,12 +120,15 @@ class AddTask extends Component {
 		this.refs.textInput.blur();
 	}
 
-	_onRichContentTextChange(event) {
-		console.log(event);
+	_onRichContentTextChange(event, key) {
+		// console.log('key:');
+		//console.log(key);
+		console.log('event.nativeEvent:');
 		console.log(event.nativeEvent);
+		// return;
 		var tempDataDictionary = Object.assign({}, this.state.dataDictionary);
-		console.log(tempDataDictionary);
-		tempDataDictionary[event.key] = event.nativeEvent.text;
+		//console.log(tempDataDictionary);
+		tempDataDictionary[key] = event.nativeEvent.text;
 		this.setState({
 			dataDictionary: tempDataDictionary
 		});
