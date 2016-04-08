@@ -31,6 +31,7 @@ function guid() {
 	s4() + '-' + s4() + s4() + s4();
 }
 
+var preDataDictionaryLength = 0;
 class RichContentInput extends Component {
 
 	constructor(props) {
@@ -45,25 +46,24 @@ class RichContentInput extends Component {
 
 
 	render() {
-		var dic = this.props.DataDictionary;
+		var dic = this.props.dataDictionary;
 		// var dic = {
 		// 	'text1': 'Hello world',
 		// 	'text2': '你好，世界'
 		// };
 		
-		// console.log(dic);
-		if (!dic || dic.length === 0) {
+		if (!dic || Object.keys(dic).length === 0) {
 			//return <TextInput style={ styles.titleInput } multiline={true} onChange={this._onTextChange.bind(this, 'key')} placeholder='输入任务内容' />
+			console.log('set');
 			dic = {
-				'text1': '',
-				'text2': ''
+				'text1': ''
 			};
 		}
 		var bodyComponents = [];
 		for (var key in dic) {
 			if (key.indexOf('text') > -1) {
 				var text = dic[key];
-				bodyComponents.push(<TextInput key={key} multiline={true} onChange={this._onTextChange.bind(this, key)} placeholder='输入任务内容' style={styles.titleInput} />);
+				bodyComponents.push(<TextInput key={key} value={text} multiline={true} onChange={this._onTextChange.bind(this, key)} placeholder='输入任务内容' style={styles.titleInput} />);
 			} else if (key.indexOf('img') > -1) {
 				var img = dic[key];
 				bodyComponents.push(<Image  />);
