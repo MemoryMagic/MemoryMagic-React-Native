@@ -174,17 +174,7 @@ class AddTask extends Component {
     		}
     	});
 	}
-
-	onTitleTextChanged(event) {
-		console.log('onTitleTextChanged');
-		console.log(event.nativeEvent.text);
-		// if (event.nativeEvent.text === '\n') {
-		// 	this.refs.textInput.blur();
-		// 	return
-		// }
-		this.setState({ titleString: event.nativeEvent.text });
-	}
-
+	
 	onKeyPress(event) {
 		console.log("onKeyPress");
 		console.log(event);

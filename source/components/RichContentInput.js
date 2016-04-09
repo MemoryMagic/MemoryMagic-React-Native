@@ -46,23 +46,14 @@ class RichContentInput extends Component {
 	blur() {
 		console.log(this.refs);
 		for (var refKey in this.refs) {
-			var refObj = this.refs[refKey];
-			if (refObj.blur) {
-				refObj.blur();
-			}
+			var refObj = this.refs[refKey];		
+			refObj.blur && refObj.blur();
 		}
 	}
 
 	render() {
 		var dic = this.props.dataDictionary;
-		// var dic = {
-		// 	'text1': 'Hello world',
-		// 	'text2': '你好，世界'
-		// };
-		
 		if (!dic || Object.keys(dic).length === 0) {
-			//return <TextInput style={ styles.titleInput } multiline={true} onChange={this._onTextChange.bind(this, 'key')} placeholder='输入任务内容' />
-			console.log('set');
 			dic = {
 				'text1': ''
 			};
@@ -77,7 +68,6 @@ class RichContentInput extends Component {
 				bodyComponents.push(<Image  />);
 			}
 		}
-		// return (<tbody>{rows}</tbody>);
 		return(
 			<View style={{flex: 1}}>
 				{bodyComponents}
