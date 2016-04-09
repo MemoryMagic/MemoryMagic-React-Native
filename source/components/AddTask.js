@@ -101,7 +101,7 @@ class AddTask extends Component {
 		return (
 			<View style={ styles.container } >
 				<View style={styles.titleContainer}>
-					<RichContentInput dataDictionary={this.state.dataDictionary} onTextChange={this._onRichContentTextChange.bind(this)} />
+					<RichContentInput ref='richContentInput' dataDictionary={this.state.dataDictionary} onTextChange={this._onRichContentTextChange.bind(this)} />
 				</View>
   				<KeyboardToolBar hidden = { !this.state.isKeyboardOpened }  onCloseButtonPress= { this.onCloseKeyboardButtonPress.bind(this)} />
 				<KeyboardSpacer onToggle={this.keyboardOnToggle.bind(this)} />
@@ -117,7 +117,7 @@ class AddTask extends Component {
 
 	onCloseKeyboardButtonPress(event) {
 		console.log('AddTask - onCloseKeyboardButtonPress');
-		this.refs.textInput.blur();
+		this.refs.richContentInput.blur();
 	}
 
 	_onRichContentTextChange(event, key) {

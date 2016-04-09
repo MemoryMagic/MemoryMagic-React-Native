@@ -31,7 +31,6 @@ function guid() {
 	s4() + '-' + s4() + s4() + s4();
 }
 
-var preDataDictionaryLength = 0;
 class RichContentInput extends Component {
 
 	constructor(props) {
@@ -41,9 +40,18 @@ class RichContentInput extends Component {
 	propTypes: {
 		dataString: React.propTypes.string,
 		dataDictionary: React.propTypes.any,
-		onTextChange: React.propTypes.func
+		onTextChange: React.propTypes.func,
 	}
 
+	blur() {
+		console.log(this.refs);
+		for (var refKey in this.refs) {
+			var refObj = this.refs[refKey];
+			if (refObj.blur) {
+				refObj.blur();
+			}
+		}
+	}
 
 	render() {
 		var dic = this.props.dataDictionary;
@@ -63,7 +71,7 @@ class RichContentInput extends Component {
 		for (var key in dic) {
 			if (key.indexOf('text') > -1) {
 				var text = dic[key];
-				bodyComponents.push(<TextInput key={key} value={text} multiline={true} onChange={this._onTextChange.bind(this, key)} placeholder='输入任务内容' style={styles.titleInput} />);
+				bodyComponents.push(<TextInput ref={key} key={key} value={text} multiline={true} onChange={this._onTextChange.bind(this, key)} placeholder='输入任务内容' style={styles.titleInput} />);
 			} else if (key.indexOf('img') > -1) {
 				var img = dic[key];
 				bodyComponents.push(<Image  />);
