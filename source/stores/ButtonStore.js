@@ -11,14 +11,14 @@ var _ = require('lodash');
 		addChangeListener: function (eventName, callback) {
 		this.method = _.debounce(callback, 100);
 		this.on(eventName, this.method);
-		console.log('debounce');
+		//console.log('debounce');
 	},
 
 	method: function() { },
 	removeChangeListener: function (eventName, callback) {
 		this.removeListener(eventName, this.method);
 		_.debounce(callback).cancel();
-		console.log('cancel');
+		//console.log('cancel');
 	},
 
 	emitChange: function(eventName) {

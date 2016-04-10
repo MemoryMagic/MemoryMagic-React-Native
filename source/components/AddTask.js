@@ -134,6 +134,10 @@ class AddTask extends Component {
 	}
 
 	_onRichContentTextChange(event, key) {
+		this.setState({
+			titleString: event.nativeEvent.text
+		});
+		
 		// console.log('key:');
 		//console.log(key);
 		// console.log('event.nativeEvent:');

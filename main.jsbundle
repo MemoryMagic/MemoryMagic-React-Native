@@ -35961,11 +35961,13 @@ throw error;}};
 
 module.exports=invariant;
 });
-__d('image!disclosure_indicator',function(global, require, module, exports) {  module.exports = {"__packager_asset":true,"path":"/Users/carl/Documents/git/MemoryMagicProject/ios/MemoryMagicProject/Images.xcassets/disclosure_indicator.imageset/disclosure_indicator@3x.png","uri":"disclosure_indicator","width":8,"height":20,"deprecated":true};
+__d('image!disclosure_indicator',function(global, require, module, exports) {  module.exports = {"__packager_asset":true,"path":"/Users/yangcun/Documents/git/MemoryMagic-React-Native/ios/MemoryMagicProject/Images.xcassets/disclosure_indicator.imageset/disclosure_indicator@3x.png","uri":"disclosure_indicator","width":8,"height":20,"deprecated":true};
 });
-__d('image!NavBarButtonPlus',function(global, require, module, exports) {  module.exports = {"__packager_asset":true,"path":"/Users/carl/Documents/git/MemoryMagicProject/ios/MemoryMagicProject/Images.xcassets/NavBarButtonPlus.imageset/NavBarButtonPlus@3x.png","uri":"NavBarButtonPlus","width":17,"height":17,"deprecated":true};
+__d('image!ToolBarDismissKeyboard',function(global, require, module, exports) {  module.exports = {"__packager_asset":true,"path":"/Users/yangcun/Documents/git/MemoryMagic-React-Native/ios/MemoryMagicProject/Images.xcassets/ToolBarDismissKeyboard.imageset/ToolBarDismissKeyboard@3x.png","uri":"ToolBarDismissKeyboard","width":17,"height":17,"deprecated":true};
 });
-__d('react-native/Libraries/CustomComponents/NavigationExperimental/back_chevron.png',function(global, require, module, exports) {  module.exports = require("AssetRegistry").registerAsset({"__packager_asset":true,"fileSystemLocation":"/Users/carl/Documents/git/MemoryMagicProject/node_modules/react-native/Libraries/CustomComponents/NavigationExperimental","httpServerLocation":"/assets/node_modules/react-native/Libraries/CustomComponents/NavigationExperimental","width":26,"height":42,"scales":[1],"files":["/Users/carl/Documents/git/MemoryMagicProject/node_modules/react-native/Libraries/CustomComponents/NavigationExperimental/back_chevron.png"],"hash":"ff62a71400a6f2c153edd030a2479ca7","name":"back_chevron","type":"png"});
+__d('image!NavBarButtonPlus',function(global, require, module, exports) {  module.exports = {"__packager_asset":true,"path":"/Users/yangcun/Documents/git/MemoryMagic-React-Native/ios/MemoryMagicProject/Images.xcassets/NavBarButtonPlus.imageset/NavBarButtonPlus@3x.png","uri":"NavBarButtonPlus","width":17,"height":17,"deprecated":true};
+});
+__d('react-native/Libraries/CustomComponents/NavigationExperimental/back_chevron.png',function(global, require, module, exports) {  module.exports = require("AssetRegistry").registerAsset({"__packager_asset":true,"fileSystemLocation":"/Users/yangcun/Documents/git/MemoryMagic-React-Native/node_modules/react-native/Libraries/CustomComponents/NavigationExperimental","httpServerLocation":"/assets/node_modules/react-native/Libraries/CustomComponents/NavigationExperimental","width":26,"height":42,"scales":[1],"files":["/Users/yangcun/Documents/git/MemoryMagic-React-Native/node_modules/react-native/Libraries/CustomComponents/NavigationExperimental/back_chevron.png"],"hash":"ff62a71400a6f2c153edd030a2479ca7","name":"back_chevron","type":"png"});
 });
 __d('react-native-sqlite/sqlite3.ios.js',function(global, require, module, exports) {  var 
 NativeModules=require('react-native/Libraries/react-native/react-native.js').NativeModules;
@@ -36107,6 +36109,109 @@ _reactNative2.default.createElement(_reactNative.Text,{style:styles.message},thi
 
 
 module.exports=NoTasksMessage;
+});
+__d('react-native-keyboard-spacer/KeyboardSpacer.js',function(global, require, module, exports) {  var 
+
+
+React=require('react-native/Libraries/react-native/react-native.js');var 
+
+
+DeviceEventEmitter=
+
+
+
+React.DeviceEventEmitter;var LayoutAnimation=React.LayoutAnimation;var View=React.View;var Platform=React.Platform;
+
+
+var animations={
+layout:{
+spring:{
+duration:500,
+create:{
+duration:300,
+type:LayoutAnimation.Types.easeInEaseOut,
+property:LayoutAnimation.Properties.opacity},
+
+update:{
+type:LayoutAnimation.Types.spring,
+springDamping:200}},
+
+
+easeInEaseOut:{
+duration:300,
+create:{
+type:LayoutAnimation.Types.easeInEaseOut,
+property:LayoutAnimation.Properties.scaleXY},
+
+update:{
+delay:100,
+type:LayoutAnimation.Types.easeInEaseOut}}}};var 
+
+
+
+
+
+KeyboardSpacer=function(_React$Component){babelHelpers.inherits(KeyboardSpacer,_React$Component);
+function KeyboardSpacer(props,context){babelHelpers.classCallCheck(this,KeyboardSpacer);var _this=babelHelpers.possibleConstructorReturn(this,Object.getPrototypeOf(KeyboardSpacer).call(this,
+props,context));
+_this.state={
+keyboardSpace:0,
+isKeyboardOpened:false};
+
+
+_this.updateKeyboardSpace=_this.updateKeyboardSpace.bind(_this);
+_this.resetKeyboardSpace=_this.resetKeyboardSpace.bind(_this);return _this;}babelHelpers.createClass(KeyboardSpacer,[{key:'componentWillUpdate',value:function componentWillUpdate(
+
+
+props,state){
+if(state.isKeyboardOpened!==this.state.isKeyboardOpened)
+LayoutAnimation.configureNext(animations.layout.spring);}},{key:'updateKeyboardSpace',value:function updateKeyboardSpace(
+
+
+frames){var _this2=this;
+if(!frames.endCoordinates)
+return;
+
+var keyboardSpace=frames.endCoordinates.height+('topSpacing' in this.props?this.props.topSpacing:0);
+this.setState({
+keyboardSpace:keyboardSpace,
+isKeyboardOpened:true},
+function(){return 'onToggle' in _this2.props?_this2.props.onToggle(true,keyboardSpace):null;});}},{key:'resetKeyboardSpace',value:function resetKeyboardSpace()
+
+
+{var _this3=this;
+this.setState({
+keyboardSpace:0,
+isKeyboardOpened:false},
+function(){return 'onToggle' in _this3.props?_this3.props.onToggle(false,0):null;});}},{key:'componentDidMount',value:function componentDidMount()
+
+
+{
+if(Platform.OS=="android"){
+this._listeners=[
+DeviceEventEmitter.addListener('keyboardDidShow',this.updateKeyboardSpace),
+DeviceEventEmitter.addListener('keyboardDidHide',this.resetKeyboardSpace)];}else 
+
+{
+this._listeners=[
+DeviceEventEmitter.addListener('keyboardWillShow',this.updateKeyboardSpace),
+DeviceEventEmitter.addListener('keyboardWillHide',this.resetKeyboardSpace)];}}},{key:'componentWillUnmount',value:function componentWillUnmount()
+
+
+
+
+{
+this._listeners.forEach(function(listener){
+listener.remove();});}},{key:'render',value:function render()
+
+
+
+{
+return React.createElement(View,{style:[{height:this.state.keyboardSpace,left:0,right:0,bottom:0},this.props.style]});}}]);return KeyboardSpacer;}(React.Component);
+
+
+
+module.exports=KeyboardSpacer;
 });
 __d('react-native-quick-actions/index.ios.js',function(global, require, module, exports) {  var RNQuickActionManager=require('react-native/Libraries/react-native/react-native.js').NativeModules.RNQuickActionManager;
 var _initialAction=RNQuickActionManager.initialAction;
@@ -86562,177 +86667,6 @@ _this2.deleteTask();}});}}]);return Detail;}(Component);
 
 module.exports=Detail;
 });
-__d('MemoryMagicProject/source/components/AddTask.js',function(global, require, module, exports) {  'use strict';
-
-var React=require('react-native/Libraries/react-native/react-native.js');
-var UIImagePickerManager=require('NativeModules').UIImagePickerManager;
-var AppDispatcher=require('NativeModules').AppDispatcher;
-var SQLite=require('react-native-sqlite/sqlite3.ios.js');
-var database=SQLite.open("tasks.sqlite");
-var TaskList=require('MemoryMagicProject/source/components/TaskList.js');
-var TaskActions=require('MemoryMagicProject/source/actions/TaskActions.js');
-var ButtonStore=require('MemoryMagicProject/source/stores/ButtonStore.js');var 
-
-
-StyleSheet=
-
-
-
-
-
-
-React.StyleSheet;var View=React.View;var Text=React.Text;var TextInput=React.TextInput;var Image=React.Image;var TouchableHighlight=React.TouchableHighlight;var Component=React.Component;
-
-var styles=StyleSheet.create({
-
-
-container:{
-marginTop:65,
-flexDirection:'column',
-alignItems:'center',
-flex:1},
-
-titleContainer:{
-flex:5,
-alignSelf:'stretch',
-justifyContent:'center'},
-
-titleInput:{
-padding:1,
-marginTop:20,
-marginLeft:20,
-marginRight:20,
-marginBottom:20,
-fontSize:18,
-borderWidth:0,
-borderColor:'lightgray',
-borderRadius:0,
-color:'#555555',
-alignSelf:'stretch',
-flex:1,
-height:30},
-
-
-imageContainer:{
-flex:9,
-alignSelf:'stretch',
-marginLeft:20,
-marginRight:20},
-
-addImageButton:{
-width:146},
-
-saveButtonContainer:{
-flex:1,
-alignSelf:'stretch',
-justifyContent:'center'}});
-
-
-var i=0;var 
-
-AddTask=function(_Component){babelHelpers.inherits(AddTask,_Component);
-
-function AddTask(props){babelHelpers.classCallCheck(this,AddTask);var _this=babelHelpers.possibleConstructorReturn(this,Object.getPrototypeOf(AddTask).call(this,
-props));
-ButtonStore.addChangeListener('save',_this._onSaveButtonPressed.bind(_this));
-
-_this.state={
-titleString:''};return _this;}babelHelpers.createClass(AddTask,[{key:'componentWillUnmount',value:function componentWillUnmount()
-
-
-
-{
-ButtonStore.removeChangeListener('save',this._onSaveButtonPressed);}},{key:'componentDidMount',value:function componentDidMount()
-
-
-{}},{key:'render',value:function render()
-
-
-{
-return (
-React.createElement(View,{style:styles.container},
-React.createElement(View,{style:styles.titleContainer},
-React.createElement(TextInput,{
-ref:'textInput',
-returnKeyType:'done',
-enablesReturnKeyAutomatically:true,
-style:styles.titleInput,
-value:this.state.titleString,
-onChange:this.onTitleTextChanged.bind(this),
-onKeyPress:this.onKeyPress,
-blurOnSubmit:true,
-placeholder:'输入任务名称',
-autoGrow:true,
-multiline:true}))));}},{key:'onAddImagePressed',value:function onAddImagePressed(
-
-
-
-
-
-event){var _this2=this;
-
-var options={
-title:'Select Avatar',
-cancelButtonTitle:'Cancel',
-takePhotoButtonTitle:'Take Photo...',
-takePhotoButtonHidden:false,
-chooseFromLibraryButtonTitle:'Choose from Library...',
-chooseFromLibraryButtonHidden:false,
-
-maxWidth:100,
-maxHeight:100,
-returnBase64Image:false,
-returnIsVertical:false,
-quality:0.2,
-allowsEditing:false};
-
-
-UIImagePickerManager.showImagePicker(options,function(responseType,response){
-console.log('Response Type = '+responseType);
-
-if(responseType!=='cancel'){
-var source=void 0;
-if(responseType==='data'){
-source={uri:'data:image/jpeg;base64,'+response,isStatic:true};}else 
-
-if(responseType==='uri'){
-source={uri:response.replace('file://',''),isStatic:true};}
-
-
-_this2.setState({
-avatarSource:source});}});}},{key:'onTitleTextChanged',value:function onTitleTextChanged(
-
-
-
-
-
-event){
-console.log('onTitleTextChanged');
-console.log(event.nativeEvent.text);
-
-
-
-
-this.setState({titleString:event.nativeEvent.text});}},{key:'onKeyPress',value:function onKeyPress(
-
-
-event){
-console.log("onKeyPress");
-console.log(event);}},{key:'_onSaveButtonPressed',value:function _onSaveButtonPressed(
-
-
-event){
-console.log('onSaveButtonPressed '+i);
-i+=1;
-TaskActions.create(this.state.titleString);
-this.props.navigator.pop();}}]);return AddTask;}(Component);
-
-
-
-
-
-module.exports=AddTask;
-});
 __d('MemoryMagicProject/source/components/TaskCell.js',function(global, require, module, exports) {  'use strict';
 
 var React=require('react-native/Libraries/react-native/react-native.js');
@@ -86825,6 +86759,118 @@ this.props.onPress&&this.props.onPress(rowID,propertyGuid);}}]);return TaskCell;
 
 
 module.exports=TaskCell;
+});
+__d('MemoryMagicProject/source/components/KeyboardToolBar.js',function(global, require, module, exports) {  var _reactNative=require('react-native/Libraries/react-native/react-native.js');var _reactNative2=babelHelpers.interopRequireDefault(_reactNative);
+
+
+
+
+
+
+
+var styles=_reactNative.StyleSheet.create({
+container:{
+flexDirection:'row',
+alignItems:'stretch',
+height:40},
+
+itemButton:{
+alignSelf:'center',
+flex:1,
+tintColor:'gray',
+margin:10,
+height:20,
+width:20},
+
+itemButtonTouch:{
+flex:1}});var 
+
+
+
+
+KeyboardToolBar=function(_Component){babelHelpers.inherits(KeyboardToolBar,_Component);
+
+
+
+
+
+
+
+
+
+function KeyboardToolBar(props){babelHelpers.classCallCheck(this,KeyboardToolBar);return babelHelpers.possibleConstructorReturn(this,Object.getPrototypeOf(KeyboardToolBar).call(this,
+constructor));}babelHelpers.createClass(KeyboardToolBar,[{key:'render',value:function render()
+
+
+
+
+
+{
+return (
+this.props.hidden?null:
+_reactNative2.default.createElement(_reactNative.View,null,
+_reactNative2.default.createElement(_reactNative.View,{style:{height:0.5,backgroundColor:'lightgray'}}),
+_reactNative2.default.createElement(_reactNative.View,{style:styles.container},
+_reactNative2.default.createElement(_reactNative.View,{style:{flex:1}},
+_reactNative2.default.createElement(_reactNative.TouchableHighlight,{underlayColor:'white',style:styles.itemButtonTouch,onPress:this._onCloseButtonPress.bind(this)},
+_reactNative2.default.createElement(_reactNative.Image,{source:require('image!ToolBarDismissKeyboard'),style:styles.itemButton}))),
+
+
+
+_reactNative2.default.createElement(_reactNative.View,{style:{flex:1}},
+_reactNative2.default.createElement(_reactNative.TouchableHighlight,{underlayColor:'white',style:styles.itemButtonTouch,onPress:this._onLinkButtonPress.bind(this)},
+_reactNative2.default.createElement(_reactNative.View,null))),
+
+
+
+_reactNative2.default.createElement(_reactNative.View,{style:{flex:1}}),
+
+_reactNative2.default.createElement(_reactNative.View,{style:{flex:1}},
+_reactNative2.default.createElement(_reactNative.TouchableHighlight,{underlayColor:'white',style:styles.itemButtonTouch,onPress:this._onLinkButtonPress.bind(this)},
+_reactNative2.default.createElement(_reactNative.View,null))),
+
+
+
+_reactNative2.default.createElement(_reactNative.View,{style:{flex:1}},
+_reactNative2.default.createElement(_reactNative.TouchableHighlight,{underlayColor:'white',style:styles.itemButtonTouch,onPress:this._onTakePhotoButtonPress.bind(this)},
+_reactNative2.default.createElement(_reactNative.View,null))),
+
+
+
+_reactNative2.default.createElement(_reactNative.View,{style:{flex:1}},
+_reactNative2.default.createElement(_reactNative.TouchableHighlight,{underlayColor:'white',style:styles.itemButtonTouch,onPress:this._onChooseImageButtonPress.bind(this)},
+_reactNative2.default.createElement(_reactNative.View,null))))));}},{key:'_onCloseButtonPress',value:function _onCloseButtonPress(
+
+
+
+
+
+
+
+
+
+event){
+console.log('KeyboardToolBar - _onCloseButtonPress');
+this.props.onCloseButtonPress&&this.props.onCloseButtonPress(event);}},{key:'_onLinkButtonPress',value:function _onLinkButtonPress(
+
+
+event){
+return;}},{key:'_onTakePhotoButtonPress',value:function _onTakePhotoButtonPress(
+
+
+event){
+return;
+this.props.onTakePhotoButtonPress&&this.props.onTakePhotoButtonPress(event);}},{key:'_onChooseImageButtonPress',value:function _onChooseImageButtonPress(
+
+
+event){
+return;
+this.props.onChooseImageButtonPress&&this.props.onChooseImageButtonPress(event);}}]);return KeyboardToolBar;}(_reactNative.Component);
+
+
+
+
+module.exports=KeyboardToolBar;
 });
 __d('MemoryMagicProject/source/actions/ButtonActions.js',function(global, require, module, exports) {  var AppDispatcher=require('MemoryMagicProject/source/dispatcher/AppDispatcher.js');
 
@@ -87520,6 +87566,317 @@ height:21}});
 
 
 module.exports=NavigationHeader;
+});
+__d('MemoryMagicProject/source/components/RichContentInput.js',function(global, require, module, exports) {  var _reactNative=require('react-native/Libraries/react-native/react-native.js');var _reactNative2=babelHelpers.interopRequireDefault(_reactNative);
+
+
+
+
+
+
+
+
+var styles=_reactNative.StyleSheet.create({
+titleInput:{
+padding:1,
+margin:15,
+fontSize:18,
+borderWidth:0,
+borderColor:'lightgray',
+borderRadius:0,
+color:'#555555',
+alignSelf:'stretch',
+flex:1}});
+
+
+
+function guid(){
+function s4(){
+return Math.floor((1+Math.random())*0x10000).
+toString(16).
+substring(1);}
+
+return s4()+s4()+'-'+s4()+'-'+s4()+'-'+
+s4()+'-'+s4()+s4()+s4();}var 
+
+
+RichContentInput=function(_Component){babelHelpers.inherits(RichContentInput,_Component);
+
+function RichContentInput(props){babelHelpers.classCallCheck(this,RichContentInput);return babelHelpers.possibleConstructorReturn(this,Object.getPrototypeOf(RichContentInput).call(this,
+props));}babelHelpers.createClass(RichContentInput,[{key:'blur',value:function blur()
+
+
+
+
+
+
+
+
+{
+console.log(this.refs);
+for(var refKey in this.refs){
+var refObj=this.refs[refKey];
+refObj.blur&&refObj.blur();}}},{key:'render',value:function render()
+
+
+
+{
+var dic=this.props.dataDictionary;
+if(!dic||Object.keys(dic).length===0){
+dic={
+'text1':''};}
+
+
+var bodyComponents=[];
+for(var key in dic){
+console.log('key: '+key);
+if(key.indexOf('text')>-1){
+var text=dic[key];
+bodyComponents.push(_reactNative2.default.createElement(_reactNative.TextInput,{ref:key,key:key,value:text,autoFocus:true,multiline:true,onChange:this._onTextChange.bind(this,key),placeholder:'输入任务内容',style:styles.titleInput}));}else 
+if(key.indexOf('img')>-1){
+var img=dic[key];
+bodyComponents.push(_reactNative2.default.createElement(_reactNative.Image,{key:key,source:img}));}}
+
+
+return (
+_reactNative2.default.createElement(_reactNative.View,{style:{flex:1}},
+bodyComponents));}},{key:'_onTextChange',value:function _onTextChange(
+
+
+
+
+key,event){
+this.props.onTextChange&&this.props.onTextChange(event,key);}}]);return RichContentInput;}(_reactNative.Component);
+
+
+
+module.exports=RichContentInput;
+});
+__d('MemoryMagicProject/source/components/AddTask.js',function(global, require, module, exports) {  'use strict';
+
+
+
+
+
+
+
+
+
+
+var _KeyboardToolBar=require('MemoryMagicProject/source/components/KeyboardToolBar.js');var _KeyboardToolBar2=babelHelpers.interopRequireDefault(_KeyboardToolBar);
+var _RichContentInput=require('MemoryMagicProject/source/components/RichContentInput.js');var _RichContentInput2=babelHelpers.interopRequireDefault(_RichContentInput);var React=require('react-native/Libraries/react-native/react-native.js');var ImagePickerManager=require('NativeModules').ImagePickerManager;var AppDispatcher=require('NativeModules').AppDispatcher;var SQLite=require('react-native-sqlite/sqlite3.ios.js');var database=SQLite.open("tasks.sqlite");var TaskList=require('MemoryMagicProject/source/components/TaskList.js');var TaskActions=require('MemoryMagicProject/source/actions/TaskActions.js');var ButtonStore=require('MemoryMagicProject/source/stores/ButtonStore.js');var KeyboardSpacer=require('react-native-keyboard-spacer/KeyboardSpacer.js');
+
+function guid(){
+function s4(){
+return Math.floor((1+Math.random())*0x10000).
+toString(16).
+substring(1);}
+
+return s4()+s4()+'-'+s4()+'-'+s4()+'-'+
+s4()+'-'+s4()+s4()+s4();}var 
+
+
+
+StyleSheet=
+
+
+
+
+
+
+
+React.StyleSheet;var View=React.View;var Text=React.Text;var TextInput=React.TextInput;var Image=React.Image;var TouchableHighlight=React.TouchableHighlight;var Component=React.Component;
+
+var styles=StyleSheet.create({
+
+
+container:{
+marginTop:60,
+flexDirection:'column',
+flex:1},
+
+
+titleContainer:{
+flex:1,
+alignSelf:'stretch',
+justifyContent:'center'},
+
+titleInput:{
+padding:1,
+margin:15,
+fontSize:18,
+borderWidth:0,
+borderColor:'lightgray',
+borderRadius:0,
+color:'#555555',
+alignSelf:'stretch',
+flex:1},
+
+addImageButton:{
+flex:1},
+
+imageContainer:{
+flex:9,
+alignSelf:'stretch',
+marginLeft:20,
+marginRight:20},
+
+addImageButton:{
+width:146}});
+
+
+var i=0;var 
+
+AddTask=function(_Component){babelHelpers.inherits(AddTask,_Component);
+
+function AddTask(props){babelHelpers.classCallCheck(this,AddTask);var _this=babelHelpers.possibleConstructorReturn(this,Object.getPrototypeOf(AddTask).call(this,
+props));
+ButtonStore.addChangeListener('save',_this._onSaveButtonPressed.bind(_this));
+
+_this.state={
+titleString:'',
+isKeyboardOpened:false,
+dataDictionary:{}};return _this;}babelHelpers.createClass(AddTask,[{key:'componentWillUnmount',value:function componentWillUnmount()
+
+
+
+{
+ButtonStore.removeChangeListener('save',this._onSaveButtonPressed);}},{key:'componentDidMount',value:function componentDidMount()
+
+
+{}},{key:'render',value:function render()
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+{
+return (
+React.createElement(View,{style:styles.container},
+React.createElement(View,{style:styles.titleContainer},
+React.createElement(_RichContentInput2.default,{ref:'richContentInput',dataDictionary:this.state.dataDictionary,onTextChange:this._onRichContentTextChange.bind(this)})),
+
+React.createElement(_KeyboardToolBar2.default,{hidden:!this.state.isKeyboardOpened,
+onCloseButtonPress:this.onCloseKeyboardButtonPress.bind(this),
+onChooseImageButtonPress:this.onChooseImageButtonPress.bind(this)}),
+React.createElement(KeyboardSpacer,{onToggle:this.keyboardOnToggle.bind(this)})));}},{key:'keyboardOnToggle',value:function keyboardOnToggle(
+
+
+
+
+isKeyboardShown,keyboardSpace){
+this.setState({
+isKeyboardOpened:isKeyboardShown});}},{key:'onCloseKeyboardButtonPress',value:function onCloseKeyboardButtonPress(
+
+
+
+event){
+console.log('AddTask - onCloseKeyboardButtonPress');
+this.refs.richContentInput.blur();}},{key:'_onRichContentTextChange',value:function _onRichContentTextChange(
+
+
+event,key){
+this.setState({
+titleString:event.nativeEvent.text});
+
+
+
+
+
+
+
+var tempDataDictionary=babelHelpers.extends({},this.state.dataDictionary);
+
+tempDataDictionary[key]=event.nativeEvent.text;
+this.setState({
+dataDictionary:tempDataDictionary});}},{key:'onToolBarPress',value:function onToolBarPress(
+
+
+
+
+event){}},{key:'onTakePhotoButtonPress',value:function onTakePhotoButtonPress(
+
+
+
+event){
+this.addImage(true);}},{key:'onChooseImageButtonPress',value:function onChooseImageButtonPress(
+
+event){
+this.addImage(false);}},{key:'addImage',value:function addImage(
+
+isCamera){var _this2=this;
+
+var options={
+title:'添加照片',
+cancelButtonTitle:'取消',
+takePhotoButtonTitle:'拍照',
+takePhotoButtonHidden:false,
+chooseFromLibraryButtonTitle:'从相册选择',
+chooseFromLibraryButtonHidden:false,
+
+maxWidth:100,
+maxHeight:100,
+returnBase64Image:false,
+returnIsVertical:false,
+quality:0.2,
+allowsEditing:false};
+
+var imagePicker;
+if(isCamera){
+imagePicker=ImagePickerManager.launchCamera;}else 
+{
+imagePicker=ImagePickerManager.launchImageLibrary;}
+
+
+
+imagePicker(options,function(response){
+
+var source;
+if(response.data){
+source={uri:'data:image/jpeg;base64,'+response.data,isStatic:true};}else 
+
+if(response.uri){
+source={uri:response.uri.replace('file://',''),isStatic:true};}
+
+
+var tempDataDictionary=babelHelpers.extends({},_this2.state.dataDictionary);
+var key='img-'+guid();
+tempDataDictionary[key]=source;
+_this2.setState({
+dataDictionary:tempDataDictionary});});}},{key:'onKeyPress',value:function onKeyPress(
+
+
+
+
+
+event){
+console.log("onKeyPress");
+console.log(event);}},{key:'_onSaveButtonPressed',value:function _onSaveButtonPressed(
+
+
+event){
+console.log('onSaveButtonPressed '+i);
+i+=1;
+TaskActions.create(this.state.titleString);
+this.props.navigator.pop();}}]);return AddTask;}(Component);
+
+
+
+
+
+module.exports=AddTask;
 });
 ;require("InitializeJavaScriptAppEngine");
 ;require("MemoryMagicProject/index.ios.js");

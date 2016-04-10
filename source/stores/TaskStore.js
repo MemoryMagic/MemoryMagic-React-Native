@@ -130,7 +130,7 @@ function loadData(complete) {
 			});
 			_tasks = tasks
 			TaskStore.emitChange();
-			//complete();
+			complete();
 			//TaskNotification.refreshLocalNotifications();
 		}
 	});

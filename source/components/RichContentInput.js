@@ -12,7 +12,7 @@ var styles = StyleSheet.create({
 		padding: 1,
 		margin: 15,
 		fontSize: 18,
-		borderWidth: 1,
+		borderWidth: 0,
 		borderColor: 'lightgray',
 		borderRadius: 0,
 		color: '#555555',
@@ -63,7 +63,7 @@ class RichContentInput extends Component {
 			console.log('key: ' + key);
 			if (key.indexOf('text') > -1) {
 				var text = dic[key];
-				bodyComponents.push(<TextInput ref={key} key={key} value={text} multiline={true} onChange={this._onTextChange.bind(this, key)} placeholder='输入任务内容' style={styles.titleInput} />);
+				bodyComponents.push(<TextInput ref={key} key={key} value={text} autoFocus={true} multiline={true} onChange={this._onTextChange.bind(this, key)} placeholder='输入任务内容' style={styles.titleInput} />);
 			} else if (key.indexOf('img') > -1) {
 				var img = dic[key];
 				bodyComponents.push(<Image key={key} source={img} />);
