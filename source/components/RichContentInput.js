@@ -60,12 +60,13 @@ class RichContentInput extends Component {
 		}
 		var bodyComponents = [];
 		for (var key in dic) {
+			console.log('key: ' + key);
 			if (key.indexOf('text') > -1) {
 				var text = dic[key];
 				bodyComponents.push(<TextInput ref={key} key={key} value={text} multiline={true} onChange={this._onTextChange.bind(this, key)} placeholder='输入任务内容' style={styles.titleInput} />);
 			} else if (key.indexOf('img') > -1) {
 				var img = dic[key];
-				bodyComponents.push(<Image  />);
+				bodyComponents.push(<Image key={key} source={img} />);
 			}
 		}
 		return(

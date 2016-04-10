@@ -32,13 +32,15 @@ class KeyboardToolBar extends Component {
 		hidden: React.propTypes.bool,
 		onCloseButtonPress: React.propTypes.func,
 		onLinkButtonPress: React.propTypes.func,
-		onCameraButtonPress: React.propTypes.func,
-		onImageButtonPress: React.propTypes.func,
+		onTakePhotoButtonPress: React.propTypes.func,
+		onChooseImageButtonPress: React.propTypes.func,
 	}
 
 	constructor(props) {
 		super(constructor);
 	}
+
+
 
 	render() {
 		return (
@@ -61,19 +63,19 @@ class KeyboardToolBar extends Component {
 					<View style={{ flex: 1 }} ></View>
 
 					<View style={{ flex: 1 }} >
-					<TouchableHighlight underlayColor='white' style={ styles.itemButtonTouch } onPress={ this._onLinkButtonPress.bind(this)}>
+						<TouchableHighlight underlayColor='white' style={ styles.itemButtonTouch } onPress={ this._onLinkButtonPress.bind(this)}>
 								<Image source={require('image!ToolBarLink')} style={ styles.itemButton }/> 
 						</TouchableHighlight>
 					</View>
 
 					<View style={{ flex: 1 }} >
-						<TouchableHighlight underlayColor='white' style={ styles.itemButtonTouch } onPress={ this._onCameraButtonPress.bind(this)}>
+						<TouchableHighlight underlayColor='white' style={ styles.itemButtonTouch } onPress={ this._onTakePhotoButtonPress.bind(this)}>
 								<Image source={require('image!ToolBarCamera1')} style={ styles.itemButton }/> 
 						</TouchableHighlight>
 					</View>
 					
 					<View style={{ flex: 1 }} >
-						<TouchableHighlight underlayColor='white' style={ styles.itemButtonTouch } onPress={ this._onImageButtonPress.bind(this)}>
+						<TouchableHighlight underlayColor='white' style={ styles.itemButtonTouch } onPress={ this._onChooseImageButtonPress.bind(this)}>
 								<Image source={require('image!ToolBarImage2')} style={ styles.itemButton }/> 
 						</TouchableHighlight>
 					</View>
@@ -93,11 +95,12 @@ class KeyboardToolBar extends Component {
 
 	}
 
-	_onCameraButtonPress(event) {
-
+	_onTakePhotoButtonPress(event) {
+		this.props.onTakePhotoButtonPress && this.props.onTakePhotoButtonPress(event);
 	}
 
-	_onImageButtonPress(event) {
+	_onChooseImageButtonPress(event) {
+		this.props.onChooseImageButtonPress && this.props.onChooseImageButtonPress(event);
 
 	}
 }

@@ -1,7 +1,7 @@
 'use strict';
 
 var React = require('react-native');
-var UIImagePickerManager = require('NativeModules').UIImagePickerManager;
+var ImagePickerManager = require('NativeModules').ImagePickerManager;
 var AppDispatcher = require('NativeModules').AppDispatcher;
 var SQLite = require('react-native-sqlite');
 var database = SQLite.open("tasks.sqlite");
@@ -11,6 +11,17 @@ var ButtonStore = require('../stores/ButtonStore');
 var KeyboardSpacer = require('react-native-keyboard-spacer');
 import KeyboardToolBar from './KeyboardToolBar';
 import RichContentInput from './RichContentInput';
+
+function guid() {
+	function s4() {
+		return Math.floor((1 + Math.random()) * 0x10000)
+		.toString(16)
+		.substring(1);
+	}
+	return s4() + s4() + '-' + s4() + '-' + s4() + '-' +
+	s4() + '-' + s4() + s4() + s4();
+}
+
 var {
 	StyleSheet,
 	View,
@@ -103,7 +114,9 @@ class AddTask extends Component {
 				<View style={styles.titleContainer}>
 					<RichContentInput ref='richContentInput' dataDictionary={this.state.dataDictionary} onTextChange={this._onRichContentTextChange.bind(this)} />
 				</View>
-  				<KeyboardToolBar hidden = { !this.state.isKeyboardOpened }  onCloseButtonPress= { this.onCloseKeyboardButtonPress.bind(this)} />
+  				<KeyboardToolBar hidden = { !this.state.isKeyboardOpened }  
+  					onCloseButtonPress= { this.onCloseKeyboardButtonPress.bind(this)} 
+  					onChooseImageButtonPress = { this.onChooseImageButtonPress.bind(this) } />
 				<KeyboardSpacer onToggle={this.keyboardOnToggle.bind(this)} />
 			</View>
 			);
@@ -136,14 +149,21 @@ class AddTask extends Component {
 	}
 
 	onToolBarPress(event) {
+
 	}
 
-	onAddImagePressed(event) {
+	onTakePhotoButtonPress(event) {
+		this.addImage(true);
+	}
+	onChooseImageButtonPress(event) {
+		this.addImage(false);
+	}
+	addImage(isCamera) {
 		// Specify any or all of these keys
 		var options = {
 			title: '添加照片',
 			cancelButtonTitle: '取消',
-			takePhotoButtonTitle: '选择.',
+			takePhotoButtonTitle: '拍照',
 			takePhotoButtonHidden: false,
 			chooseFromLibraryButtonTitle: '从相册选择',
 			chooseFromLibraryButtonHidden: false,
@@ -155,26 +175,34 @@ class AddTask extends Component {
 			quality: 0.2,
 			allowsEditing: false, 
 		};
+		var imagePicker;
+		if (isCamera) {
+			imagePicker = ImagePickerManager.launchCamera;
+		} else {
+			imagePicker = ImagePickerManager.launchImageLibrary;
+		}
 
-		UIImagePickerManager.showImagePicker(options, (responseType, response) => {
-			console.log(`Response Type = ${responseType}`);
 
-			if (responseType !== 'cancel') {
-				let source;
-    			if (responseType === 'data') { // New photo taken OR passed returnBase64Image true -  response is the 64 bit encoded image data string
-    				source = {uri: 'data:image/jpeg;base64,' + response, isStatic: true};
-    			}
-    			else if (responseType === 'uri') { // Selected from library - response is the URI to the local file asset
-    				source = {uri: response.replace('file://', ''), isStatic: true};
-    			}
+		imagePicker(options, (response) => {
 
-    			this.setState({
-    				avatarSource: source
-    			});
-    		}
+			var source;
+			if (response.data) { // New photo taken OR passed returnBase64Image true -  response is the 64 bit encoded image data string
+				source = {uri: 'data:image/jpeg;base64,' + response.data, isStatic: true};
+			}
+			else if (response.uri) { // Selected from library - response is the URI to the local file asset
+				source = {uri: response.uri.replace('file://', ''), isStatic: true};
+			}
+
+			var tempDataDictionary = Object.assign({}, this.state.dataDictionary);
+			let key = 'img-' + guid();
+			tempDataDictionary[key] = source;
+			this.setState({
+				dataDictionary: tempDataDictionary
+			});
+    		
     	});
 	}
-	
+
 	onKeyPress(event) {
 		console.log("onKeyPress");
 		console.log(event);
