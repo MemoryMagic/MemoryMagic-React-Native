@@ -19,7 +19,7 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
   NSURL *jsCodeLocation;
-
+  
   /**
    * Loading JavaScript code - uncomment the one you want.
    *
@@ -33,15 +33,11 @@
    * `inet` value under `en0:`) and make sure your computer and iOS device are
    * on the same Wi-Fi network.
    */
-//  jsCodeLocation = [NSURL URLWithString:@"http://localhost:8081/index.ios.bundle?platform=ios&dev=true"];
-
-//  jsCodeLocation = [NSURL URLWithString:@"http://10.180.8.244:8081/index.ios.bundle?platform=ios&dev=true"];
-
-  // Step 1:
- jsCodeLocation = [[NSBundle mainBundle] URLForResource:@"main" withExtension:@"jsbundle"];
-  // Step 2: Run in terminal:
+    jsCodeLocation = [NSURL URLWithString:@"http://localhost:8081/index.ios.bundle?platform=ios&dev=true"];
+  //  jsCodeLocation = [NSURL URLWithString:@"http://10.180.8.244:8081/index.ios.bundle?platform=ios&dev=true"];
+//  jsCodeLocation = [[NSBundle mainBundle] URLForResource:@"main" withExtension:@"jsbundle"];
   // curl http://localhost:8081/index.ios.bundle -o main.jsbundle
-
+  
   /**
    * OPTION 2
    * Load from pre-bundled file on disk. The static bundle is automatically
@@ -49,14 +45,14 @@
    * running the project on an actual device or running the project on the
    * simulator in the "Release" build configuration.
    */
-
- //  jsCodeLocation = [[NSBundle mainBundle] URLForResource:@"main" withExtension:@"jsbundle"];
-
+  
+  //  jsCodeLocation = [[NSBundle mainBundle] URLForResource:@"main" withExtension:@"jsbundle"];
+  
   RCTRootView *rootView = [[RCTRootView alloc] initWithBundleURL:jsCodeLocation
                                                       moduleName:@"MemoryMagicProject"
                                                initialProperties:nil
                                                    launchOptions:launchOptions];
-
+  
   self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
   UIViewController *rootViewController = [UIViewController new];
   rootViewController.view = rootView;
@@ -69,9 +65,9 @@
   [RCTPushNotificationManager didRegisterUserNotificationSettings: notificationSettings];
 }
 
--(void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
-  [RCTPushNotificationManager didRegisterForRemoteNotificationsWithDeviceToken:deviceToken];
-}
+//-(void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
+//  [RCTPushNotificationManager didRegisterForRemoteNotificationsWithDeviceToken:deviceToken];
+//}
 -(void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo {
   [RCTPushNotificationManager didReceiveRemoteNotification:userInfo];
 }
@@ -80,11 +76,11 @@
   [RCTPushNotificationManager didReceiveLocalNotification:notification];
 }
 - (void)application:(UIApplication *)application performActionForShortcutItem:(UIApplicationShortcutItem *)shortcutItem completionHandler:(void (^)(BOOL))completionHandler {
-//  if ([shortcutItem.type  isEqual: @"com.yangcun.memorymagic.addtask"]) {
-//    
-//  } else if ([shortcutItem.type isEqual:@"com.yangcun.memorymagic.todaytodo"]) {
-//    
-//  }
+  //  if ([shortcutItem.type  isEqual: @"com.yangcun.memorymagic.addtask"]) {
+  //
+  //  } else if ([shortcutItem.type isEqual:@"com.yangcun.memorymagic.todaytodo"]) {
+  //
+  //  }
   [RNQuickActionManager onQuickActionPress:shortcutItem completionHandler:completionHandler];
 }
 

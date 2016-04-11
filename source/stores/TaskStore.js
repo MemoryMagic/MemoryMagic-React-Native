@@ -51,7 +51,7 @@ function deleteTask(task) {
 				console.log("Falied to excute query: ", error);
 				return;
 			}
-			console.log("Query complete!");
+			console.log("Query complete! - DELETE");
 			database.close(function (error) {
 				if (error) {
 					console.log("Failed to close database: ", error);
@@ -85,7 +85,7 @@ function addData(task) {
 				console.log("Falied to excute query: ", error);
 				return;
 			}
-			console.log("Query complete!");
+			console.log("Query complete! - INSERT");
 			database.close(function (error) {
 				if (error) {
 					console.log("Failed to close database: ", error);
@@ -121,7 +121,7 @@ function loadData(complete) {
 				console.log("Falied to excute query: ", error);
 				return;
 			}
-			console.log("Query complete!");
+			console.log("Query complete! - SELECT");
 			database.close(function (error) {
 				if (error) {
 					console.log("Failed to close database: ", error);

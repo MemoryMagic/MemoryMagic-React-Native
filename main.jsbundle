@@ -86038,313 +86038,6 @@ SEPARATOR:SEPARATOR};
 
 module.exports=ReactInstanceHandles;
 });
-__d('MemoryMagicProject/source/components/TaskList.js',function(global, require, module, exports) {  'use strict';
-
-
-
-
-
-
-
-var _NoTasksMessage=require('MemoryMagicProject/source/components/NoTasksMessage.js');var _NoTasksMessage2=babelHelpers.interopRequireDefault(_NoTasksMessage);var React=require('react-native/Libraries/react-native/react-native.js');var Detail=require('MemoryMagicProject/source/components/Detail.js');var TaskCell=require('MemoryMagicProject/source/components/TaskCell.js');var TaskStore=require('MemoryMagicProject/source/stores/TaskStore.js');var ButtonActions=require('MemoryMagicProject/source/actions/ButtonActions.js');var 
-
-
-StyleSheet=
-
-
-
-
-
-React.StyleSheet;var ListView=React.ListView;var View=React.View;var Text=React.Text;var PushNotificationIOS=React.PushNotificationIOS;var Component=React.Component;var 
-
-
-TaskList=function(_Component){babelHelpers.inherits(TaskList,_Component);
-
-function TaskList(props){babelHelpers.classCallCheck(this,TaskList);var _this=babelHelpers.possibleConstructorReturn(this,Object.getPrototypeOf(TaskList).call(this,
-props));
-
-
-TaskStore.init();
-var data=TaskStore.getAll();
-var dataSource=new ListView.DataSource({rowHasChanged:function(r1,r2){return r1.guid!==r2.guid;}});
-
-_this.state={
-data:data,
-dataSource:dataSource.cloneWithRows(data)};return _this;}babelHelpers.createClass(TaskList,[{key:'componentWillMount',value:function componentWillMount()
-
-
-
-{}},{key:'componentWillUnmount',value:function componentWillUnmount()
-
-
-{
-TweetStore.removeChangeListener(this._onChange);}},{key:'componentDidMount',value:function componentDidMount()
-
-
-{
-TaskStore.addChangeListener(this._onChange.bind(this));}},{key:'_onChange',value:function _onChange()
-
-
-{
-var data=TaskStore.getAll();
-var dataSource=new ListView.DataSource({rowHasChanged:function(r1,r2){return r1.guid!==r2.guid;}});
-
-
-
-
-
-
-this.setState({
-data:data,
-dataSource:dataSource.cloneWithRows(data)});}},{key:'render',value:function render()
-
-
-
-
-{
-
-return (
-React.createElement(View,{style:{flex:1,backgroundColor:'#EEEEF4'}},
-React.createElement(ListView,{
-style:{backgroundColor:this.state.data.length>0?'white':'#EEEEF4'},
-dataSource:this.state.dataSource,
-renderRow:this.renderRow.bind(this)}),
-
-React.createElement(_NoTasksMessage2.default,{visible:this.state.data.length<=0,message:'未添加任务'})));}},{key:'renderRow',value:function renderRow(
-
-
-
-
-rowData,sectionID,rowID){var _this2=this;
-return React.createElement(TaskCell,{data:rowData,onPress:function(){return _this2._pressRow(rowID,rowData);}});}},{key:'_pressRow',value:function _pressRow(
-
-
-
-rowID,propertyGuid){
-
-var row=this.state.data[rowID];
-console.log('row: '+row.taskTitle);
-this.props.navigator.push({
-title:'任务详情',
-rightButtonTitle:'删除',
-onRightButtonPress:function(){
-ButtonActions.click('trash');
-console.log('click trash');},
-
-component:Detail,
-passProps:{
-property:row}});}}]);return TaskList;}(Component);
-
-
-
-
-
-module.exports=TaskList;
-});
-__d('MemoryMagicProject/source/components/TodayTodo.js',function(global, require, module, exports) {  var _reactNative=require('react-native/Libraries/react-native/react-native.js');var _reactNative2=babelHelpers.interopRequireDefault(_reactNative);
-
-
-
-
-
-
-
-var _NoTasksMessage=require('MemoryMagicProject/source/components/NoTasksMessage.js');var _NoTasksMessage2=babelHelpers.interopRequireDefault(_NoTasksMessage);
-var _TaskStore=require('MemoryMagicProject/source/stores/TaskStore.js');var _TaskStore2=babelHelpers.interopRequireDefault(_TaskStore);
-var _TaskCell=require('MemoryMagicProject/source/components/TaskCell.js');var _TaskCell2=babelHelpers.interopRequireDefault(_TaskCell);
-var _Detail=require('MemoryMagicProject/source/components/Detail.js');var _Detail2=babelHelpers.interopRequireDefault(_Detail);
-var _ButtonActions=require('MemoryMagicProject/source/actions/ButtonActions.js');var _ButtonActions2=babelHelpers.interopRequireDefault(_ButtonActions);
-
-var styles=_reactNative.StyleSheet.create({
-container:{
-backgroundColor:'#EEEEF4',
-flex:1}});var 
-
-
-
-TodayTodo=function(_Component){babelHelpers.inherits(TodayTodo,_Component);
-
-function TodayTodo(props){babelHelpers.classCallCheck(this,TodayTodo);var _this=babelHelpers.possibleConstructorReturn(this,Object.getPrototypeOf(TodayTodo).call(this,
-props));
-var data=_TaskStore2.default.getTodayTodo();
-var dataSource=new _reactNative.ListView.DataSource({rowHasChanged:function(r1,r2){return r1.guid!==r2.guid;}});
-
-_this.state={
-data:data,
-dataSource:dataSource.cloneWithRows(data)};return _this;}babelHelpers.createClass(TodayTodo,[{key:'render',value:function render()
-
-
-
-{
-return (
-_reactNative2.default.createElement(_reactNative.View,{style:styles.container},
-_reactNative2.default.createElement(_reactNative.ListView,{
-style:{backgroundColor:this.state.data.length>0?'white':'#EEEEF4'},
-dataSource:this.state.dataSource,
-renderRow:this.renderRow.bind(this)}),
-_reactNative2.default.createElement(_NoTasksMessage2.default,{visible:this.state.data.length<=0,message:'无复习任务'})));}},{key:'renderRow',value:function renderRow(
-
-
-
-
-rowData,sectionID,rowID){var _this2=this;
-return _reactNative2.default.createElement(_TaskCell2.default,{data:rowData,onPress:function(){return _this2._pressRow(rowID,rowData);},isTodayTodo:true});}},{key:'_pressRow',value:function _pressRow(
-
-
-rowID,propertyGuid){
-
-var row=this.state.data[rowID];
-console.log('row: '+row.taskTitle);
-this.props.navigator.push({
-title:'任务详情',
-rightButtonTitle:'删除',
-onRightButtonPress:function(){
-_ButtonActions2.default.click('trash');
-console.log('click trash');},
-
-component:_Detail2.default,
-passProps:{
-property:row}});}}]);return TodayTodo;}(_reactNative.Component);
-
-
-
-
-
-
-module.exports=TodayTodo;
-});
-__d('MemoryMagicProject/source/notification/TaskNotification.js',function(global, require, module, exports) {  var 
-
-
-
-
-
-React=require('react-native/Libraries/react-native/react-native.js');
-var moment=require('moment/moment.js');
-var format="YYYY-MM-DD HH:mm";var 
-
-
-
-PushNotificationIOS=
-React.PushNotificationIOS;
-
-var TaskNotification={
-scheduleLocalNotification:function(task){
-this.refreshLocalNotifications();
-return;
-
-PushNotificationIOS.checkPermissions(function(permissions){
-
-if(!(permissions.alert||permissions.badge||permissions.sound)){
-PushNotificationIOS.requestPermissions();}});
-
-
-
-var createTime=moment(task.createTime,format);
-var createTime6am=createTime.startOf('day').add(6,'hours');
-var dateAfterOneDay=moment(createTime6am).add(1,'days');
-var dateAfterTwoDay=moment(createTime6am).add(2,'days');
-var dateAfterOneWeek=moment(createTime6am).add(7,'days');
-var dateAfterOneMonth=moment(createTime6am).add(30,'days');
-
-console.log('+ task.taskId: '+task.taskId);
-var dateAfterOneMinutes=moment(createTime).add(1,'minutes');
-var list=[dateAfterOneMinutes,dateAfterOneDay,dateAfterTwoDay,dateAfterOneWeek,dateAfterOneMonth];
-list.map(function(time){
-console.log('time: '+time.format(format));
-PushNotificationIOS.scheduleLocalNotification({
-alertBody:'今日复习任务: '+task.taskTitle,
-fireDate:time.format("YYYY-MM-DDTHH:mm:ss.sssZ"),
-userInfo:{taskId:task.taskId}});});},
-
-
-
-
-cancelLocalNotification:function(task){
-this.refreshLocalNotifications();
-return;
-
-console.log('- task.taskId: '+task.taskId);
-PushNotificationIOS.cancelLocalNotifications({taskId:task.taskId});},
-
-
-
-refreshLocalNotifications:function(){
-PushNotificationIOS.checkPermissions(function(permissions){
-
-if(!(permissions.alert||permissions.badge||permissions.sound)){
-PushNotificationIOS.requestPermissions();}});
-
-
-
-var TaskStore=require('MemoryMagicProject/source/stores/TaskStore.js');
-var tasks=TaskStore.getAll();
-console.log('tasks.length: '+tasks.length);
-var dic=[];
-tasks.map(function(task){
-var createTime=moment(task.createTime,format);
-var createTime6am=createTime.startOf('day').add(6,'hours');
-var dateAfterOneDay=moment(createTime6am).add(1,'days').format('YYYY-MM-DD HH');
-var dateAfterTwoDay=moment(createTime6am).add(2,'days').format('YYYY-MM-DD HH');
-var dateAfterOneWeek=moment(createTime6am).add(7,'days').format('YYYY-MM-DD HH');
-var dateAfterOneMonth=moment(createTime6am).add(30,'days').format('YYYY-MM-DD HH');
-
-var tasksCount=1;
-if(dateAfterOneDay in dic){
-tasksCount=dic[dateAfterOneDay];
-tasksCount+=1;}
-
-dic[dateAfterOneDay]=tasksCount;
-
-tasksCount=1;
-if(dateAfterTwoDay in dic){
-tasksCount=dic[dateAfterTwoDay];
-tasksCount+=1;}
-
-dic[dateAfterTwoDay]=tasksCount;
-
-tasksCount=1;
-if(dateAfterOneWeek in dic){
-tasksCount=dic[dateAfterOneWeek];
-tasksCount+=1;}
-
-dic[dateAfterOneWeek]=tasksCount;
-
-tasksCount=1;
-if(dateAfterOneMonth in dic){
-tasksCount=dic[dateAfterOneMonth];
-tasksCount+=1;}
-
-dic[dateAfterOneMonth]=tasksCount;});
-
-
-PushNotificationIOS.cancelAllLocalNotifications();
-
-
-for(var dateTime in dic){
-
-
-if(moment(dateTime).isBefore(moment().add(-1,'day').endOf('day'))){
-continue;}
-
-
-if(moment(dateTime).diff(moment(),'days')===0&&moment(dateTime).isAfter(moment().startOf('day').add(6,'hours'))){
-continue;}
-
-var tasksCount=dic[dateTime];
-console.log('今天你有'+tasksCount+'个任务需要复习，请一定要完成它！🙇');
-
-PushNotificationIOS.scheduleLocalNotification({
-alertBody:'今天你有 '+tasksCount+' 个任务需要复习，请一定要完成它！🙇',
-fireDate:moment(dateTime).format("YYYY-MM-DDTHH:mm:ss.sssZ")});}}};
-
-
-
-
-
-
-module.exports=TaskNotification;
-});
 __d('MemoryMagicProject/source/components/Detail.js',function(global, require, module, exports) {  'use strict';
 
 var React=require('react-native/Libraries/react-native/react-native.js');
@@ -86598,291 +86291,6 @@ _this2.deleteTask();}});}}]);return Detail;}(Component);
 
 module.exports=Detail;
 });
-__d('MemoryMagicProject/source/actions/ButtonActions.js',function(global, require, module, exports) {  var AppDispatcher=require('MemoryMagicProject/source/dispatcher/AppDispatcher.js');
-
-var ButtonActionCreators={
-click:function(eventName){
-var action={
-type:'click',
-name:eventName};
-
-
-AppDispatcher.dispatch(action);}};
-
-
-
-module.exports=ButtonActionCreators;
-});
-__d('MemoryMagicProject/source/actions/TaskActions.js',function(global, require, module, exports) {  var AppDispatcher=require('MemoryMagicProject/source/dispatcher/AppDispatcher.js');
-
-var TaskActionCreators={
-create:function(text){
-
-var action={
-type:'create_task',
-text:text};
-
-
-AppDispatcher.dispatch(action);},
-
-delete:function(task){
-var action={
-type:'delete_task',
-task:task};
-
-AppDispatcher.dispatch(action);}};
-
-
-
-module.exports=TaskActionCreators;
-});
-__d('MemoryMagicProject/source/stores/TaskStore.js',function(global, require, module, exports) {  var AppDispatcher=require('MemoryMagicProject/source/dispatcher/AppDispatcher.js');
-
-var TaskNotification=require('MemoryMagicProject/source/notification/TaskNotification.js');
-var EventEmitter=require('events/events.js').EventEmitter;
-var assign=require('object-assign/index.js');
-var SQLite=require('react-native-sqlite/sqlite3.ios.js');
-var moment=require('moment/moment.js');
-var format="YYYY-MM-DD HH:mm";
-
-var _tasks=[];
-var CHANGE_EVENT='change';
-
-function guid(){
-function s4(){
-return Math.floor((1+Math.random())*0x10000).
-toString(16).
-substring(1);}
-
-return s4()+s4()+'-'+s4()+'-'+s4()+'-'+
-s4()+'-'+s4()+s4()+s4();}
-
-
-function create(text){
-
-var id=guid();
-var newTask={
-taskId:id,
-taskTitle:text,
-createTime:moment().format(format)};
-
-
-addData(newTask);}
-
-
-function deleteTask(task){
-var database=SQLite.open("tasks.sqlite",function(error,database){
-if(error){
-console.log("Falied to open database: ",error);
-return;}
-
-
-var sql="DELETE FROM Task WHERE taskId = ?";
-var params=[task.taskId];
-database.executeSQL(sql,params,rowCallback,completeCallback);
-
-function rowCallback(rowData){}
-
-
-function completeCallback(error){
-if(error){
-console.log("Falied to excute query: ",error);
-return;}
-
-console.log("Query complete!");
-database.close(function(error){
-if(error){
-console.log("Failed to close database: ",error);
-return;}});
-
-
-
-loadData(function(){
-TaskNotification.cancelLocalNotification(task);});}});}
-
-
-
-
-
-function addData(task){
-var database=SQLite.open("tasks.sqlite",function(error,database){
-if(error){
-console.log("Falied to open database: ",error);
-return;}
-
-
-var sql="INSERT INTO Task (taskId, taskTitle, createTime) VALUES (?, ?, ?)";
-var params=[task.taskId,task.taskTitle,task.createTime];
-database.executeSQL(sql,params,rowCallback,completeCallback);
-
-function rowCallback(rowData){}
-
-
-function completeCallback(error){
-if(error){
-console.log("Falied to excute query: ",error);
-return;}
-
-console.log("Query complete!");
-database.close(function(error){
-if(error){
-console.log("Failed to close database: ",error);
-return;}});
-
-
-
-loadData(function(){
-TaskNotification.scheduleLocalNotification(task);});}});}
-
-
-
-
-
-function loadData(complete){
-var tasks=[];
-
-var database=SQLite.open("tasks.sqlite",function(error,database){
-if(error){
-console.log("Falied to open database: ",error);
-return;}
-
-
-var sql="SELECT * from Task";
-var params=[];
-database.executeSQL(sql,params,rowCallback,completeCallback);
-
-function rowCallback(rowData){
-tasks.push(rowData);}
-
-function completeCallback(error){
-if(error){
-console.log("Falied to excute query: ",error);
-return;}
-
-console.log("Query complete!");
-database.close(function(error){
-if(error){
-console.log("Failed to close database: ",error);
-return;}});
-
-
-_tasks=tasks;
-TaskStore.emitChange();
-complete();}});}
-
-
-
-
-
-function createTable(){
-var database=SQLite.open("tasks.sqlite");
-database.executeSQL("CREATE TABLE IF NOT EXISTS Task (taskId TEXT PRIMARY KEY, taskTitle TEXT, createTime TEXT)",
-[],
-function(data){
-console.log("data: ",data);},
-
-function(error){
-if(error!==null){
-console.error("error: ",error);}else 
-{
-console.log("create table success!");}});}
-
-
-
-
-var TaskStore=assign({},EventEmitter.prototype,{
-addChangeListener:function(callback){
-this.on(CHANGE_EVENT,callback);},
-
-
-removeChangeListener:function(callback){
-this.removeListener(CHANGE_EVENT,callback);},
-
-
-getAll:function(){
-return _tasks;},
-
-
-emitChange:function(){
-this.emit(CHANGE_EVENT);},
-
-
-init:function(){
-loadData(function(){});},
-
-
-createTable:function(){
-createTable();},
-
-
-getTodayTodo:function(){
-var todayTodoTasks=[];
-_tasks.map(function(task){
-var createTime=moment(task.createTime).startOf('day');
-var today=moment().startOf('day');
-if(moment(createTime).add(1,'days').diff(today,'days')===0||
-moment(createTime).add(2,'days').diff(today,'days')===0||
-moment(createTime).add(7,'days').diff(today,'days')===0||
-moment(createTime).add(30,'days').diff(today,'days')===0)
-{
-todayTodoTasks.push(task);}});
-
-
-return todayTodoTasks;}});
-
-
-
-function handleAction(action){
-if(action.type==='create_task'){
-create(action.text);}else 
-if(action.type==='delete_task'){
-deleteTask(action.task);}}
-
-
-
-TaskStore.dispatchToken=AppDispatcher.register(handleAction);
-module.exports=TaskStore;
-});
-__d('MemoryMagicProject/source/stores/ButtonStore.js',function(global, require, module, exports) {  var AppDispatcher=require('MemoryMagicProject/source/dispatcher/AppDispatcher.js');
-var TaskNotification=require('MemoryMagicProject/source/notification/TaskNotification.js');
-var EventEmitter=require('events/events.js').EventEmitter;
-var assign=require('object-assign/index.js');
-var _=require('lodash/lodash.js');
-
-
-
-
-var ButtonStore=_.extend({},EventEmitter.prototype,{
-addChangeListener:function(eventName,callback){
-this.method=_.debounce(callback,100);
-this.on(eventName,this.method);},
-
-
-
-method:function(){},
-removeChangeListener:function(eventName,callback){
-this.removeListener(eventName,this.method);
-_.debounce(callback).cancel();},
-
-
-
-emitChange:function(eventName){
-this.emit(eventName);},
-
-
-init:function(){}});
-
-
-
-function handleAction(action){
-if(action.type==='click'){
-ButtonStore.emitChange(action.name);}}
-
-
-
-ButtonStore.dispatchToken=AppDispatcher.register(handleAction);
-module.exports=ButtonStore;
-});
 __d('MemoryMagicProject/source/components/TaskCell.js',function(global, require, module, exports) {  'use strict';
 
 var React=require('react-native/Libraries/react-native/react-native.js');
@@ -86975,6 +86383,238 @@ this.props.onPress&&this.props.onPress(rowID,propertyGuid);}}]);return TaskCell;
 
 
 module.exports=TaskCell;
+});
+__d('MemoryMagicProject/source/components/AddTask.js',function(global, require, module, exports) {  'use strict';
+
+
+
+
+
+
+
+
+
+
+var _KeyboardToolBar=require('MemoryMagicProject/source/components/KeyboardToolBar.js');var _KeyboardToolBar2=babelHelpers.interopRequireDefault(_KeyboardToolBar);
+var _RichContentInput=require('MemoryMagicProject/source/components/RichContentInput.js');var _RichContentInput2=babelHelpers.interopRequireDefault(_RichContentInput);var React=require('react-native/Libraries/react-native/react-native.js');var ImagePickerManager=require('NativeModules').ImagePickerManager;var AppDispatcher=require('NativeModules').AppDispatcher;var SQLite=require('react-native-sqlite/sqlite3.ios.js');var database=SQLite.open("tasks.sqlite");var TaskList=require('MemoryMagicProject/source/components/TaskList.js');var TaskActions=require('MemoryMagicProject/source/actions/TaskActions.js');var ButtonStore=require('MemoryMagicProject/source/stores/ButtonStore.js');var KeyboardSpacer=require('react-native-keyboard-spacer/KeyboardSpacer.js');
+
+function guid(){
+function s4(){
+return Math.floor((1+Math.random())*0x10000).
+toString(16).
+substring(1);}
+
+return s4()+s4()+'-'+s4()+'-'+s4()+'-'+
+s4()+'-'+s4()+s4()+s4();}var 
+
+
+
+StyleSheet=
+
+
+
+
+
+
+
+
+React.StyleSheet;var View=React.View;var Text=React.Text;var TextInput=React.TextInput;var Image=React.Image;var TouchableHighlight=React.TouchableHighlight;var Component=React.Component;var AlertIOS=React.AlertIOS;
+
+var styles=StyleSheet.create({
+
+
+container:{
+marginTop:60,
+flexDirection:'column',
+flex:1},
+
+
+titleContainer:{
+flex:1,
+alignSelf:'stretch',
+justifyContent:'center'},
+
+titleInput:{
+padding:1,
+margin:15,
+fontSize:18,
+borderWidth:0,
+borderColor:'lightgray',
+borderRadius:0,
+color:'#555555',
+alignSelf:'stretch',
+flex:1},
+
+addImageButton:{
+flex:1},
+
+imageContainer:{
+flex:9,
+alignSelf:'stretch',
+marginLeft:20,
+marginRight:20},
+
+addImageButton:{
+width:146}});
+
+
+var i=0;var 
+
+AddTask=function(_Component){babelHelpers.inherits(AddTask,_Component);
+
+function AddTask(props){babelHelpers.classCallCheck(this,AddTask);var _this=babelHelpers.possibleConstructorReturn(this,Object.getPrototypeOf(AddTask).call(this,
+props));
+ButtonStore.addChangeListener('save',_this._onSaveButtonPressed.bind(_this));
+
+_this.state={
+titleString:'',
+isKeyboardOpened:false,
+dataDictionary:{}};return _this;}babelHelpers.createClass(AddTask,[{key:'componentWillUnmount',value:function componentWillUnmount()
+
+
+
+{
+ButtonStore.removeChangeListener('save',this._onSaveButtonPressed);}},{key:'componentDidMount',value:function componentDidMount()
+
+
+{}},{key:'render',value:function render()
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+{
+return (
+React.createElement(View,{style:styles.container},
+React.createElement(View,{style:styles.titleContainer},
+React.createElement(_RichContentInput2.default,{ref:'richContentInput',dataDictionary:this.state.dataDictionary,onTextChange:this._onRichContentTextChange.bind(this)})),
+
+React.createElement(_KeyboardToolBar2.default,{hidden:!this.state.isKeyboardOpened,
+onCloseButtonPress:this.onCloseKeyboardButtonPress.bind(this),
+onChooseImageButtonPress:this.onChooseImageButtonPress.bind(this)}),
+React.createElement(KeyboardSpacer,{onToggle:this.keyboardOnToggle.bind(this)})));}},{key:'keyboardOnToggle',value:function keyboardOnToggle(
+
+
+
+
+isKeyboardShown,keyboardSpace){
+this.setState({
+isKeyboardOpened:isKeyboardShown});}},{key:'onCloseKeyboardButtonPress',value:function onCloseKeyboardButtonPress(
+
+
+
+event){
+console.log('AddTask - onCloseKeyboardButtonPress');
+this.refs.richContentInput.blur();}},{key:'_onRichContentTextChange',value:function _onRichContentTextChange(
+
+
+event,key){
+this.setState({
+titleString:event.nativeEvent.text});
+
+
+
+
+
+
+
+var tempDataDictionary=babelHelpers.extends({},this.state.dataDictionary);
+
+tempDataDictionary[key]=event.nativeEvent.text;
+this.setState({
+dataDictionary:tempDataDictionary});}},{key:'onToolBarPress',value:function onToolBarPress(
+
+
+
+
+event){}},{key:'onTakePhotoButtonPress',value:function onTakePhotoButtonPress(
+
+
+
+event){
+this.addImage(true);}},{key:'onChooseImageButtonPress',value:function onChooseImageButtonPress(
+
+event){
+this.addImage(false);}},{key:'addImage',value:function addImage(
+
+isCamera){var _this2=this;
+
+var options={
+title:'添加照片',
+cancelButtonTitle:'取消',
+takePhotoButtonTitle:'拍照',
+takePhotoButtonHidden:false,
+chooseFromLibraryButtonTitle:'从相册选择',
+chooseFromLibraryButtonHidden:false,
+
+maxWidth:100,
+maxHeight:100,
+returnBase64Image:false,
+returnIsVertical:false,
+quality:0.2,
+allowsEditing:false};
+
+var imagePicker;
+if(isCamera){
+imagePicker=ImagePickerManager.launchCamera;}else 
+{
+imagePicker=ImagePickerManager.launchImageLibrary;}
+
+
+
+imagePicker(options,function(response){
+
+var source;
+if(response.data){
+source={uri:'data:image/jpeg;base64,'+response.data,isStatic:true};}else 
+
+if(response.uri){
+source={uri:response.uri.replace('file://',''),isStatic:true};}
+
+
+var tempDataDictionary=babelHelpers.extends({},_this2.state.dataDictionary);
+var key='img-'+guid();
+tempDataDictionary[key]=source;
+_this2.setState({
+dataDictionary:tempDataDictionary});});}},{key:'onKeyPress',value:function onKeyPress(
+
+
+
+
+
+event){
+console.log("onKeyPress");
+console.log(event);}},{key:'_onSaveButtonPressed',value:function _onSaveButtonPressed(
+
+
+event){
+console.log('onSaveButtonPressed '+i);
+i+=1;
+if(!this.state.titleString&&this.state.titleString===''){
+this.setState({
+titleString:'默认任务'});}
+
+
+TaskActions.create(this.state.titleString);
+this.props.navigator.pop();}}]);return AddTask;}(Component);
+
+
+
+
+
+module.exports=AddTask;
 });
 __d('MemoryMagicProject/source/components/KeyboardToolBar.js',function(global, require, module, exports) {  var _reactNative=require('react-native/Libraries/react-native/react-native.js');var _reactNative2=babelHelpers.interopRequireDefault(_reactNative);
 
@@ -87087,6 +86727,84 @@ this.props.onChooseImageButtonPress&&this.props.onChooseImageButtonPress(event);
 
 
 module.exports=KeyboardToolBar;
+});
+__d('MemoryMagicProject/source/actions/ButtonActions.js',function(global, require, module, exports) {  var AppDispatcher=require('MemoryMagicProject/source/dispatcher/AppDispatcher.js');
+
+var ButtonActionCreators={
+click:function(eventName){
+var action={
+type:'click',
+name:eventName};
+
+
+AppDispatcher.dispatch(action);}};
+
+
+
+module.exports=ButtonActionCreators;
+});
+__d('MemoryMagicProject/source/actions/TaskActions.js',function(global, require, module, exports) {  var AppDispatcher=require('MemoryMagicProject/source/dispatcher/AppDispatcher.js');
+
+var TaskActionCreators={
+create:function(text){
+
+var action={
+type:'create_task',
+text:text};
+
+
+AppDispatcher.dispatch(action);},
+
+delete:function(task){
+var action={
+type:'delete_task',
+task:task};
+
+AppDispatcher.dispatch(action);}};
+
+
+
+module.exports=TaskActionCreators;
+});
+__d('MemoryMagicProject/source/stores/ButtonStore.js',function(global, require, module, exports) {  var AppDispatcher=require('MemoryMagicProject/source/dispatcher/AppDispatcher.js');
+var TaskNotification=require('MemoryMagicProject/source/notification/TaskNotification.js');
+var EventEmitter=require('events/events.js').EventEmitter;
+var assign=require('object-assign/index.js');
+var _=require('lodash/lodash.js');
+
+
+
+
+var ButtonStore=_.extend({},EventEmitter.prototype,{
+addChangeListener:function(eventName,callback){
+this.method=_.debounce(callback,100);
+this.on(eventName,this.method);},
+
+
+
+method:function(){},
+removeChangeListener:function(eventName,callback){
+this.removeListener(eventName,this.method);
+_.debounce(callback).cancel();},
+
+
+
+emitChange:function(eventName){
+this.emit(eventName);},
+
+
+init:function(){}});
+
+
+
+function handleAction(action){
+if(action.type==='click'){
+ButtonStore.emitChange(action.name);}}
+
+
+
+ButtonStore.dispatchToken=AppDispatcher.register(handleAction);
+module.exports=ButtonStore;
 });
 __d('MemoryMagicProject/source/dispatcher/AppDispatcher.js',function(global, require, module, exports) {  var Dispatcher=require('flux/index.js').Dispatcher;
 
@@ -87498,19 +87216,17 @@ height:21}});
 
 module.exports=NavigationHeader;
 });
-__d('MemoryMagicProject/source/components/AddTask.js',function(global, require, module, exports) {  'use strict';
+__d('MemoryMagicProject/source/stores/TaskStore.js',function(global, require, module, exports) {  var AppDispatcher=require('MemoryMagicProject/source/dispatcher/AppDispatcher.js');
 
+var TaskNotification=require('MemoryMagicProject/source/notification/TaskNotification.js');
+var EventEmitter=require('events/events.js').EventEmitter;
+var assign=require('object-assign/index.js');
+var SQLite=require('react-native-sqlite/sqlite3.ios.js');
+var moment=require('moment/moment.js');
+var format="YYYY-MM-DD HH:mm";
 
-
-
-
-
-
-
-
-
-var _KeyboardToolBar=require('MemoryMagicProject/source/components/KeyboardToolBar.js');var _KeyboardToolBar2=babelHelpers.interopRequireDefault(_KeyboardToolBar);
-var _RichContentInput=require('MemoryMagicProject/source/components/RichContentInput.js');var _RichContentInput2=babelHelpers.interopRequireDefault(_RichContentInput);var React=require('react-native/Libraries/react-native/react-native.js');var ImagePickerManager=require('NativeModules').ImagePickerManager;var AppDispatcher=require('NativeModules').AppDispatcher;var SQLite=require('react-native-sqlite/sqlite3.ios.js');var database=SQLite.open("tasks.sqlite");var TaskList=require('MemoryMagicProject/source/components/TaskList.js');var TaskActions=require('MemoryMagicProject/source/actions/TaskActions.js');var ButtonStore=require('MemoryMagicProject/source/stores/ButtonStore.js');var KeyboardSpacer=require('react-native-keyboard-spacer/KeyboardSpacer.js');
+var _tasks=[];
+var CHANGE_EVENT='change';
 
 function guid(){
 function s4(){
@@ -87519,216 +87235,193 @@ toString(16).
 substring(1);}
 
 return s4()+s4()+'-'+s4()+'-'+s4()+'-'+
-s4()+'-'+s4()+s4()+s4();}var 
+s4()+'-'+s4()+s4()+s4();}
+
+
+function create(text){
+
+var id=guid();
+var newTask={
+taskId:id,
+taskTitle:text,
+createTime:moment().format(format)};
+
+
+addData(newTask);}
+
+
+function deleteTask(task){
+var database=SQLite.open("tasks.sqlite",function(error,database){
+if(error){
+console.log("Falied to open database: ",error);
+return;}
+
+
+var sql="DELETE FROM Task WHERE taskId = ?";
+var params=[task.taskId];
+database.executeSQL(sql,params,rowCallback,completeCallback);
+
+function rowCallback(rowData){}
+
+
+function completeCallback(error){
+if(error){
+console.log("Falied to excute query: ",error);
+return;}
+
+console.log("Query complete! - DELETE");
+database.close(function(error){
+if(error){
+console.log("Failed to close database: ",error);
+return;}});
 
 
 
-StyleSheet=
+loadData(function(){
+TaskNotification.cancelLocalNotification(task);});}});}
 
 
 
 
 
+function addData(task){
+var database=SQLite.open("tasks.sqlite",function(error,database){
+if(error){
+console.log("Falied to open database: ",error);
+return;}
+
+
+var sql="INSERT INTO Task (taskId, taskTitle, createTime) VALUES (?, ?, ?)";
+var params=[task.taskId,task.taskTitle,task.createTime];
+database.executeSQL(sql,params,rowCallback,completeCallback);
+
+function rowCallback(rowData){}
+
+
+function completeCallback(error){
+if(error){
+console.log("Falied to excute query: ",error);
+return;}
+
+console.log("Query complete! - INSERT");
+database.close(function(error){
+if(error){
+console.log("Failed to close database: ",error);
+return;}});
 
 
 
-React.StyleSheet;var View=React.View;var Text=React.Text;var TextInput=React.TextInput;var Image=React.Image;var TouchableHighlight=React.TouchableHighlight;var Component=React.Component;var AlertIOS=React.AlertIOS;
-
-var styles=StyleSheet.create({
-
-
-container:{
-marginTop:60,
-flexDirection:'column',
-flex:1},
-
-
-titleContainer:{
-flex:1,
-alignSelf:'stretch',
-justifyContent:'center'},
-
-titleInput:{
-padding:1,
-margin:15,
-fontSize:18,
-borderWidth:0,
-borderColor:'lightgray',
-borderRadius:0,
-color:'#555555',
-alignSelf:'stretch',
-flex:1},
-
-addImageButton:{
-flex:1},
-
-imageContainer:{
-flex:9,
-alignSelf:'stretch',
-marginLeft:20,
-marginRight:20},
-
-addImageButton:{
-width:146}});
-
-
-var i=0;var 
-
-AddTask=function(_Component){babelHelpers.inherits(AddTask,_Component);
-
-function AddTask(props){babelHelpers.classCallCheck(this,AddTask);var _this=babelHelpers.possibleConstructorReturn(this,Object.getPrototypeOf(AddTask).call(this,
-props));
-ButtonStore.addChangeListener('save',_this._onSaveButtonPressed.bind(_this));
-
-_this.state={
-titleString:'',
-isKeyboardOpened:false,
-dataDictionary:{}};return _this;}babelHelpers.createClass(AddTask,[{key:'componentWillUnmount',value:function componentWillUnmount()
+loadData(function(){
+TaskNotification.scheduleLocalNotification(task);});}});}
 
 
 
+
+
+function loadData(complete){
+var tasks=[];
+
+var database=SQLite.open("tasks.sqlite",function(error,database){
+if(error){
+console.log("Falied to open database: ",error);
+return;}
+
+
+var sql="SELECT * from Task";
+var params=[];
+database.executeSQL(sql,params,rowCallback,completeCallback);
+
+function rowCallback(rowData){
+tasks.push(rowData);}
+
+function completeCallback(error){
+if(error){
+console.log("Falied to excute query: ",error);
+return;}
+
+console.log("Query complete! - SELECT");
+database.close(function(error){
+if(error){
+console.log("Failed to close database: ",error);
+return;}});
+
+
+_tasks=tasks;
+TaskStore.emitChange();
+complete();}});}
+
+
+
+
+
+function createTable(){
+var database=SQLite.open("tasks.sqlite");
+database.executeSQL("CREATE TABLE IF NOT EXISTS Task (taskId TEXT PRIMARY KEY, taskTitle TEXT, createTime TEXT)",
+[],
+function(data){
+console.log("data: ",data);},
+
+function(error){
+if(error!==null){
+console.error("error: ",error);}else 
 {
-ButtonStore.removeChangeListener('save',this._onSaveButtonPressed);}},{key:'componentDidMount',value:function componentDidMount()
-
-
-{}},{key:'render',value:function render()
+console.log("create table success!");}});}
 
 
 
 
+var TaskStore=assign({},EventEmitter.prototype,{
+addChangeListener:function(callback){
+this.on(CHANGE_EVENT,callback);},
 
 
+removeChangeListener:function(callback){
+this.removeListener(CHANGE_EVENT,callback);},
 
 
+getAll:function(){
+return _tasks;},
 
 
+emitChange:function(){
+this.emit(CHANGE_EVENT);},
 
 
+init:function(){
+loadData(function(){});},
 
 
+createTable:function(){
+createTable();},
 
 
-
+getTodayTodo:function(){
+var todayTodoTasks=[];
+_tasks.map(function(task){
+var createTime=moment(task.createTime).startOf('day');
+var today=moment().startOf('day');
+if(moment(createTime).add(1,'days').diff(today,'days')===0||
+moment(createTime).add(2,'days').diff(today,'days')===0||
+moment(createTime).add(7,'days').diff(today,'days')===0||
+moment(createTime).add(30,'days').diff(today,'days')===0)
 {
-return (
-React.createElement(View,{style:styles.container},
-React.createElement(View,{style:styles.titleContainer},
-React.createElement(_RichContentInput2.default,{ref:'richContentInput',dataDictionary:this.state.dataDictionary,onTextChange:this._onRichContentTextChange.bind(this)})),
+todayTodoTasks.push(task);}});
 
-React.createElement(_KeyboardToolBar2.default,{hidden:!this.state.isKeyboardOpened,
-onCloseButtonPress:this.onCloseKeyboardButtonPress.bind(this),
-onChooseImageButtonPress:this.onChooseImageButtonPress.bind(this)}),
-React.createElement(KeyboardSpacer,{onToggle:this.keyboardOnToggle.bind(this)})));}},{key:'keyboardOnToggle',value:function keyboardOnToggle(
+
+return todayTodoTasks;}});
 
 
 
-
-isKeyboardShown,keyboardSpace){
-this.setState({
-isKeyboardOpened:isKeyboardShown});}},{key:'onCloseKeyboardButtonPress',value:function onCloseKeyboardButtonPress(
-
-
-
-event){
-console.log('AddTask - onCloseKeyboardButtonPress');
-this.refs.richContentInput.blur();}},{key:'_onRichContentTextChange',value:function _onRichContentTextChange(
-
-
-event,key){
-this.setState({
-titleString:event.nativeEvent.text});
+function handleAction(action){
+if(action.type==='create_task'){
+create(action.text);}else 
+if(action.type==='delete_task'){
+deleteTask(action.task);}}
 
 
 
-
-
-
-
-var tempDataDictionary=babelHelpers.extends({},this.state.dataDictionary);
-
-tempDataDictionary[key]=event.nativeEvent.text;
-this.setState({
-dataDictionary:tempDataDictionary});}},{key:'onToolBarPress',value:function onToolBarPress(
-
-
-
-
-event){}},{key:'onTakePhotoButtonPress',value:function onTakePhotoButtonPress(
-
-
-
-event){
-this.addImage(true);}},{key:'onChooseImageButtonPress',value:function onChooseImageButtonPress(
-
-event){
-this.addImage(false);}},{key:'addImage',value:function addImage(
-
-isCamera){var _this2=this;
-
-var options={
-title:'添加照片',
-cancelButtonTitle:'取消',
-takePhotoButtonTitle:'拍照',
-takePhotoButtonHidden:false,
-chooseFromLibraryButtonTitle:'从相册选择',
-chooseFromLibraryButtonHidden:false,
-
-maxWidth:100,
-maxHeight:100,
-returnBase64Image:false,
-returnIsVertical:false,
-quality:0.2,
-allowsEditing:false};
-
-var imagePicker;
-if(isCamera){
-imagePicker=ImagePickerManager.launchCamera;}else 
-{
-imagePicker=ImagePickerManager.launchImageLibrary;}
-
-
-
-imagePicker(options,function(response){
-
-var source;
-if(response.data){
-source={uri:'data:image/jpeg;base64,'+response.data,isStatic:true};}else 
-
-if(response.uri){
-source={uri:response.uri.replace('file://',''),isStatic:true};}
-
-
-var tempDataDictionary=babelHelpers.extends({},_this2.state.dataDictionary);
-var key='img-'+guid();
-tempDataDictionary[key]=source;
-_this2.setState({
-dataDictionary:tempDataDictionary});});}},{key:'onKeyPress',value:function onKeyPress(
-
-
-
-
-
-event){
-console.log("onKeyPress");
-console.log(event);}},{key:'_onSaveButtonPressed',value:function _onSaveButtonPressed(
-
-
-event){
-console.log('onSaveButtonPressed '+i);
-i+=1;
-if(!this.state.titleString&&this.state.titleString===''){
-this.setState({
-titleString:'默认任务'});}
-
-
-TaskActions.create(this.state.titleString);
-this.props.navigator.pop();}}]);return AddTask;}(Component);
-
-
-
-
-
-module.exports=AddTask;
+TaskStore.dispatchToken=AppDispatcher.register(handleAction);
+module.exports=TaskStore;
 });
 __d('MemoryMagicProject/index.ios.js',function(global, require, module, exports) {  'use strict';
 
@@ -87883,6 +87576,313 @@ React.createElement(View,null)));}}]);return MemoryMagicProjectApp;}(Component);
 React.AppRegistry.registerComponent('MemoryMagicProject',function(){
 
 return MemoryMagicProjectApp;});
+});
+__d('MemoryMagicProject/source/components/TaskList.js',function(global, require, module, exports) {  'use strict';
+
+
+
+
+
+
+
+var _NoTasksMessage=require('MemoryMagicProject/source/components/NoTasksMessage.js');var _NoTasksMessage2=babelHelpers.interopRequireDefault(_NoTasksMessage);var React=require('react-native/Libraries/react-native/react-native.js');var Detail=require('MemoryMagicProject/source/components/Detail.js');var TaskCell=require('MemoryMagicProject/source/components/TaskCell.js');var TaskStore=require('MemoryMagicProject/source/stores/TaskStore.js');var ButtonActions=require('MemoryMagicProject/source/actions/ButtonActions.js');var 
+
+
+StyleSheet=
+
+
+
+
+
+React.StyleSheet;var ListView=React.ListView;var View=React.View;var Text=React.Text;var PushNotificationIOS=React.PushNotificationIOS;var Component=React.Component;var 
+
+
+TaskList=function(_Component){babelHelpers.inherits(TaskList,_Component);
+
+function TaskList(props){babelHelpers.classCallCheck(this,TaskList);var _this=babelHelpers.possibleConstructorReturn(this,Object.getPrototypeOf(TaskList).call(this,
+props));
+
+
+TaskStore.init();
+var data=TaskStore.getAll();
+var dataSource=new ListView.DataSource({rowHasChanged:function(r1,r2){return r1.guid!==r2.guid;}});
+
+_this.state={
+data:data,
+dataSource:dataSource.cloneWithRows(data)};return _this;}babelHelpers.createClass(TaskList,[{key:'componentWillMount',value:function componentWillMount()
+
+
+
+{}},{key:'componentWillUnmount',value:function componentWillUnmount()
+
+
+{
+TweetStore.removeChangeListener(this._onChange);}},{key:'componentDidMount',value:function componentDidMount()
+
+
+{
+TaskStore.addChangeListener(this._onChange.bind(this));}},{key:'_onChange',value:function _onChange()
+
+
+{
+var data=TaskStore.getAll();
+var dataSource=new ListView.DataSource({rowHasChanged:function(r1,r2){return r1.guid!==r2.guid;}});
+
+
+
+
+
+
+this.setState({
+data:data,
+dataSource:dataSource.cloneWithRows(data)});}},{key:'render',value:function render()
+
+
+
+
+{
+
+return (
+React.createElement(View,{style:{flex:1,backgroundColor:'#EEEEF4'}},
+React.createElement(ListView,{
+style:{backgroundColor:this.state.data.length>0?'white':'#EEEEF4'},
+dataSource:this.state.dataSource,
+renderRow:this.renderRow.bind(this)}),
+
+React.createElement(_NoTasksMessage2.default,{visible:this.state.data.length<=0,message:'未添加任务'})));}},{key:'renderRow',value:function renderRow(
+
+
+
+
+rowData,sectionID,rowID){var _this2=this;
+return React.createElement(TaskCell,{data:rowData,onPress:function(){return _this2._pressRow(rowID,rowData);}});}},{key:'_pressRow',value:function _pressRow(
+
+
+
+rowID,propertyGuid){
+
+var row=this.state.data[rowID];
+console.log('row: '+row.taskTitle);
+this.props.navigator.push({
+title:'任务详情',
+rightButtonTitle:'删除',
+onRightButtonPress:function(){
+ButtonActions.click('trash');
+console.log('click trash');},
+
+component:Detail,
+passProps:{
+property:row}});}}]);return TaskList;}(Component);
+
+
+
+
+
+module.exports=TaskList;
+});
+__d('MemoryMagicProject/source/notification/TaskNotification.js',function(global, require, module, exports) {  var 
+
+
+
+
+
+React=require('react-native/Libraries/react-native/react-native.js');
+var moment=require('moment/moment.js');
+var format="YYYY-MM-DD HH:mm";var 
+
+
+
+PushNotificationIOS=
+React.PushNotificationIOS;
+
+var TaskNotification={
+scheduleLocalNotification:function(task){
+this.refreshLocalNotifications();
+return;
+
+PushNotificationIOS.checkPermissions(function(permissions){
+
+if(!(permissions.alert||permissions.badge||permissions.sound)){
+PushNotificationIOS.requestPermissions();}});
+
+
+
+var createTime=moment(task.createTime,format);
+var createTime6am=createTime.startOf('day').add(6,'hours');
+var dateAfterOneDay=moment(createTime6am).add(1,'days');
+var dateAfterTwoDay=moment(createTime6am).add(2,'days');
+var dateAfterOneWeek=moment(createTime6am).add(7,'days');
+var dateAfterOneMonth=moment(createTime6am).add(30,'days');
+
+console.log('+ task.taskId: '+task.taskId);
+var dateAfterOneMinutes=moment(createTime).add(1,'minutes');
+var list=[dateAfterOneMinutes,dateAfterOneDay,dateAfterTwoDay,dateAfterOneWeek,dateAfterOneMonth];
+list.map(function(time){
+console.log('time: '+time.format(format));
+PushNotificationIOS.scheduleLocalNotification({
+alertBody:'今日复习任务: '+task.taskTitle,
+fireDate:time.format("YYYY-MM-DDTHH:mm:ss.sssZ"),
+userInfo:{taskId:task.taskId}});});},
+
+
+
+
+cancelLocalNotification:function(task){
+this.refreshLocalNotifications();
+return;
+
+console.log('- task.taskId: '+task.taskId);
+PushNotificationIOS.cancelLocalNotifications({taskId:task.taskId});},
+
+
+
+refreshLocalNotifications:function(){
+PushNotificationIOS.checkPermissions(function(permissions){
+
+if(!(permissions.alert||permissions.badge||permissions.sound)){
+PushNotificationIOS.requestPermissions();}});
+
+
+
+var TaskStore=require('MemoryMagicProject/source/stores/TaskStore.js');
+var tasks=TaskStore.getAll();
+console.log('tasks.length: '+tasks.length);
+var dic=[];
+tasks.map(function(task){
+var createTime=moment(task.createTime,format);
+var createTime6am=createTime.startOf('day').add(6,'hours');
+var dateAfterOneDay=moment(createTime6am).add(1,'days').format('YYYY-MM-DD HH');
+var dateAfterTwoDay=moment(createTime6am).add(2,'days').format('YYYY-MM-DD HH');
+var dateAfterOneWeek=moment(createTime6am).add(7,'days').format('YYYY-MM-DD HH');
+var dateAfterOneMonth=moment(createTime6am).add(30,'days').format('YYYY-MM-DD HH');
+
+var tasksCount=1;
+if(dateAfterOneDay in dic){
+tasksCount=dic[dateAfterOneDay];
+tasksCount+=1;}
+
+dic[dateAfterOneDay]=tasksCount;
+
+tasksCount=1;
+if(dateAfterTwoDay in dic){
+tasksCount=dic[dateAfterTwoDay];
+tasksCount+=1;}
+
+dic[dateAfterTwoDay]=tasksCount;
+
+tasksCount=1;
+if(dateAfterOneWeek in dic){
+tasksCount=dic[dateAfterOneWeek];
+tasksCount+=1;}
+
+dic[dateAfterOneWeek]=tasksCount;
+
+tasksCount=1;
+if(dateAfterOneMonth in dic){
+tasksCount=dic[dateAfterOneMonth];
+tasksCount+=1;}
+
+dic[dateAfterOneMonth]=tasksCount;});
+
+
+PushNotificationIOS.cancelAllLocalNotifications();
+
+
+for(var dateTime in dic){
+
+
+if(moment(dateTime).isBefore(moment().add(-1,'day').endOf('day'))){
+continue;}
+
+
+if(moment(dateTime).diff(moment(),'days')===0&&moment(dateTime).isAfter(moment().startOf('day').add(6,'hours'))){
+continue;}
+
+var tasksCount=dic[dateTime];
+console.log('有'+tasksCount+'个任务快要忘记了，快来复习它们吧!');
+
+PushNotificationIOS.scheduleLocalNotification({
+alertBody:'有'+tasksCount+'个任务快要忘记了，快来复习它们吧!',
+fireDate:moment(dateTime).format("YYYY-MM-DDTHH:mm:ss.sssZ")});}}};
+
+
+
+
+
+
+module.exports=TaskNotification;
+});
+__d('MemoryMagicProject/source/components/TodayTodo.js',function(global, require, module, exports) {  var _reactNative=require('react-native/Libraries/react-native/react-native.js');var _reactNative2=babelHelpers.interopRequireDefault(_reactNative);
+
+
+
+
+
+
+
+var _NoTasksMessage=require('MemoryMagicProject/source/components/NoTasksMessage.js');var _NoTasksMessage2=babelHelpers.interopRequireDefault(_NoTasksMessage);
+var _TaskStore=require('MemoryMagicProject/source/stores/TaskStore.js');var _TaskStore2=babelHelpers.interopRequireDefault(_TaskStore);
+var _TaskCell=require('MemoryMagicProject/source/components/TaskCell.js');var _TaskCell2=babelHelpers.interopRequireDefault(_TaskCell);
+var _Detail=require('MemoryMagicProject/source/components/Detail.js');var _Detail2=babelHelpers.interopRequireDefault(_Detail);
+var _ButtonActions=require('MemoryMagicProject/source/actions/ButtonActions.js');var _ButtonActions2=babelHelpers.interopRequireDefault(_ButtonActions);
+
+var styles=_reactNative.StyleSheet.create({
+container:{
+backgroundColor:'#EEEEF4',
+flex:1}});var 
+
+
+
+TodayTodo=function(_Component){babelHelpers.inherits(TodayTodo,_Component);
+
+function TodayTodo(props){babelHelpers.classCallCheck(this,TodayTodo);var _this=babelHelpers.possibleConstructorReturn(this,Object.getPrototypeOf(TodayTodo).call(this,
+props));
+var data=_TaskStore2.default.getTodayTodo();
+var dataSource=new _reactNative.ListView.DataSource({rowHasChanged:function(r1,r2){return r1.guid!==r2.guid;}});
+
+_this.state={
+data:data,
+dataSource:dataSource.cloneWithRows(data)};return _this;}babelHelpers.createClass(TodayTodo,[{key:'render',value:function render()
+
+
+
+{
+return (
+_reactNative2.default.createElement(_reactNative.View,{style:styles.container},
+_reactNative2.default.createElement(_reactNative.ListView,{
+style:{backgroundColor:this.state.data.length>0?'white':'#EEEEF4'},
+dataSource:this.state.dataSource,
+renderRow:this.renderRow.bind(this)}),
+_reactNative2.default.createElement(_NoTasksMessage2.default,{visible:this.state.data.length<=0,message:'无复习任务'})));}},{key:'renderRow',value:function renderRow(
+
+
+
+
+rowData,sectionID,rowID){var _this2=this;
+return _reactNative2.default.createElement(_TaskCell2.default,{data:rowData,onPress:function(){return _this2._pressRow(rowID,rowData);},isTodayTodo:true});}},{key:'_pressRow',value:function _pressRow(
+
+
+rowID,propertyGuid){
+
+var row=this.state.data[rowID];
+console.log('row: '+row.taskTitle);
+this.props.navigator.push({
+title:'任务详情',
+rightButtonTitle:'删除',
+onRightButtonPress:function(){
+_ButtonActions2.default.click('trash');
+console.log('click trash');},
+
+component:_Detail2.default,
+passProps:{
+property:row}});}}]);return TodayTodo;}(_reactNative.Component);
+
+
+
+
+
+
+module.exports=TodayTodo;
 });
 ;require("InitializeJavaScriptAppEngine");
 ;require("MemoryMagicProject/index.ios.js");
