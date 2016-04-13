@@ -12,12 +12,15 @@ var styles = StyleSheet.create({
 		padding: 1,
 		margin: 15,
 		fontSize: 18,
-		borderWidth: 0,
+		borderWidth: 1,
 		borderColor: 'lightgray',
 		borderRadius: 0,
 		color: '#555555',
 		alignSelf: 'stretch',
-		flex: 1,
+	},
+	image: {
+		width: 20,
+		height: 20
 	}
 });
 
@@ -58,6 +61,9 @@ class RichContentInput extends Component {
 				'text1': ''
 			};
 		}
+
+
+		
 		var bodyComponents = [];
 		for (var key in dic) {
 			console.log('key: ' + key);
@@ -66,9 +72,11 @@ class RichContentInput extends Component {
 				bodyComponents.push(<TextInput ref={key} key={key} value={text} autoFocus={true} multiline={true} onChange={this._onTextChange.bind(this, key)} placeholder='输入任务内容' style={styles.titleInput} />);
 			} else if (key.indexOf('img') > -1) {
 				var img = dic[key];
-				bodyComponents.push(<Image key={key} source={img} />);
+				console.log(img);
+				bodyComponents.push(<Image key={'img'+key} style={styles.image} source={img} />);
 			}
 		}
+		this.fix(bodyComponents);
 		return(
 			<View style={{flex: 1}}>
 				{bodyComponents}
@@ -78,6 +86,38 @@ class RichContentInput extends Component {
 
 	_onTextChange(key, event) {
 		this.props.onTextChange && this.props.onTextChange(event, key);
+	}
+
+	fix(arr) {
+		console.log('fix');
+		var preItemIsImage = false;
+		var changed = false;
+		for (i in arr) {
+			var item = arr[i];
+			console.log('item.key: '+item.key);
+			// continue;
+			// pre item is image && current item is image
+			if (preItemIsImage && item.key.indexOf('img') > -1) {
+				arr.splice(i,0,<TextInput ref={'txt'+guid()} key={'txt'+guid()} autoFocus={true} multiline={true} onChange={this._onTextChange.bind(this, item.key)} style={styles.titleInput} />);
+				this.fix(arr);
+				break;
+			} 
+			
+			console.log('i === arr.length-1 => ' + i + ' === ' + (arr.length-1) + (i==(arr.length-1)));
+			// last item is image
+			if (item.key.indexOf('img') > -1 && i == (arr.length-1)) {
+				arr.push(<TextInput ref={'txt'+guid()} key={'txt'+guid()}  autoFocus={true} multiline={true} onChange={this._onTextChange.bind(this, item.key)} style={styles.titleInput} />);
+				this.fix(arr);
+				break;
+			}
+
+			if (
+				item.key.indexOf('img') > -1) {
+				preItemIsImage = true;
+			} else {
+				preItemIsImage = false;
+			}
+		}
 	}
 }
 

@@ -10,6 +10,8 @@ var TaskStore = require('./source/stores/TaskStore');
 var ButtonActions = require('./source/actions/ButtonActions');
 var TaskActions = require('./source/actions/TaskActions');
 
+var Tool = require('./source/tools/Tool');
+
 var {
   StyleSheet,
   View,
@@ -57,6 +59,7 @@ class MemoryMagicProjectApp extends Component {
   }
 
   componentDidMount() {
+    console.log('guid: ' + Tool.guid());
   	this._loadInitialState().done();
 
     // Quick Action for 3D Touch

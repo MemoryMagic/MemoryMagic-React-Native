@@ -65,19 +65,19 @@ class KeyboardToolBar extends Component {
 
 					<View style={{ flex: 1 }} >
 						<TouchableHighlight underlayColor='white' style={ styles.itemButtonTouch } onPress={ this._onLinkButtonPress.bind(this)}>
-								<View />
+								<Image source={require('image!ToolBarLink')} style={ styles.itemButton }/>
 						</TouchableHighlight>
 					</View>
 
 					<View style={{ flex: 1 }} >
 						<TouchableHighlight underlayColor='white' style={ styles.itemButtonTouch } onPress={ this._onTakePhotoButtonPress.bind(this)}>
-								<View />
+								<Image source={require('image!ToolBarCamera1')} style={ styles.itemButton }/> 
 						</TouchableHighlight>
 					</View>
 					
 					<View style={{ flex: 1 }} >
 						<TouchableHighlight underlayColor='white' style={ styles.itemButtonTouch } onPress={ this._onChooseImageButtonPress.bind(this)}>
-								<View />
+								<Image source={require('image!ToolBarImage2')} style={ styles.itemButton }/> 
 						</TouchableHighlight>
 					</View>
 					
@@ -88,21 +88,17 @@ class KeyboardToolBar extends Component {
 	}
 
 	_onCloseButtonPress(event) {
-		console.log('KeyboardToolBar - _onCloseButtonPress');
 		this.props.onCloseButtonPress && this.props.onCloseButtonPress(event);
 	}
 
 	_onLinkButtonPress(event) {
-		return;
 	}
 
 	_onTakePhotoButtonPress(event) {
-		return;
 		this.props.onTakePhotoButtonPress && this.props.onTakePhotoButtonPress(event);
 	}
 
 	_onChooseImageButtonPress(event) {
-		return;
 		this.props.onChooseImageButtonPress && this.props.onChooseImageButtonPress(event);
 
 	}
