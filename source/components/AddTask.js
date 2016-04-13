@@ -30,6 +30,7 @@ var {
 	Image,
 	TouchableHighlight,
 	Component,
+	AlertIOS
 	// Object
 } = React;
 
@@ -215,6 +216,11 @@ class AddTask extends Component {
 	_onSaveButtonPressed(event) {
 		console.log('onSaveButtonPressed ' + i);
 		i += 1;
+		if (!this.state.titleString && this.state.titleString === '') {
+			this.setState({
+				titleString: '默认任务'
+			});
+		}
 		TaskActions.create(this.state.titleString);
 		this.props.navigator.pop();
 	}
