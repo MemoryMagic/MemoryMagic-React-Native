@@ -117,10 +117,10 @@ var TaskNotification = {
 				continue;
 			}
 			var tasksCount = dic[dateTime];
-			console.log('今天你有' + tasksCount + '个任务需要复习，请一定要完成它！🙇');
+			console.log('有' + tasksCount + '个任务快要忘记了，快来复习它们吧!');
 			//console.log(dateTime + ' -> ' + moment(dateTime) + ' -> ' + moment(dateTime).format(format));
 			PushNotificationIOS.scheduleLocalNotification({
-				alertBody: '今天你有 ' + tasksCount + ' 个任务需要复习，请一定要完成它！🙇',
+				alertBody: '有' + tasksCount + '个任务快要忘记了，快来复习它们吧!',
 				fireDate: moment(dateTime).format("YYYY-MM-DDTHH:mm:ss.sssZ"),
 			});
 		}
