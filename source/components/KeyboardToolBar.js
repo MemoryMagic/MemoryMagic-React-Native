@@ -46,7 +46,7 @@ class KeyboardToolBar extends Component {
 	render() {
 		return (
 			this.props.hidden ? null :
-			<View>
+			<View style={{backgroundColor: 'white'}}>
 				<View style={{height: 0.5, backgroundColor: 'lightgray'}} />
 				<View style={ styles.container }>
 					<View style={{ flex: 1 }}>

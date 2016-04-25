@@ -38,6 +38,10 @@ class RichContentInput extends Component {
 
 	constructor(props) {
 		super(props);
+
+		this.state = {
+			heights: {}
+		}
 	}
 
 	propTypes: {
@@ -61,15 +65,13 @@ class RichContentInput extends Component {
 				'text1': ''
 			};
 		}
-
-
 		
 		var bodyComponents = [];
 		for (var key in dic) {
 			console.log('key: ' + key);
 			if (key.indexOf('text') > -1) {
 				var text = dic[key];
-				bodyComponents.push(<TextInput ref={key} key={key} value={text} autoFocus={true} multiline={true} onChange={this._onTextChange.bind(this, key)} placeholder='输入任务内容' style={styles.titleInput} />);
+				bodyComponents.push(<TextInput ref={key} key={key} value={text} autoFocus={true} multiline={true} onChange={this._onTextChange.bind(this, key)} placeholder='输入任务内容' style={[styles.titleInput, {height: Math.max(35, this.state.heights[key])}]} />);
 			} else if (key.indexOf('img') > -1) {
 				var img = dic[key];
 				console.log(img);
@@ -86,6 +88,11 @@ class RichContentInput extends Component {
 
 	_onTextChange(key, event) {
 		this.props.onTextChange && this.props.onTextChange(event, key);
+		var tempHeights = Object.assign({}, this.state.heights);
+		tempHeights[key] = event.nativeEvent.contentSize.height;
+		this.setState({
+			heights: tempHeights
+		});
 	}
 
 	fix(arr) {
