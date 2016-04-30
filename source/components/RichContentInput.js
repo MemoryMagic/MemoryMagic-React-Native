@@ -2,6 +2,7 @@ import React, {
 	TextInput,
 	Image,
 	View,
+	Text,
 	StyleSheet,
 	TouchableHighlight,
 	Component
@@ -21,9 +22,24 @@ var styles = StyleSheet.create({
 		alignSelf: 'stretch',
 	},
 	image: {
-		resizeMode: 'cover',
-		alignSelf: 'stretch',
-		margin: 15
+		resizeMode: 'stretch',
+		marginLeft: 15,
+		marginRight: 15,
+		alignItems: 'flex-end'
+	},
+	removeButton: {
+		opacity: 0.5,
+		width: 30,
+		height: 30,
+		alignItems: 'flex-end',
+	},
+	removeText: {
+		backgroundColor: 'red',
+		color: 'white',
+		textAlign: 'center',
+		width: 20,
+		height: 20,
+		fontSize: 16
 	}
 });
 
@@ -44,12 +60,15 @@ class CustomImage extends Component {
 	}
 	render() {
 		console.log(this.props.source);
+		let width = Dimensions.get('window').width - 30;
+		let height = width * this.props.source.height / this.props.source.width;
 		return (
-			<View>
-				
-				<Image key={this.props.key} style={styles.image, { height: Dimensions.get('window').width * this.props.source.height / this.props.source.width}} source={this.props.source}>
+			<View style={{ backgroundColor: 'gray' }}>
+				<Image key={this.props.key} style={[styles.image, {width: width, height: height}]} source={this.props.source}>
 				<TouchableHighlight>
-					<View style={{backgroundColor: 'red', width: 10, height:10}} />
+					<View style={ styles.removeButton }>
+						<Text style={styles.removeText}>×</Text>
+					</View>
 				</TouchableHighlight>
 				</Image>
 			</View>
