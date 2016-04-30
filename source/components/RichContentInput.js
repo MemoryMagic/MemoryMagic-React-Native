@@ -65,20 +65,28 @@ class RichContentInput extends Component {
 				'text1': ''
 			};
 		}
-		
+		//console.log('dic:');
+		//console.log(dic);
+		this.fixDic(dic);
+		//console.log(dic);
 		var bodyComponents = [];
 		for (var key in dic) {
-			console.log('key: ' + key);
+			//console.log('key: ' + key);
 			if (key.indexOf('text') > -1) {
 				var text = dic[key];
-				bodyComponents.push(<TextInput ref={key} key={key} value={text} autoFocus={true} multiline={true} onChange={this._onTextChange.bind(this, key)} placeholder='输入任务内容' style={[styles.titleInput, {height: Math.max(35, this.state.heights[key])}]} />);
+				let itemHeight = this.state.heights[key];
+				//console.log(itemHeight);
+				if (itemHeight === undefined) {
+					itemHeight = 0;
+				}
+				bodyComponents.push(<TextInput ref={key} key={key} value={text} autoFocus={true} multiline={true} onChange={this._onTextChange.bind(this, key)} placeholder='输入任务内容' style={[styles.titleInput, {height: Math.max(35, itemHeight)}]} />);
 			} else if (key.indexOf('img') > -1) {
 				var img = dic[key];
-				console.log(img);
+				//console.log(img);
 				bodyComponents.push(<Image key={'img'+key} style={styles.image} source={img} />);
 			}
 		}
-		this.fix(bodyComponents);
+		//this.fix(bodyComponents);
 		return(
 			<View style={{flex: 1}}>
 				{bodyComponents}
@@ -95,34 +103,23 @@ class RichContentInput extends Component {
 		});
 	}
 
-	fix(arr) {
-		console.log('fix');
-		var preItemIsImage = false;
-		var changed = false;
-		for (i in arr) {
-			var item = arr[i];
-			console.log('item.key: '+item.key);
-			// continue;
-			// pre item is image && current item is image
-			if (preItemIsImage && item.key.indexOf('img') > -1) {
-				arr.splice(i,0,<TextInput ref={'txt'+guid()} key={'txt'+guid()} autoFocus={true} multiline={true} onChange={this._onTextChange.bind(this, item.key)} style={styles.titleInput} />);
-				this.fix(arr);
+	fixDic(dic) {
+		let keys = Object.keys(dic);
+		// console.log(keys);
+		for (i in keys) {
+			let key = keys[i];
+			console.log(key);
+			let isLastItem = (i == (keys.length - 1));
+			console.log('i: ' + i);
+			console.log(isLastItem);
+			console.log(key.indexOf('img') > -1);
+			if (isLastItem && key.indexOf('img') > -1) {
+				// keys.push('txt' + guid());
+				let newKey = 'text' + guid();
+				dic[newKey] = '';
+				//console.log('set newKey');
+				//this.fixDic(keys);
 				break;
-			} 
-			
-			console.log('i === arr.length-1 => ' + i + ' === ' + (arr.length-1) + (i==(arr.length-1)));
-			// last item is image
-			if (item.key.indexOf('img') > -1 && i == (arr.length-1)) {
-				arr.push(<TextInput ref={'txt'+guid()} key={'txt'+guid()}  autoFocus={true} multiline={true} onChange={this._onTextChange.bind(this, item.key)} style={styles.titleInput} />);
-				this.fix(arr);
-				break;
-			}
-
-			if (
-				item.key.indexOf('img') > -1) {
-				preItemIsImage = true;
-			} else {
-				preItemIsImage = false;
 			}
 		}
 	}
