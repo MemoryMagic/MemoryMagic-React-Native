@@ -57,15 +57,16 @@ class CustomImage extends Component {
 	propTypes: {
 		key: React.propTypes.string,
 		source: React.propTypes.any,
+		onRemoveButtonPress: React.propTypes.func
 	}
 	render() {
 		console.log(this.props.source);
 		let width = Dimensions.get('window').width - 30;
 		let height = width * this.props.source.height / this.props.source.width;
 		return (
-			<View style={{ backgroundColor: 'gray' }}>
+			<View>
 				<Image key={this.props.key} style={[styles.image, {width: width, height: height}]} source={this.props.source}>
-				<TouchableHighlight>
+				<TouchableHighlight onPress={this._onRemoveButtonPress}>
 					<View style={ styles.removeButton }>
 						<Text style={styles.removeText}>×</Text>
 					</View>
@@ -73,6 +74,9 @@ class CustomImage extends Component {
 				</Image>
 			</View>
 			);
+	}
+	_onRemoveButtonPress() {
+		this.props.onRemoveButtonPress && this.props.onRemoveButtonPress(this.props.key);
 	}
 }
 class RichContentInput extends Component {
@@ -125,7 +129,7 @@ class RichContentInput extends Component {
 				var img = dic[key];
 				//console.log(img);
 				// bodyComponents.push(<Image key={'img'+key} style={styles.image} source={img} />);
-				bodyComponents.push(<CustomImage key={'img'+key} source={img} />);
+				bodyComponents.push(<CustomImage key={'img'+key} source={img} onRemoveButtonPress={this._onRemoveImageButtonPress.bind(this)} />);
 			}
 		}
 		//this.fix(bodyComponents);
@@ -145,6 +149,9 @@ class RichContentInput extends Component {
 		});
 	}
 
+	_onRemoveImageButtonPress(key) {
+		
+	}
 	fixDic(dic) {
 		let keys = Object.keys(dic);
 		// console.log(keys);
