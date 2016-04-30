@@ -193,7 +193,8 @@ class AddTask extends Component {
 				console.log('ImagePickerManager Error: ' + response.error);
 				return;
 			}
-			var source = {uri: response.uri.replace('file://', ''), isStatic: true};
+			console.log(response);
+			var source = {uri: response.uri.replace('file://', ''), isStatic: true, width: response.width, height: response.height};
 			// var source = {uri: 'data:image/jpeg;base64,' + response.data, isStatic: true};
 			var tempDataDictionary = Object.assign({}, this.state.dataDictionary);
 			let key = 'img-' + guid();

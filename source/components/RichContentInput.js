@@ -7,6 +7,8 @@ import React, {
 	Component
 } from 'react-native';
 
+import Dimensions from 'Dimensions';
+
 var styles = StyleSheet.create({
 	titleInput: {
 		padding: 1,
@@ -19,8 +21,9 @@ var styles = StyleSheet.create({
 		alignSelf: 'stretch',
 	},
 	image: {
-		width: 20,
-		height: 20
+		resizeMode: 'cover',
+		alignSelf: 'stretch',
+		margin: 15
 	}
 });
 
@@ -34,6 +37,25 @@ function guid() {
 	s4() + '-' + s4() + s4() + s4();
 }
 
+class CustomImage extends Component {
+	propTypes: {
+		key: React.propTypes.string,
+		source: React.propTypes.any,
+	}
+	render() {
+		console.log(this.props.source);
+		return (
+			<View>
+				
+				<Image key={this.props.key} style={styles.image, { height: Dimensions.get('window').width * this.props.source.height / this.props.source.width}} source={this.props.source}>
+				<TouchableHighlight>
+					<View style={{backgroundColor: 'red', width: 10, height:10}} />
+				</TouchableHighlight>
+				</Image>
+			</View>
+			);
+	}
+}
 class RichContentInput extends Component {
 
 	constructor(props) {
@@ -79,11 +101,12 @@ class RichContentInput extends Component {
 				if (itemHeight === undefined) {
 					itemHeight = 0;
 				}
-				bodyComponents.push(<TextInput ref={key} key={key} value={text} autoFocus={true} multiline={true} onChange={this._onTextChange.bind(this, key)} placeholder='输入任务内容' style={[styles.titleInput, {height: Math.max(35, itemHeight)}]} />);
+				bodyComponents.push(<TextInput ref={key} key={key} value={text} autoFocus={true} multiline={true} onChange={this._onTextChange.bind(this, key)} placeholder='' style={[styles.titleInput, {height: Math.max(35, itemHeight)}]} />);
 			} else if (key.indexOf('img') > -1) {
 				var img = dic[key];
 				//console.log(img);
-				bodyComponents.push(<Image key={'img'+key} style={styles.image} source={img} />);
+				// bodyComponents.push(<Image key={'img'+key} style={styles.image} source={img} />);
+				bodyComponents.push(<CustomImage key={'img'+key} source={img} />);
 			}
 		}
 		//this.fix(bodyComponents);
