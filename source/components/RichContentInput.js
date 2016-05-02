@@ -55,18 +55,18 @@ function guid() {
 
 class CustomImage extends Component {
 	propTypes: {
-		key: React.propTypes.string,
+		customKey: React.propTypes.string,
 		source: React.propTypes.any,
 		onRemoveButtonPress: React.propTypes.func
 	}
+
 	render() {
-		console.log(this.props.source);
 		let width = Dimensions.get('window').width - 30;
 		let height = width * this.props.source.height / this.props.source.width;
 		return (
 			<View>
-				<Image key={this.props.key} style={[styles.image, {width: width, height: height}]} source={this.props.source}>
-				<TouchableHighlight onPress={this._onRemoveButtonPress}>
+				<Image ref='img' key={this.props.customKey} style={[styles.image, {width: width, height: height}]} source={this.props.source}>
+				<TouchableHighlight onPress={this._onRemoveButtonPress.bind(this)}>
 					<View style={ styles.removeButton }>
 						<Text style={styles.removeText}>×</Text>
 					</View>
@@ -76,11 +76,12 @@ class CustomImage extends Component {
 			);
 	}
 	_onRemoveButtonPress() {
-		this.props.onRemoveButtonPress && this.props.onRemoveButtonPress(this.props.key);
+		console.log('_onRemoveButtonPress');
+		this.props.onRemoveButtonPress && this.props.onRemoveButtonPress(this.props.customKey);
 	}
 }
-class RichContentInput extends Component {
 
+class RichContentInput extends Component {
 	constructor(props) {
 		super(props);
 
@@ -104,35 +105,28 @@ class RichContentInput extends Component {
 	}
 
 	render() {
+		console.log('RichContentInput - render()');
 		var dic = this.props.dataDictionary;
 		if (!dic || Object.keys(dic).length === 0) {
 			dic = {
-				'text1': ''
+				'text-defaultkey': ''
 			};
 		}
-		//console.log('dic:');
-		//console.log(dic);
 		this.fixDic(dic);
-		//console.log(dic);
 		var bodyComponents = [];
 		for (var key in dic) {
-			//console.log('key: ' + key);
 			if (key.indexOf('text') > -1) {
 				var text = dic[key];
 				let itemHeight = this.state.heights[key];
-				//console.log(itemHeight);
 				if (itemHeight === undefined) {
 					itemHeight = 0;
 				}
 				bodyComponents.push(<TextInput ref={key} key={key} value={text} autoFocus={true} multiline={true} onChange={this._onTextChange.bind(this, key)} placeholder='' style={[styles.titleInput, {height: Math.max(35, itemHeight)}]} />);
 			} else if (key.indexOf('img') > -1) {
 				var img = dic[key];
-				//console.log(img);
-				// bodyComponents.push(<Image key={'img'+key} style={styles.image} source={img} />);
-				bodyComponents.push(<CustomImage key={'img'+key} source={img} onRemoveButtonPress={this._onRemoveImageButtonPress.bind(this)} />);
+				bodyComponents.push(<CustomImage key={key} customKey={key} source={img} onRemoveButtonPress={this._onRemoveImageButtonPress.bind(this)} />);
 			}
 		}
-		//this.fix(bodyComponents);
 		return(
 			<View style={{flex: 1}}>
 				{bodyComponents}
@@ -150,24 +144,17 @@ class RichContentInput extends Component {
 	}
 
 	_onRemoveImageButtonPress(key) {
-		
+		delete this.props.dataDictionary[key]; 
+		this.forceUpdate();
 	}
 	fixDic(dic) {
 		let keys = Object.keys(dic);
-		// console.log(keys);
 		for (i in keys) {
 			let key = keys[i];
-			console.log(key);
 			let isLastItem = (i == (keys.length - 1));
-			console.log('i: ' + i);
-			console.log(isLastItem);
-			console.log(key.indexOf('img') > -1);
 			if (isLastItem && key.indexOf('img') > -1) {
-				// keys.push('txt' + guid());
-				let newKey = 'text' + guid();
+				let newKey = 'text-' + guid();
 				dic[newKey] = '';
-				//console.log('set newKey');
-				//this.fixDic(keys);
 				break;
 			}
 		}
