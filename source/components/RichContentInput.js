@@ -77,7 +77,6 @@ class CustomImage extends Component {
 			);
 	}
 	_onRemoveButtonPress() {
-		console.log('_onRemoveButtonPress');
 		this.props.onRemoveButtonPress && this.props.onRemoveButtonPress(this.props.customKey);
 	}
 }
@@ -122,15 +121,16 @@ class RichContentInput extends Component {
 				if (itemHeight === undefined) {
 					itemHeight = 0;
 				}
-				bodyComponents.push(<TextInput ref={key} key={key} value={text} autoFocus={true} multiline={true} onChange={this._onTextChange.bind(this, key)} placeholder='' style={[styles.titleInput, {height: Math.max(35, itemHeight)}]} />);
+				bodyComponents.push(<TextInput ref={key} key={key} value={text} autoFocus={true} multiline={true} onChange={this._onTextChange.bind(this, key)} onFocus={this._onTextInputFocus.bind(this)} placeholder='' style={[styles.titleInput, {height: Math.max(35, itemHeight)}]} />);
 			} else if (key.indexOf('img') > -1) {
 				var img = dic[key];
 				bodyComponents.push(<CustomImage key={key} customKey={key} source={img} onRemoveButtonPress={this._onRemoveImageButtonPress.bind(this)} />);
 			}
 		}
+		var _scrollView: ScrollView;
 		return(
 			<View style={{flex: 1}}>
-				<ScrollView automaticallyAdjustContentInsets={false}>
+				<ScrollView ref='scrollView' automaticallyAdjustContentInsets={false}>
 					{bodyComponents}
 				</ScrollView>
 			</View>
@@ -143,6 +143,14 @@ class RichContentInput extends Component {
 		tempHeights[key] = event.nativeEvent.contentSize.height;
 		this.setState({
 			heights: tempHeights
+		});
+	}
+
+	_onTextInputFocus(event) {
+		console.log(event);
+		this.refs.scrollView.scrollTo({
+			y: 1000000,
+			animated: true
 		});
 	}
 
