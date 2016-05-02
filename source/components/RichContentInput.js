@@ -112,7 +112,7 @@ class RichContentInput extends Component {
 				'text-defaultkey': ''
 			};
 		}
-		this.fixDic(dic);
+		this.fixDictionary(dic);
 		var bodyComponents = [];
 		for (var key in dic) {
 			if (key.indexOf('text') > -1) {
@@ -147,17 +147,22 @@ class RichContentInput extends Component {
 		delete this.props.dataDictionary[key]; 
 		this.forceUpdate();
 	}
-	fixDic(dic) {
+	fixDictionary(dic) {
 		let keys = Object.keys(dic);
 		for (i in keys) {
 			let key = keys[i];
 			let isLastItem = (i == (keys.length - 1));
-			if (isLastItem && key.indexOf('img') > -1) {
+			let isImage =  key.indexOf('img') > -1;
+			if (isLastItem && isImage) {
 				let newKey = 'text-' + guid();
-				dic[newKey] = '';
+				let newValue = '';
+				this.addNewItemToDictionary(dic, newKey, newValue);
 				break;
 			}
 		}
+	}
+	addNewItemToDictionary(dic, key, value) {
+		dic[key] = value;
 	}
 }
 
