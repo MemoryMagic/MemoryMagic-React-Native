@@ -148,8 +148,9 @@ class RichContentInput extends Component {
 
 	_onTextInputFocus(event) {
 		console.log(event);
+		
 		this.refs.scrollView.scrollTo({
-			y: 1000000,
+			y: 0,
 			animated: true
 		});
 	}
