@@ -5,7 +5,8 @@ import React, {
 	Text,
 	StyleSheet,
 	TouchableHighlight,
-	Component
+	Component,
+	ScrollView
 } from 'react-native';
 
 import Dimensions from 'Dimensions';
@@ -129,7 +130,9 @@ class RichContentInput extends Component {
 		}
 		return(
 			<View style={{flex: 1}}>
-				{bodyComponents}
+				<ScrollView automaticallyAdjustContentInsets={false}>
+					{bodyComponents}
+				</ScrollView>
 			</View>
 			);
 	}
