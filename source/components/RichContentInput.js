@@ -6,41 +6,24 @@ import React, {
 	StyleSheet,
 	TouchableHighlight,
 	Component,
-	ScrollView
+	ScrollView,
 } from 'react-native';
 
-import Dimensions from 'Dimensions';
+import OpenURLButton from './OpenURLButton';
+import CustomImage from './CustomImage';
 
 var styles = StyleSheet.create({
 	titleInput: {
 		padding: 1,
-		margin: 15,
+		marginLeft: 15,
+		marginRight: 15,
+		marginTop: 15,
 		fontSize: 18,
-		borderWidth: 1,
+		borderWidth: 0,
 		borderColor: 'lightgray',
 		borderRadius: 0,
 		color: '#555555',
 		alignSelf: 'stretch',
-	},
-	image: {
-		resizeMode: 'stretch',
-		marginLeft: 15,
-		marginRight: 15,
-		alignItems: 'flex-end'
-	},
-	removeButton: {
-		opacity: 0.5,
-		width: 30,
-		height: 30,
-		alignItems: 'flex-end',
-	},
-	removeText: {
-		backgroundColor: 'red',
-		color: 'white',
-		textAlign: 'center',
-		width: 20,
-		height: 20,
-		fontSize: 16
 	}
 });
 
@@ -54,32 +37,8 @@ function guid() {
 	s4() + '-' + s4() + s4() + s4();
 }
 
-class CustomImage extends Component {
-	propTypes: {
-		customKey: React.propTypes.string,
-		source: React.propTypes.any,
-		onRemoveButtonPress: React.propTypes.func
-	}
 
-	render() {
-		let width = Dimensions.get('window').width - 30;
-		let height = width * this.props.source.height / this.props.source.width;
-		return (
-			<View>
-				<Image ref='img' key={this.props.customKey} style={[styles.image, {width: width, height: height}]} source={this.props.source}>
-				<TouchableHighlight onPress={this._onRemoveButtonPress.bind(this)}>
-					<View style={ styles.removeButton }>
-						<Text style={styles.removeText}>×</Text>
-					</View>
-				</TouchableHighlight>
-				</Image>
-			</View>
-			);
-	}
-	_onRemoveButtonPress() {
-		this.props.onRemoveButtonPress && this.props.onRemoveButtonPress(this.props.customKey);
-	}
-}
+
 
 class RichContentInput extends Component {
 	constructor(props) {
@@ -109,10 +68,11 @@ class RichContentInput extends Component {
 		var dic = this.props.dataDictionary;
 		if (!dic || Object.keys(dic).length === 0) {
 			dic = {
-				'text-defaultkey': ''
+				'text-defaultkey': '',
+				'link': 'http://www.baidu.com/'
 			};
 		}
-		this.fixDictionary(dic);
+		//this.fixDictionary(dic);
 		var bodyComponents = [];
 		for (var key in dic) {
 			if (key.indexOf('text') > -1) {
@@ -125,6 +85,9 @@ class RichContentInput extends Component {
 			} else if (key.indexOf('img') > -1) {
 				var img = dic[key];
 				bodyComponents.push(<CustomImage key={key} customKey={key} source={img} onRemoveButtonPress={this._onRemoveImageButtonPress.bind(this)} />);
+			} else if (key.indexOf('link') > -1) {
+				var link = dic[key];
+				bodyComponents.push(<OpenURLButton key={key} customKey={key} url={link} onRemoveButtonPress={this._onRemoveLinkButtonPress.bind(this)} />);
 			}
 		}
 		var _scrollView: ScrollView;
@@ -148,7 +111,7 @@ class RichContentInput extends Component {
 
 	_onTextInputFocus(event) {
 		console.log(event);
-		
+
 		this.refs.scrollView.scrollTo({
 			y: 0,
 			animated: true
@@ -159,6 +122,12 @@ class RichContentInput extends Component {
 		delete this.props.dataDictionary[key]; 
 		this.forceUpdate();
 	}
+
+	_onRemoveLinkButtonPress(key) {
+		delete this.props.dataDictionary[key]; 
+		this.forceUpdate();
+	}
+
 	fixDictionary(dic) {
 		let keys = Object.keys(dic);
 		for (i in keys) {
@@ -173,6 +142,7 @@ class RichContentInput extends Component {
 			}
 		}
 	}
+	
 	addNewItemToDictionary(dic, key, value) {
 		dic[key] = value;
 	}
