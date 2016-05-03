@@ -92,6 +92,7 @@ class KeyboardToolBar extends Component {
 	}
 
 	_onLinkButtonPress(event) {
+		this.props.onLinkButtonPress && this.props.onLinkButtonPress(event);
 	}
 
 	_onTakePhotoButtonPress(event) {

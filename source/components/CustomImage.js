@@ -47,7 +47,7 @@ class CustomImage extends Component {
 		return (
 			<View>
 				<Image ref='img' key={this.props.customKey} style={[styles.image, {width: width, height: height}]} source={this.props.source}>
-				<RemoveButton />
+				<RemoveButton onRemoveButtonPress={this._onRemoveButtonPress.bind(this)} />
 				</Image>
 			</View>
 			);

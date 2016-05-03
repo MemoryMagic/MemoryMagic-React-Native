@@ -52,7 +52,7 @@ var styles = StyleSheet.create({
 		padding: 1,
 		margin: 15,
 		fontSize: 18,
-		borderWidth: 0,
+		borderWidth: 1,
 		borderColor: 'lightgray',
 		borderRadius: 0,
 		color: '#555555',
@@ -83,7 +83,9 @@ class AddTask extends Component {
 		this.state = {
 			titleString: '',
 			isKeyboardOpened: false,
-			dataDictionary: {}
+			dataDictionary: {
+				'text-default': ''
+			}
 		};
 	}
 
@@ -115,9 +117,10 @@ class AddTask extends Component {
 				<View style={styles.titleContainer}>
 					<RichContentInput ref='richContentInput' dataDictionary={this.state.dataDictionary} onTextChange={this._onRichContentTextChange.bind(this)} />
 				</View>
-  				<KeyboardToolBar hidden = { !this.state.isKeyboardOpened }  
-  					onCloseButtonPress= { this.onCloseKeyboardButtonPress.bind(this)} 
-  					onChooseImageButtonPress = { this.onChooseImageButtonPress.bind(this) } />
+  				<KeyboardToolBar hidden = {!this.state.isKeyboardOpened}  
+  					onCloseButtonPress= {this.onCloseKeyboardButtonPress.bind(this)} 
+  					onLinkButtonPress = {this.onLinkButtonPress.bind(this)}
+  					onChooseImageButtonPress = {this.onChooseImageButtonPress.bind(this)} />
 				<KeyboardSpacer onToggle={this.keyboardOnToggle.bind(this)} />
 			</View>
 			);
@@ -132,6 +135,15 @@ class AddTask extends Component {
 	onCloseKeyboardButtonPress(event) {
 		console.log('AddTask - onCloseKeyboardButtonPress');
 		this.refs.richContentInput.blur();
+	}
+
+	onLinkButtonPress(event) {
+		var tempDataDictionary = Object.assign({}, this.state.dataDictionary);
+			let key = 'link-' + guid();
+			tempDataDictionary[key] = 'http://www.zhihu.com/';
+			this.setState({
+				dataDictionary: tempDataDictionary
+			});
 	}
 
 	_onRichContentTextChange(event, key) {

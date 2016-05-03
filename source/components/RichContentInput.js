@@ -19,7 +19,7 @@ var styles = StyleSheet.create({
 		marginRight: 15,
 		marginTop: 15,
 		fontSize: 18,
-		borderWidth: 0,
+		borderWidth: 1,
 		borderColor: 'lightgray',
 		borderRadius: 0,
 		color: '#555555',
@@ -64,14 +64,7 @@ class RichContentInput extends Component {
 	}
 
 	render() {
-		console.log('RichContentInput - render()');
 		var dic = this.props.dataDictionary;
-		if (!dic || Object.keys(dic).length === 0) {
-			dic = {
-				'text-defaultkey': '',
-				'link': 'http://www.baidu.com/'
-			};
-		}
 		//this.fixDictionary(dic);
 		var bodyComponents = [];
 		for (var key in dic) {
@@ -81,7 +74,7 @@ class RichContentInput extends Component {
 				if (itemHeight === undefined) {
 					itemHeight = 0;
 				}
-				bodyComponents.push(<TextInput ref={key} key={key} value={text} autoFocus={true} multiline={true} onChange={this._onTextChange.bind(this, key)} onFocus={this._onTextInputFocus.bind(this)} placeholder='' style={[styles.titleInput, {height: Math.max(35, itemHeight)}]} />);
+				bodyComponents.push(<TextInput ref={key} key={key} value={text} autoFocus={true} multiline={true} onChange={this._onTextChange.bind(this, key)} onFocus={this._onTextInputFocus.bind(this)} placeholder='请输入任务内容' style={[styles.titleInput, {height: Math.max(35, itemHeight)}]} />);
 			} else if (key.indexOf('img') > -1) {
 				var img = dic[key];
 				bodyComponents.push(<CustomImage key={key} customKey={key} source={img} onRemoveButtonPress={this._onRemoveImageButtonPress.bind(this)} />);
@@ -90,7 +83,6 @@ class RichContentInput extends Component {
 				bodyComponents.push(<OpenURLButton key={key} customKey={key} url={link} onRemoveButtonPress={this._onRemoveLinkButtonPress.bind(this)} />);
 			}
 		}
-		var _scrollView: ScrollView;
 		return(
 			<View style={{flex: 1}}>
 				<ScrollView ref='scrollView' automaticallyAdjustContentInsets={false}>
@@ -119,6 +111,7 @@ class RichContentInput extends Component {
 	}
 
 	_onRemoveImageButtonPress(key) {
+		console.log('remove');
 		delete this.props.dataDictionary[key]; 
 		this.forceUpdate();
 	}
