@@ -214,7 +214,22 @@ class AddTask extends Component {
 				titleString: '默认任务'
 			});
 		}
-		TaskActions.create(this.state.titleString);
+
+		var text;
+		var link;
+		var image;
+		let dic = this.state.dataDictionary;
+		for (var key in dic) {
+			if (key.indexOf('text') > -1) {
+				text = dic[key];
+			} else if (key.indexOf('img') > -1) {
+				image = dic[key];
+			} else if (key.indexOf('link') > -1) {
+				link = dic[key];
+			}
+		}
+		// TaskActions.create(this.state.titleString);
+		TaskActions.create(text, link, image);
 		this.props.navigator.pop();
 	}
 }

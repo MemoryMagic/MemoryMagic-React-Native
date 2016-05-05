@@ -24,7 +24,7 @@ var {
   AlertIOS
 } = React;
 
-var TRACE_KEY = '@AsncStorageFristLaunch:key';
+// var TRACE_KEY = '@AsncStorageFristLaunch:key';
 
 var styles = StyleSheet.create({
   container: {
@@ -91,12 +91,13 @@ class MemoryMagicProjectApp extends Component {
 
   async _loadInitialState() {
     try {
-      var trace = await AsyncStorage.getItem(TRACE_KEY);
-      if (trace === null) {
-        console.log("value === null");
-        this.createTable();
-        await AsyncStorage.setItem(TRACE_KEY, "*");
-      }
+      // var trace = await AsyncStorage.getItem(TRACE_KEY);
+      // if (trace === null) {
+      //   console.log("value === null");
+      //   this.createTable();
+      //   await AsyncStorage.setItem(TRACE_KEY, "*");
+      // }
+      this.createTable();
     } catch (error) {
       console.log("error: ", error);
     }

@@ -1,11 +1,13 @@
 var AppDispatcher = require('../dispatcher/AppDispatcher');
 
 var TaskActionCreators = {
-	create: function(text) {
+	create: function(text, link, image) {
 
 		var action = {
 			type: 'create_task',
-			text: text
+			text: text,
+			link: link,
+			image: image
 		};
 
 		AppDispatcher.dispatch(action);

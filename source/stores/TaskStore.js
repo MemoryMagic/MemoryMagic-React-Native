@@ -6,9 +6,12 @@ var assign = require('object-assign');
 var SQLite = require('react-native-sqlite');
 var moment = require('moment');
 let format = "YYYY-MM-DD HH:mm";
-
+import React, {
+	AsyncStorage
+} from 'react-native';
 var _tasks = [];
 var CHANGE_EVENT = 'change';
+var DB_VERSION_TRACE_KEY = '@AsncStorageDataBaseV12:key';
 
 function guid() {
 	function s4() {
@@ -20,12 +23,14 @@ function guid() {
 	s4() + '-' + s4() + s4() + s4();
 }
 
-function create(text) {
+function create(text, link, image) {
 	// Create the new task.
 	var id = guid();
 	var newTask = {
 		taskId: id,
 		taskTitle: text,
+		link: link,
+		image: image,
 		createTime: moment().format(format)
 	};
 	// Save the new task to the DB.
@@ -35,7 +40,7 @@ function create(text) {
 function deleteTask(task) {
 	var database = SQLite.open("tasks.sqlite", function(error, database) {
 		if (error) {
-			console.log("Falied to open database: ", error);
+			console.log("❌Falied to open database: ", error);
 			return;
 		}
 
@@ -48,13 +53,13 @@ function deleteTask(task) {
 		}
 		function completeCallback(error) {
 			if (error) {
-				console.log("Falied to excute query: ", error);
+				console.log("❌Falied to excute query: ", error);
 				return;
 			}
-			console.log("Query complete! - DELETE");
+			console.log("✅Query complete! - DELETE");
 			database.close(function (error) {
 				if (error) {
-					console.log("Failed to close database: ", error);
+					console.log("❌Failed to close database: ", error);
 					return;
 				}
 			});
@@ -69,12 +74,12 @@ function deleteTask(task) {
 function addData(task) {
 	var database = SQLite.open("tasks.sqlite", function(error, database) {
 		if (error) {
-			console.log("Falied to open database: ", error);
+			console.log("❌Falied to open database: ", error);
 			return;
 		}
 
-		var sql = "INSERT INTO Task (taskId, taskTitle, createTime) VALUES (?, ?, ?)";
-		var params = [task.taskId, task.taskTitle, task.createTime]
+		var sql = "INSERT INTO Task (taskId, taskTitle, link, image, createTime) VALUES (?, ?, ?, ?, ?)";
+		var params = [task.taskId, task.taskTitle, task.link, task.image, task.createTime]
 		database.executeSQL(sql, params, rowCallback, completeCallback);
 		
 		function rowCallback(rowData) {
@@ -82,13 +87,13 @@ function addData(task) {
 		}
 		function completeCallback(error) {
 			if (error) {
-				console.log("Falied to excute query: ", error);
+				console.log("❌Falied to excute query: ", error);
 				return;
 			}
-			console.log("Query complete! - INSERT");
+			console.log("✅Query complete! - INSERT");
 			database.close(function (error) {
 				if (error) {
-					console.log("Failed to close database: ", error);
+					console.log("❌Failed to close database: ", error);
 					return;
 				}
 			});
@@ -105,7 +110,7 @@ function loadData(complete) {
 
 	var database = SQLite.open("tasks.sqlite", function(error, database) {
 		if (error) {
-			console.log("Falied to open database: ", error);
+			console.log("❌Falied to open database: ", error);
 			return;
 		}
 
@@ -118,13 +123,13 @@ function loadData(complete) {
 		}
 		function completeCallback(error) {
 			if (error) {
-				console.log("Falied to excute query: ", error);
+				console.log("❌Falied to excute query: ", error);
 				return;
 			}
 			console.log("Query complete! - SELECT");
 			database.close(function (error) {
 				if (error) {
-					console.log("Failed to close database: ", error);
+					console.log("❌Failed to close database: ", error);
 					return;
 				}
 			});
@@ -136,20 +141,103 @@ function loadData(complete) {
 	});
 }
 
-function createTable() {
-	var database = SQLite.open("tasks.sqlite");
-	database.executeSQL("CREATE TABLE IF NOT EXISTS Task (taskId TEXT PRIMARY KEY, taskTitle TEXT, createTime TEXT)", 
+function closeDataBase (database) {
+	database.close(function (error) {
+		if (error) {
+			console.log("❌Failed to close database: ", error);
+		} else {
+			console.log("✅Close database success!");
+		}
+	});
+}
+function upgradeTable() {
+	var trace = AsyncStorage.getItem(DB_VERSION_TRACE_KEY);
+	// if (trace === null) {
+		renameTable();
+		//AsyncStorage.setItem(DB_VERSION_TRACE_KEY, "*");
+	// } 
+}
+
+function renameTable() {
+	var database = SQLite.open("tasks.sqlite", function(error, database) {
+		if (error) {
+			console.log("❌Falied to open the database: ", error);							
+			return;
+		}
+		database.executeSQL("ALTER TABLE Task RENAME TO tmp_Task", 
+			[], 
+			null, 
+			(error) => {
+				if (error !== null) {
+					console.error("❌Error: ", error);
+					closeDataBase(database);
+				} else {
+					console.log("✅Rename the old table success!")
+					createNewTable(database);
+				}
+		});
+	});
+}
+function createNewTable(database) {
+	database.executeSQL("CREATE TABLE IF NOT EXISTS Task (taskId TEXT PRIMARY KEY, taskTitle TEXT, link TEXT, image TEXT, createTime TEXT)", 
 		[],
 		(data) => {
 			console.log("data: ", data);
 		},
 		(error) => {
 			if (error !== null) {
-				console.error("error: ", error);
+				console.error("❌Error: ", error);
+				closeDataBase(database);
 			} else {
-				console.log("create table success!");
+				console.log("✅Create the new table success!");
+				moveOldDataToNewTable(database);
+			}
+	});
+}
+function moveOldDataToNewTable (database) {
+	database.executeSQL("INSERT INTO Task(taskId, taskTitle, createTime) SELECT taskId, taskTitle, createTime from tmp_Task",
+		[],
+		null,
+		(error) => {
+			if (error !== null) {
+				console.error("❌Error: ", error);
+				closeDataBase(database);
+			} else {
+				console.log("✅Move the old data to the new table success!");
+				dropOldTable(database);
+			}
+	});
+}
+function dropOldTable(database) {
+	database.executeSQL("DROP TABLE tmp_Task",
+		[],
+		null,
+		(error) => {
+			if (error !== null) {
+				console.error("❌Error: ", error);
+			} else {
+				console.log("✅Drop the old table success!");
+			}
+			closeDataBase(database);
+	});
+}
+
+function createTable() {
+	var database = SQLite.open("tasks.sqlite");
+	database.executeSQL("CREATE TABLE IF NOT EXISTS Task (taskId TEXT PRIMARY KEY, taskTitle TEXT, link TEXT, image TEXT, createTime TEXT)", 
+		[],
+		(data) => {
+			console.log("data: ", data);
+		},
+		(error) => {
+			if (error !== null) {
+				console.error("Error: ", error);
+			} else {
+				console.log("Create table success!");
 			}
 		});
+	upgradeTable();
+
 }
 
 var TaskStore = assign({}, EventEmitter.prototype, {
@@ -196,7 +284,7 @@ var TaskStore = assign({}, EventEmitter.prototype, {
 
 function handleAction(action) {
 	if (action.type === 'create_task') {
-		create(action.text)
+		create(action.text, action.link, action.image)
 	} else if (action.type === 'delete_task') {
 		deleteTask(action.task)
 	}
