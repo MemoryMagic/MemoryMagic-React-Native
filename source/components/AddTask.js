@@ -94,23 +94,8 @@ class AddTask extends Component {
 	}
 
 	componentDidMount() {
-		// this.refs.textInput.focus(); => autoFocus={true}
 	}
-  				// <KeyboardToolBar style={{ height: this.state.isKeyboardOpened ? 50 : 0 }} />
-	
-	// <TextInput
-	// 				ref='textInput'
-	// 				returnKeyType={'default'}
-	// 				enablesReturnKeyAutomatically={false}
-	// 				style={styles.titleInput}
-	// 				value={this.state.titleString}
-	// 				onChange={this.onTitleTextChanged.bind(this)} 
-	// 				onKeyPress={this.onKeyPress}
-	// 				blurOnSubmit={false}
-	// 				placeholder='输入任务内容'
-	// 				autoGrow={true}
-	// 				autoFocus={true}
-	// 				multiline={true} />
+
 	render() {
 		return (
 			<View style={ styles.container } >
@@ -138,31 +123,37 @@ class AddTask extends Component {
 	}
 
 	onLinkButtonPress(event) {
+		AlertIOS.prompt(
+			'请输入链接', 
+			null,
+			[
+				{
+					text: '取消', onPress: ()=>console.log('cancel pressed'), style: 'cancel'
+				},
+				{
+					text: '确定', onPress: (link)=>this.saveLink(link)
+				}
+			], 'plain-text');
+	}
+
+	saveLink(link) {
 		var tempDataDictionary = Object.assign({}, this.state.dataDictionary);
-			let key = 'link-' + guid();
-			tempDataDictionary[key] = 'http://www.zhihu.com/';
-			this.setState({
-				dataDictionary: tempDataDictionary
-			});
+		let key = 'link-' + guid();
+		tempDataDictionary[key] = link;
+		this.setState({
+			dataDictionary: tempDataDictionary
+		});
 	}
 
 	_onRichContentTextChange(event, key) {
 		this.setState({
 			titleString: event.nativeEvent.text
 		});
-		
-		// console.log('key:');
-		//console.log(key);
-		// console.log('event.nativeEvent:');
-		// console.log(event.nativeEvent);
-		// return;
 		var tempDataDictionary = Object.assign({}, this.state.dataDictionary);
-		//console.log(tempDataDictionary);
 		tempDataDictionary[key] = event.nativeEvent.text;
 		this.setState({
 			dataDictionary: tempDataDictionary
 		});
-		// console.log(this.state.dataDictionary);
 	}
 
 	onToolBarPress(event) {
@@ -196,7 +187,6 @@ class AddTask extends Component {
 			imagePicker = ImagePickerManager.launchImageLibrary;
 		}
 
-
 		imagePicker(options, (response) => {
 			if (response.didCancel) {
 				console.log('User cancelled image picker');
@@ -207,20 +197,13 @@ class AddTask extends Component {
 			}
 			console.log(response);
 			var source = {uri: response.uri.replace('file://', ''), isStatic: true, width: response.width, height: response.height};
-			// var source = {uri: 'data:image/jpeg;base64,' + response.data, isStatic: true};
 			var tempDataDictionary = Object.assign({}, this.state.dataDictionary);
 			let key = 'img-' + guid();
 			tempDataDictionary[key] = source;
 			this.setState({
 				dataDictionary: tempDataDictionary
 			});
-    		
     	});
-	}
-
-	onKeyPress(event) {
-		console.log("onKeyPress");
-		console.log(event);
 	}
 
 	_onSaveButtonPressed(event) {
@@ -234,8 +217,6 @@ class AddTask extends Component {
 		TaskActions.create(this.state.titleString);
 		this.props.navigator.pop();
 	}
-
-	
 }
 
 module.exports = AddTask;
