@@ -80,6 +80,7 @@ function addData(task) {
 
 		var sql = "INSERT INTO Task (taskId, taskTitle, link, image, createTime) VALUES (?, ?, ?, ?, ?)";
 		var params = [task.taskId, task.taskTitle, task.link, task.image, task.createTime]
+		console.log(params);
 		database.executeSQL(sql, params, rowCallback, completeCallback);
 		
 		function rowCallback(rowData) {

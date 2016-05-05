@@ -229,7 +229,7 @@ class AddTask extends Component {
 			}
 		}
 		// TaskActions.create(this.state.titleString);
-		TaskActions.create(text, link, image);
+		TaskActions.create(text, link, image.uri);
 		this.props.navigator.pop();
 	}
 }
