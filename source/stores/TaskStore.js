@@ -152,10 +152,10 @@ function closeDataBase (database) {
 }
 function upgradeTable() {
 	var trace = AsyncStorage.getItem(DB_VERSION_TRACE_KEY);
-	// if (trace === null) {
+	if (trace === null) {
 		renameTable();
-		//AsyncStorage.setItem(DB_VERSION_TRACE_KEY, "*");
-	// } 
+		AsyncStorage.setItem(DB_VERSION_TRACE_KEY, "*");
+	} 
 }
 
 function renameTable() {
