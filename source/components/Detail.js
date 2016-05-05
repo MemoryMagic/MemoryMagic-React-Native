@@ -5,6 +5,9 @@ var moment = require('moment');
 let format = "MM月DD日 6:00"
 var ButtonStore = require('../stores/ButtonStore');
 var TaskActions = require('../actions/TaskActions');
+import OpenURLButton from './OpenURLButton';
+import CustomImage from './CustomImage';
+
 var {
 	StyleSheet,
 	Image,
@@ -169,8 +172,12 @@ class Detail extends Component {
 		return (
 			<View style={styles.container}>
 			<ScrollView>
+			
 			<Text style={styles.title}>{task.taskTitle}</Text>
 			<Text style={ styles.createTime }>{ task.createTime }</Text>
+			<OpenURLButton url={task.link} />
+			<CustomImage source={{uri: task.image, width: 100, height: 50}} />
+
 			<Text style={styles.message}>{this.state.message}</Text>
 			
 			<Text style={ this.getLabelColorByDate(dateAfterOneDay) }>一天之后:</Text>
