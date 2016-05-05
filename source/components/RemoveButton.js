@@ -26,13 +26,17 @@ var styles = StyleSheet.create({
 class RemoveButton extends Component {
 
 	propTypes: {
-		onRemoveButtonPress: React.PropTypes.func
+		onRemoveButtonPress: React.PropTypes.func,
+		hidden: React.PropTypes.bool
 	}
 	_onRemoveButtonPress() {
 		this.props.onRemoveButtonPress && this.props.onRemoveButtonPress();
 	}
 
 	render() {
+		if (this.props.hidden) {
+			return (<View />);
+		}
 		return (
 			<View>
 				<TouchableHighlight 

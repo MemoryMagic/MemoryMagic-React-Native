@@ -175,8 +175,8 @@ class Detail extends Component {
 			
 			<Text style={styles.title}>{task.taskTitle}</Text>
 			<Text style={ styles.createTime }>{ task.createTime }</Text>
-			<OpenURLButton url={task.link} />
-			<CustomImage source={{uri: task.image, width: 100, height: 50}} />
+			<CustomImage hiddenRemoveButton={true} source={{uri: task.image, width: 100, height: 50}} />
+			<OpenURLButton hiddenRemoveButton={true} url={task.link} />
 
 			<Text style={styles.message}>{this.state.message}</Text>
 			

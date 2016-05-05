@@ -45,7 +45,7 @@ class OpenURLButton extends Component {
   		      	<Text style={styles.link}>链接</Text>
   		      </View>
 	      	</TouchableHighlight>
-	      	<RemoveButton onRemoveButtonPress={this._onRemoveButtonPress.bind(this)}  />
+	      	<RemoveButton hidden={this.props.hiddenRemoveButton} onRemoveButtonPress={this._onRemoveButtonPress.bind(this)}  />
 		</View>
     );
   }
