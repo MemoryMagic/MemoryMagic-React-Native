@@ -35,7 +35,7 @@ class RemoveButton extends Component {
 
 	render() {
 		if (this.props.hidden) {
-			return (<View />);
+			return null;
 		}
 		return (
 			<View>

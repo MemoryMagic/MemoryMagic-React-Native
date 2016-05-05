@@ -207,20 +207,20 @@ class AddTask extends Component {
 	}
 
 	_onSaveButtonPressed(event) {
-		console.log('onSaveButtonPressed ' + i);
-		i += 1;
-		if (!this.state.titleString && this.state.titleString === '') {
-			this.setState({
-				titleString: '默认任务'
-			});
-		}
+		// console.log('onSaveButtonPressed ' + i);
+		// i += 1;
+		// if (!this.state.titleString && this.state.titleString === '') {
+		// 	this.setState({
+		// 		titleString: '默认任务'
+		// 	});
+		// }
 
-		var text;
+		var text = "默认任务";
 		var link;
 		var image;
 		let dic = this.state.dataDictionary;
 		for (var key in dic) {
-			if (key.indexOf('text') > -1) {
+			if (key.indexOf('text') > -1 && dic[key] !== "") {
 				text = dic[key];
 			} else if (key.indexOf('img') > -1) {
 				image = dic[key];
@@ -229,7 +229,8 @@ class AddTask extends Component {
 			}
 		}
 		// TaskActions.create(this.state.titleString);
-		TaskActions.create(text, link, image.uri);
+		console.log('create ' + text);
+		TaskActions.create(text, link, image&&image.uri);
 		this.props.navigator.pop();
 	}
 }

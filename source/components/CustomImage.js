@@ -45,6 +45,10 @@ class CustomImage extends Component {
 	render() {
 		let width = Dimensions.get('window').width - 30;
 		let height = width * this.props.source.height / this.props.source.width;
+		console.log(this.props.source);
+		if (!this.props.source || !this.props.source.uri) {
+			return null;
+		}
 		return (
 			<View>
 				<Image ref='img' key={this.props.customKey} style={[styles.image, {width: width, height: height}]} source={this.props.source}>

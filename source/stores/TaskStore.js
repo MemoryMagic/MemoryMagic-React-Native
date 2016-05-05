@@ -154,9 +154,12 @@ function closeDataBase (database) {
 function upgradeTable() {
 	var trace = AsyncStorage.getItem(DB_VERSION_TRACE_KEY);
 	if (trace === null) {
+		console.log('trace === null => true');
 		renameTable();
 		AsyncStorage.setItem(DB_VERSION_TRACE_KEY, "*");
-	} 
+	} else {
+		console.log('trace === null => false');
+	}
 }
 
 function renameTable() {

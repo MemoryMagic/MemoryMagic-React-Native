@@ -36,6 +36,9 @@ class OpenURLButton extends Component {
   }
 
   render() {
+    if (!this.props.url) {
+      return null;
+    }
     return (
     	<View style={{flexDirection: 'row', marginTop: 15, marginLeft: 15, marginRight: 15}}>
 	      	<TouchableHighlight

@@ -19,7 +19,7 @@ var styles = StyleSheet.create({
 		marginRight: 15,
 		marginTop: 15,
 		fontSize: 18,
-		borderWidth: 1,
+		borderWidth: 0,
 		borderColor: 'lightgray',
 		borderRadius: 0,
 		color: '#555555',
