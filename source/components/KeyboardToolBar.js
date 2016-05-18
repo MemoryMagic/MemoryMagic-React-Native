@@ -55,37 +55,39 @@ class KeyboardToolBar extends Component {
  						</TouchableHighlight>
 					</View>
 					
-					<View style={{ flex: 1 }}>
-						<TouchableHighlight underlayColor='white' style={ styles.itemButtonTouch } onPress={ this._onLinkButtonPress.bind(this) }>
-								<View />
-						</TouchableHighlight>
-					</View>
-					
-					<View style={{ flex: 1 }} ></View>
-
-					<View style={{ flex: 1 }} >
-						<TouchableHighlight underlayColor='white' style={ styles.itemButtonTouch } onPress={ this._onLinkButtonPress.bind(this)}>
-								<Image source={require('image!ToolBarLink')} style={ styles.itemButton }/>
-						</TouchableHighlight>
-					</View>
-
-					<View style={{ flex: 1 }} >
-						<TouchableHighlight underlayColor='white' style={ styles.itemButtonTouch } onPress={ this._onTakePhotoButtonPress.bind(this)}>
-								<Image source={require('image!ToolBarCamera1')} style={ styles.itemButton }/> 
-						</TouchableHighlight>
-					</View>
-					
-					<View style={{ flex: 1 }} >
-						<TouchableHighlight underlayColor='white' style={ styles.itemButtonTouch } onPress={ this._onChooseImageButtonPress.bind(this)}>
-								<Image source={require('image!ToolBarImage2')} style={ styles.itemButton }/> 
-						</TouchableHighlight>
-					</View>
+					<View style={{ flex: 5 }} />
 					
 					
 				</View>
 			</View>
 			);
 	}
+
+					// <View style={{ flex: 1 }}>
+					// 	<TouchableHighlight underlayColor='white' style={ styles.itemButtonTouch } onPress={ this._onLinkButtonPress.bind(this) }>
+					// 			<View />
+					// 	</TouchableHighlight>
+					// </View>
+					
+					// <View style={{ flex: 1 }} ></View>
+
+					// <View style={{ flex: 1 }} >
+					// 	<TouchableHighlight underlayColor='white' style={ styles.itemButtonTouch } onPress={ this._onLinkButtonPress.bind(this)}>
+					// 			<Image source={require('image!ToolBarLink')} style={ styles.itemButton }/>
+					// 	</TouchableHighlight>
+					// </View>
+
+					// <View style={{ flex: 1 }} >
+					// 	<TouchableHighlight underlayColor='white' style={ styles.itemButtonTouch } onPress={ this._onTakePhotoButtonPress.bind(this)}>
+					// 			<Image source={require('image!ToolBarCamera1')} style={ styles.itemButton }/> 
+					// 	</TouchableHighlight>
+					// </View>
+					
+					// <View style={{ flex: 1 }} >
+					// 	<TouchableHighlight underlayColor='white' style={ styles.itemButtonTouch } onPress={ this._onChooseImageButtonPress.bind(this)}>
+					// 			<Image source={require('image!ToolBarImage2')} style={ styles.itemButton }/> 
+					// 	</TouchableHighlight>
+					// </View>
 
 	_onCloseButtonPress(event) {
 		this.props.onCloseButtonPress && this.props.onCloseButtonPress(event);
